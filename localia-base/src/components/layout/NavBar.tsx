@@ -1,4 +1,4 @@
-import { NavbarMenu } from "../mockData/data";
+
 
 export interface NavBarProps {}
 
@@ -32,7 +32,8 @@ function NavBar() {
         <a
           href="/signup"
 
-                className="text-sm font-medium text-neutral-0 bg-violet-700 px-4 py-1.5 rounded-3xl "
+                className="text-sm font-medium text-violet-700 border border-violet-700 px-4 py-1.5 rounded-3xl"
+
         >
           Sign Up
         </a>
