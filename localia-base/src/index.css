@@ -39,6 +39,9 @@
 
   /* ─── Accent─── */
   --color-accent: #ccc95d;
+
+
+ 
 }
 
 @layer base {
@@ -49,6 +52,8 @@
     font-family: "SN Pro", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
-     padding: 35px 35px 0 35px; 
+     padding: 5px 30px 0 30px; 
   }
 }
+
+

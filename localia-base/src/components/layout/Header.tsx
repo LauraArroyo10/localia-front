@@ -1,4 +1,5 @@
 import Searchbar from "../ui/SearchBar";
+import Carousel from "./HomeCarousel";
 
 function Header() {
   return (
@@ -15,10 +16,16 @@ function Header() {
         >
           Need a place to go nearby?
         </h1>
+
         {/* Categories */}
         {/* <CategoryFilter /> */}
+
         {/* Main searchbar */}
         {/* <Searchbar /> */}
+
+        {/* carousel */}
+        <Carousel/>
+
       </header>
     </div>
   );
