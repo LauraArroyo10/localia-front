@@ -1,6 +1,6 @@
-import Searchbar from "../ui/SearchBar";
-import Carousel from "./HomeCarousel";
 
+import Carousel from "./HomeCarousel";
+import SearchBar from "../ui/SearchBar";
 function Header() {
   return (
     <div>
@@ -21,7 +21,7 @@ function Header() {
         {/* <CategoryFilter /> */}
 
         {/* Main searchbar */}
-        {/* <Searchbar /> */}
+        <SearchBar width="w-full max-w-2xl" placeholder="¿What would you love to discover today?"/>
 
         {/* carousel */}
         <Carousel/>

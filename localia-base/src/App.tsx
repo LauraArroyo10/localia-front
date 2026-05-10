@@ -1,6 +1,6 @@
 import './App.css'
 import NavBar from './components/layout/NavBar';
-import SearchBar from './components/ui/SearchBar';
+import Header from './components/layout/Header';
 
 function App() {
   
@@ -9,7 +9,7 @@ function App() {
     <div>
 
 <NavBar />
-<SearchBar width="w-full max-w-2xl" placeholder="¿What would you love to discover today?"/>
+<Header/>
 
     </div>
   )
