@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600&display=swap');
 @import "tailwindcss";
 
+/* 1. Reset base para que el diseño ocupe todo el ancho */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root{
   background: #f4f4f4;
 }
