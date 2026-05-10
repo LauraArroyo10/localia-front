@@ -12,7 +12,7 @@ export function Carousel() {
   const next = () => setCurrent(i => (i + 1) % slidesData.length)
 
   return (
-    <div className="relative w-full min-h-6 ">
+    <div className="relative w-300 min-h-6 ">
       {/* Image */}
       <img
         src={slidesData[current].image}

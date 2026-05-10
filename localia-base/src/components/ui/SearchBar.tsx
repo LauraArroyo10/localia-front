@@ -10,7 +10,7 @@ function SearchBar({
     width
 }: SearchBarProps) {
     return (
-        <div className=" flex justify-center">
+        <div className=" flex justify-center w-full">
         <div
             className={`
                 ${width}

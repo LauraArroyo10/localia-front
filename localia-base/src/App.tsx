@@ -1,16 +1,16 @@
 import './App.css'
 import NavBar from './components/layout/NavBar';
 import Header from './components/layout/Header';
-
+import Footer from './components/Footer';
 function App() {
   
 
   return (
-    <div>
+    <div >
 
 <NavBar />
 <Header/>
-
+<Footer/>
     </div>
   )
 }

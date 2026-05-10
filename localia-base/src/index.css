@@ -1,12 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600&display=swap');
 @import "tailwindcss";
 
-/* 1. Reset base para que el diseño ocupe todo el ancho */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 :root{
   background: #f4f4f4;
@@ -59,8 +54,151 @@
     font-family: "SN Pro", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
-     padding: 5px 30px 0 30px; 
+     padding: 5px 0px 0 0px; 
   }
 }
 
 
+/* 1. Contenedor FOOTER (Flexbox) */
+.footer-main {
+  background-color: var(--color-violet-700);
+  color: var(--color-neutral-0);
+  padding: 45px 10% 40px 10%; 
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-start;
+  margin-bottom: 60px; 
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+
+.footer-section-logo {
+  flex: 0 0 55%; 
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.logo-group {
+    margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+
+.description-text {
+font-size: 14px;
+  line-height: 1.4;
+  opacity: 0.9;
+  max-width: 490px; 
+  text-align: left;
+  margin-top: 0px;
+}
+
+.copyright-text {
+  font-size: 12px;
+  margin-top: 24px;
+  opacity: 0.7;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-transform: capitalize;
+}
+
+
+.footer-section-contact {
+
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  font-size: 14px;
+}
+
+.contact-link {
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-weight: 500;
+  padding-right: 100%;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
+
+.contact-item {
+  margin: 0;
+  line-height: 1.5;
+}
+
+
+.footer-section-social {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-links-container {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  align-items: center;
+}
+
+
+.social-placeholder {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-text-social);
+  border-radius: 50%;
+}
+
+
+.back-to-top-container {
+  border-top: 1px solid rgb(255, 255, 255); 
+  padding-top: 30px;
+  display: flex;
+  justify-content: center; 
+}
+
+.back-to-top-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-main);
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.arrow-up {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .footer-section-logo, .footer-section-contact, .footer-section-social {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+} 

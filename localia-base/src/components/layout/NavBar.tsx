@@ -5,7 +5,7 @@ export interface NavBarProps {}
 
 function NavBar() {
   return (
-    <nav className="bg-bg border-b border-violet-700 flex items-center justify-between h-13  max-w-277 mx-auto ">
+    <nav className="bg-bg border-b border-violet-700 flex items-center justify-between h-13  max-w-300 mx-auto ">
       {/* Logo */}
       
       <div className="flex items-center gap-2">

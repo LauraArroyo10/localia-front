@@ -1,5 +1,6 @@
-import React from 'react';
+
 import type { ContactInfo, SocialLink } from '../types/types';
+import Logo from '../assets/brand/logo.svg?react'
 
 
 // 1. Datos Mock (Puedes mover esto a un archivo separado más adelante)
@@ -31,8 +32,8 @@ const Footer: React.FC = () => {
         {/* -- Sección Izquierda -- */}
         <div className="footer-section-logo">
           <div className="logo-group">
-            <span className="logo-icon">Aqui va logo</span> 
-            <h2 className="logo-text">localía</h2>
+            <Logo className="w-60 h-30  brightness-0 invert" />
+            
           </div>
           <p className="description-text">
             Localia offers you the comfort of discovering new ways to enjoy your
