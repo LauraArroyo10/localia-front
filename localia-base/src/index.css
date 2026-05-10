@@ -8,7 +8,7 @@
 
 
 @theme {
- 
+
 
   /* ─── Neutral ─── */
   --color-neutral-0:   #ffffff;
@@ -49,6 +49,6 @@
     font-family: "SN Pro", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
-     padding: 35px 35px 0 35px; 
+    padding: 35px 35px 0 35px; 
   }
 }
