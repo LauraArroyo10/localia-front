@@ -1,4 +1,4 @@
-import type { Slide } from "../models/Slide"
+import type { Slide } from "../../types/Slide"
 
 
 export const NavbarMenu =[

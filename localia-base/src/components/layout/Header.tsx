@@ -21,7 +21,7 @@ function Header() {
         {/* <CategoryFilter /> */}
 
         {/* Main searchbar */}
-        <SearchBar width="w-full max-w-6xl" placeholder="¿What would you love to discover today?"/>
+        <SearchBar width="w-full max-w-3xl" placeholder="What would you love to discover today?"/>
 
         {/* carousel */}
         <Carousel/>
