@@ -1,5 +1,5 @@
 import { useState} from 'react'
-import { slidesData } from '../mockData/data'
+import { slidesData } from '../../mockData/data'
 
 
 

@@ -1,6 +1,6 @@
 
-import type { ContactInfo, SocialLink } from '../types/types';
-import Logo from '../assets/brand/logo.svg?react'
+import type { ContactInfo, SocialLink } from '../../types/types';
+import Logo from '../../assets/brand/logo.svg?react'
 
 
 // 1. Datos Mock (Puedes mover esto a un archivo separado más adelante)
