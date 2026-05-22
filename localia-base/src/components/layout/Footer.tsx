@@ -1,14 +1,11 @@
 
 import type { ContactInfo, SocialLink } from '../../types/types';
 import Logo from '../../assets/brand/logo.svg?react'
+import type { Contact } from '../../models/Contact';
+import { contactData } from '../../mockData/contactData';
 
 
-// 1. Datos Mock (Puedes mover esto a un archivo separado más adelante)
-const contactData: ContactInfo = {
-  email: "about@localia.com",
-  phone: "+305 3465 7632",
-  addressLines: ["Puntarenas, Esparza", "Costa Rica"],
-};
+
 
 // Reemplazar con los iconos
 const socialLinks: SocialLink[] = [
@@ -19,7 +16,7 @@ const socialLinks: SocialLink[] = [
 ];
 
 // 2. Componente Principal
-const Footer: React.FC = () => {
+function Footer(){
   const currentYear = new Date().getFullYear();
 
   const handleGoBackOnTop = () => {
