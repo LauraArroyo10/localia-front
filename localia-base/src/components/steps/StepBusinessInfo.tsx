@@ -29,7 +29,10 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+  const [phone, setPhone] = useState("");
 
+
+  
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -38,8 +41,9 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
     reader.readAsDataURL(file);
   };
 
-  const isValid = name.trim() && category && description.trim();
+  const isValid = name.trim() && category && phone.trim() && description.trim();
 
+  
   return (
    <div className="flex flex-col gap-4 w-full">
       <h2 className="text-xl font-bold text-neutral-800 text-center">Business Information</h2>
@@ -87,6 +91,14 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
           <option key={c} value={c}>{c}</option>
         ))}
       </select>
+
+    <Input
+        type="tel"
+        placeholder="Phone Number*"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        required
+      />
 
       {/* Textarea nativo */}
       <textarea

@@ -36,7 +36,7 @@ export function AuthModal({
         <LocaliaPanel />
 
         <div className="flex-1 flex flex-col justify-center px-10 py-10 relative">
-          {/* Botón cerrar */}
+          {/* cerrar */}
           <button
             onClick={onClose}
             className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"

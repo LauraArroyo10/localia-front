@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StepBasicInfo } from "./steps/StepBasicInfo";
 import { StepWhatOffer } from "./steps/StepWhatoffer";
 import { StepBusinessInfo } from "./steps/StepBusinessInfo";
-import { StepLocation } from "./steps/StepLocation";
+ import { StepLocation } from "./steps/StepLocation";
 import { StepDone } from "./steps/StepDone";
 import { StepIndicator } from './ui/StepIndicator';
 
@@ -60,7 +60,7 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
           <StepBusinessInfo onNext={next} onBack={back} />
         )}
         {currentStep === "location" && (
-          <StepLocation onFinish={next} onBack={back} />
+           <StepLocation onFinish={next} onBack={back} />
         )}
         {currentStep === "done" && (
           <StepDone role={role} onClose={onClose} />
@@ -68,7 +68,7 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
       </div>
     </div>
   );
-  
+
 }
 
 

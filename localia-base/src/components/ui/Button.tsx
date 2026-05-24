@@ -26,7 +26,7 @@ function Button({
       disabled={disabled}
       className={`
         ${bgColor} ${textColor} ${size} ${textSize}
-        h-[43.79px] rounded-full font-medium
+        h-8.75 rounded-full font-medium
         disabled:opacity-50 hover:opacity-90 transition-opacity
       `}
     >

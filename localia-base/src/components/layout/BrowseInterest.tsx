@@ -23,7 +23,7 @@ const categories = [
 function BrowseInterest(){
   return (
     <section className="w-full bg-[#EBF0F9] py-16 px-6 flex flex-col items-center">
-      <div className="w-full max-w-[1200px]">
+      <div className="w-full max-w-300">
         <h2 className="text-3xl font-bold  mb-2 text-left">Browse by Interest</h2>
         <p className="text-sm text-gray-600 mb-10 text-left">Explore experiences designed around what you love</p>
 
@@ -37,7 +37,7 @@ function BrowseInterest(){
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               {/* Degradado superior para que el texto blanco resalte siempre */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent p-6">
+              <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-transparent p-6">
                 <h3 className="text-white font-bold text-xl tracking-wide">{cat.name}</h3>
               </div>
             </div>
