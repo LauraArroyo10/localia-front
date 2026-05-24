@@ -24,7 +24,7 @@ function BrowseInterest(){
   return (
     <section className="w-full bg-[#EBF0F9] py-16 px-6 flex flex-col items-center">
       <div className="w-full max-w-[1200px]">
-        <h2 className="text-3xl font-bold text-[#1F294E] mb-2 text-left">Browse by Interest</h2>
+        <h2 className="text-3xl font-bold  mb-2 text-left">Browse by Interest</h2>
         <p className="text-sm text-gray-600 mb-10 text-left">Explore experiences designed around what you love</p>
 
         {/* Cuadrícula de 3 columnas */}
