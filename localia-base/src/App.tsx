@@ -18,6 +18,7 @@ function App() {
 <NavBar />
 <Header/>
 <Footer/>
+
     </div>
   )
 }
