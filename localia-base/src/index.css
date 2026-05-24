@@ -2,7 +2,6 @@
 @import "tailwindcss";
 
 
-
 :root{
   background: #f4f4f4;
 }
@@ -202,3 +201,6 @@ font-size: 14px;
     width: 100%;
   }
 } 
+
+
+

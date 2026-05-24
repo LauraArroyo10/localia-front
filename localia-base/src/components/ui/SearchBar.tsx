@@ -43,13 +43,13 @@ function SearchBar({
                 />
             </div>
 
-            {/* Botón de búsqueda */}
+            {/* search button */}
             <button
                 className="
                     w-24
                     h-12
                     rounded-full
-                    bg-[#4D55C8]
+                    bg-violet-500
                     flex
                     items-center
                     justify-center

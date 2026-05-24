@@ -1,33 +1,38 @@
 interface ButtonProps {
-    text: string;
-    bgColor: string;
-    textColor: string;
-    size: string;
-    textSize?: string;
+  text: string;
+  bgColor: string;
+  textColor: string;
+  size: string;
+  textSize?: string;
+  type?: "button" | "submit" | "reset";
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 function Button({
-    text,
-    bgColor,
-    textColor,
-    size,
-    textSize = "text-base"
+  text,
+  bgColor,
+  textColor,
+  size,
+  textSize = "text-sm",
+  type = "button",
+  onClick,
+  disabled,
 }: ButtonProps) {
-
-    return (
-        <button
-            className={`
-                ${bgColor}
-                ${textColor}
-                ${size}
-                ${textSize}
-                rounded-lg
-                font-medium
-            `}
-        >
-            {text}
-        </button>
-    );
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+        ${bgColor} ${textColor} ${size} ${textSize}
+        h-[43.79px] rounded-full font-medium
+        disabled:opacity-50 hover:opacity-90 transition-opacity
+      `}
+    >
+      {text}
+    </button>
+  );
 }
 
 export default Button;

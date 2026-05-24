@@ -1,0 +1,32 @@
+interface InputProps {
+  type?: string;
+  placeholder?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  id?: string;
+}
+
+function Input({
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  required,
+  id,
+}: InputProps) {
+  return (
+    <input
+      id={id}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      required={required}
+       className="w-full h-[43.79px] rounded-full border border-neutral-300 bg-white text-sm text-violet-900
+        px-5 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-neutral-400 placeholder:font-normal"
+    />
+  );
+}
+
+export default Input;
