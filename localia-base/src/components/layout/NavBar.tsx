@@ -17,20 +17,20 @@ function NavBar() {
       <div className="flex items-center gap-1 ">
         <a
           href="/"
-          className="text-sm text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl"
+          className="font-bold text-sm text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl"
         >
           Home
         </a>
         <a
           href="/signin"
-          className="text-sm text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl"
+          className="text-sm font-bold text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl"
         >
           Sign In
         </a>
         <a
           href="/signup"
 
-                className="text-sm font-medium text-violet-700 border border-violet-700 px-4 py-1.5 rounded-3xl hover:bg-violet-50"
+                className="font-bold text-sm  text-violet-700 border border-violet-700 px-4 py-1.5 rounded-3xl hover:bg-violet-50"
         >
           Sign Up
         </a>
