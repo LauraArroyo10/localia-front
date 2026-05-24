@@ -13,19 +13,24 @@ function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
         <Logo className="w-30 h-30" />
       </div>
 
-      <div className="flex items-center gap-1">
-        <a href="/" className="text-sm text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl">
+      {/* Links */}
+      <div className="flex items-center gap-1 ">
+        <a
+          href="/"
+          className="text-sm text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl"
+        >
           Home
         </a>
-        <button
-          onClick={onLoginClick}
+        <a
+          href="/signin"
           className="text-sm text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl"
         >
           Sign In
-        </button>
-        <button
-          onClick={onRegisterClick}
-          className="text-sm font-medium text-violet-700 border border-violet-700 px-4 py-1.5 rounded-3xl hover:bg-violet-50"
+        </a>
+        <a
+          href="/signup"
+
+                className="text-sm font-medium text-violet-700 border border-violet-700 px-4 py-1.5 rounded-3xl hover:bg-violet-50"
         >
           Sign Up
         </button>
