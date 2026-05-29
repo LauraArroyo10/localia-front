@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import NavBar from "../../components/layout/NavBar";
-import Header from "../../components/layout/Header";
-import TopDestinations from "./../layout/Topdestinations";
-import BrowseInterest from "../../components/layout/BrowseInterest";
-import Footer from "../../components/layout/Footer";
-import { AuthModal } from "../../components/AuthShell";
-import SubscribeBanner from '../layout/SuscribeBanner';
+import NavBar from "../components/layout/NavBar";
+import Header from "../components/layout/Header";
+import TopDestinations from "../components/layout/Topdestinations";
+import BrowseInterest from "../components/layout/BrowseInterest";
+import Footer from "../components/layout/Footer";
+import { AuthModal } from "../components/authentication/AuthShell";
+import SubscribeBanner from '../components/layout/SuscribeBanner';
 
 type AuthView = "login" | "register";
 
@@ -21,6 +22,8 @@ function Home() {
     setView(v);
     setOpen(true);
   };
+
+
 
   return (
 

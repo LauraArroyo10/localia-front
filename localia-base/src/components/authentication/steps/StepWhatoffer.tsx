@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Button from '../ui/Button';
-import { TbBuildingStore, TbKayak, TbGift } from "react-icons/tb";
+import Button from '../../ui/Button';
+import { TbBuildingStore, TbCamera, TbGift } from "react-icons/tb";
 
 const SERVICE_OPTIONS = [
   {
@@ -13,7 +13,7 @@ const SERVICE_OPTIONS = [
     id: "activity",
     label: "Activity",
     sub: "Sports, cultural immersion...",
-    icon: <TbKayak size={32} strokeWidth={1.2} />,
+    icon: <TbCamera size={32} strokeWidth={1.2} />,
   },
   {
     id: "product",

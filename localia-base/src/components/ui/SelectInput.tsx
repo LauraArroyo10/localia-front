@@ -1,32 +1,3 @@
-// interface SelectProps {
-//   value: string;
-//   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-//   required?: boolean;
-//   children: React.ReactNode;
-// }
-
-// function Select({
-//   value,
-//   onChange,
-//   required,
-//   children,
-// }: SelectProps) {
-//   return (
-//     <select
-//       value={value}
-//       onChange={onChange}
-//       required={required}
-//        className="w-full h-8.75 rounded-full border border-neutral-300 bg-white text-sm text-violet-900
-//         px-5 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all placeholder:text-neutral-400 placeholder:font-normal"
-   
-//     >
-//       {children}
-//     </select>
-//   );
-// }
-
-// export default Select;
-
 
 
 import { useEffect, useRef, useState } from "react";
@@ -134,7 +105,7 @@ function Select({
         <div
           className="
             absolute
-            top-14
+            top-full
             w-full
             overflow-hidden
             rounded-3xl

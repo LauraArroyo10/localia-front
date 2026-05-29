@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { StepBasicInfo } from "./steps/StepBasicInfo";
+
 import { StepWhatOffer } from "./steps/StepWhatoffer";
 import { StepBusinessInfo } from "./steps/StepBusinessInfo";
- import { StepLocation } from "./steps/StepLocation";
+import { StepLocation } from "./steps/StepLocation";
 import { StepDone } from "./steps/StepDone";
-import { StepIndicator } from './ui/StepIndicator';
+import { StepBasicInfo } from "./steps/StepBasicInfo";
+import { StepIndicator } from '../ui/StepIndicator';
+
 
 export type Role = "tourist" | "seller" | "";
 

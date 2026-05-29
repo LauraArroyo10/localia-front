@@ -32,7 +32,7 @@ function SearchBar({
             px-6
             flex
             items-center
-            bg-[var(--color-neutral-0)]
+            bg-color-neutral-0
             border-neutral-300
             focus-within:border-violet-500
             focus-within:ring-1

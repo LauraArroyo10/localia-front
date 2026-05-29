@@ -2,6 +2,9 @@ import Carousel from "./HomeCarousel";
 import SearchBar from "../ui/SearchBar";
 import { useState } from "react";
 
+
+
+
 function Header() {
   // Estado para saber cuál categoría está seleccionada
   const [activeTab, setActiveTab] = useState("service");

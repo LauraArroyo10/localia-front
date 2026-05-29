@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { LoginForm } from "./LoginForm";
-import { RegisterWizard } from "./Registerwizard";
-import { LocaliaPanel } from "./Panel";
+import { LoginForm } from "../authentication/LoginForm";
+import { RegisterWizard } from "../authentication/Registerwizard";
+import { LocaliaPanel } from "../layout/Panel";
 
 type AuthView = "login" | "register";
 
