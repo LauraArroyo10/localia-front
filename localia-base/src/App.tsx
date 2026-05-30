@@ -1,18 +1,18 @@
-import './App.css'
-import NavBar from './components/layout/NavBar';
-import Header from './components/layout/Header';
-import Footer from './components/Footer';
+
+import Home from './pages/Home';
+import ResultsPage from './pages/ResultsPage';
+
+ {/* <ResultsPage/> */}
+
 function App() {
-  
 
   return (
-    <div >
-
-<NavBar />
-<Header/>
-<Footer/>
-    </div>
-  )
+    
+    <div> 
+   <Home/>
+<ResultsPage/>
+</div>
+  );
 }
 
-export default App
+export default App;

@@ -1,68 +1,90 @@
 import { CiSearch } from "react-icons/ci";
 
 interface SearchBarProps {
-    placeholder: string;
-    width: string;
+  placeholder: string;
+  width: string;
 }
 
 function SearchBar({
-    placeholder,
-    width
+  placeholder,
+  width,
 }: SearchBarProps) {
-    return (
-        <div className=" flex justify-center w-full">
-        <div
-            className={`
-                ${width}
-                flex
-                gap-4
-            `}
-        >
-            {/* Input */}
-            <div
-                className="
-                    flex-1
-                    h-12
-                    border-2
-                    border-[#999999]
-                    rounded-full
-                    px-6
-                    flex
-                    items-center
-                "
-            >
-                <input
-                    type="text"
-                    placeholder={placeholder}
-                    className="
-                        w-full
-                        outline-none
-                        text-[#1F294E]
-                        placeholder:text-[#1F294E]
-                    "
-                />
-            </div>
 
-            {/* Botón de búsqueda */}
-            <button
-                className="
-                    w-24
-                    h-12
-                    rounded-full
-                    bg-[#4D55C8]
-                    flex
-                    items-center
-                    justify-center
-                    cursor-pointer
-                    hover:bg-[#616BFD]
-                    
-                "
-            >
-                <CiSearch className="text-white text-4xl" />
-            </button>
-            </div>
-            </div>
-    );
+  return (
+
+    <div className="flex justify-center w-full">
+
+      <div
+        className={`
+          ${width}
+          flex
+          gap-4
+        `}
+      >
+
+        {/* INPUT */}
+        <div
+          className="
+            flex-1
+            h-12
+            border
+            rounded-full
+            px-6
+            flex
+            items-center
+            bg-color-neutral-0
+            border-neutral-300
+            focus-within:border-violet-500
+            focus-within:ring-1
+            focus-within:ring-violet-500
+            transition-all
+          "
+        >
+
+          <input
+            type="text"
+            placeholder={placeholder}
+            className="
+              w-full
+              outline-none
+              bg-transparent
+              text-violet-900
+              placeholder:text-neutral-400
+            "
+          />
+
+        </div>
+
+        {/* SEARCH BUTTON */}
+        <button
+          className="
+            w-24
+            h-12
+            rounded-full
+            flex
+            items-center
+            justify-center
+            cursor-pointer
+            transition-colors
+            bg-violet-500
+            hover:bg-violet-700
+          "
+        >
+
+          <CiSearch
+            className="
+              text-neutral-0
+              text-4xl
+            "
+          />
+
+        </button>
+
+      </div>
+
+    </div>
+
+  );
 }
 
 export default SearchBar;

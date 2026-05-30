@@ -1,5 +1,5 @@
 import { useState} from 'react'
-import { slidesData } from '../mockData/data'
+import { slidesData } from '../../mockData/data'
 
 
 
@@ -12,11 +12,11 @@ export function Carousel() {
   const next = () => setCurrent(i => (i + 1) % slidesData.length)
 
   return (
-    <div className="relative w-full min-h-6 overflow-hidden  rounded-xl ">
+    <div className="relative w-full h-full overflow-hidden  rounded-xl ">
       {/* Image */}
       <img
         src={slidesData[current].image}
-        className="w-full h-150  bg-cover transition-all duration-500"
+        className="w-full h-130 object-cover "
       />
 
       {/* Buttons*/}
