@@ -1,7 +1,7 @@
 
 import Home from './pages/Home';
 import ResultsPage from './pages/ResultsPage';
-
+import DashBoard from './pages/DashBoard';
  {/* <ResultsPage/> */}
 
 function App() {
@@ -9,8 +9,9 @@ function App() {
   return (
     
     <div> 
-   <Home/>
-<ResultsPage/>
+<DashBoard/>
+   {/* <Home/>
+<ResultsPage/> */}
 </div>
   );
 }

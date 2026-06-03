@@ -84,6 +84,9 @@ function ResultsPage() {
         initialView={view}
       />
 
+
+      
+
     </main>
 
   );

@@ -1,6 +1,6 @@
 import { ImStarFull } from "react-icons/im";
 
-interface StarRatingProps{
+export interface StarRatingProps{
     rating: number;
     interactive?: boolean;
     //función que avisa qué estrella se clickeó

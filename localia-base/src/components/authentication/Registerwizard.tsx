@@ -7,8 +7,9 @@ import { StepDone } from "./steps/StepDone";
 import { StepBasicInfo } from "./steps/StepBasicInfo";
 import { StepIndicator } from '../ui/StepIndicator';
 
+import type { Role } from "../../types/rol";
 
-export type Role = "tourist" | "seller" | "";
+
 
 type StepKey = "basic" | "offer" | "business" | "location" | "done";
 
@@ -25,7 +26,7 @@ interface RegisterWizardProps {
 
 export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
   const [stepIndex, setStepIndex] = useState(0);
-  const [role, setRole] = useState<Role>("");
+  const [role, setRole] = useState<Role>("guest");
 
 
   const steps = getSteps(role);
