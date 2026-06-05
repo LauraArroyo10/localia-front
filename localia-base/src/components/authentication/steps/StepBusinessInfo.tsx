@@ -1,41 +1,49 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
+import Select from "../../ui/SelectInput";
 import { MdCameraAlt } from "react-icons/md";
 
+//borrar esatas categorias de prueba 
 const CATEGORIES = [
   "Gastronomy",
   "Tours & Adventures",
   "Wellness",
   "Accommodation",
   "Transport",
-  "Shopping",
-  "Entertainment",
-  "Other",
+  "Shopping"
 ];
 
+//convierte el array en el formato que necesita el componente que select (que e sel que usa esta info)
+const CATEGORY_OPTIONS = CATEGORIES.map((c) => 
+  ({ value: c, label: c }));
+
+//botones siguewinte atras 
 interface StepBusinessInfoProps {
   onNext: () => void;
   onBack: () => void;
 }
 
 export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
+  //preview de la imagen a subir
   const [preview, setPreview] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [phone, setPhone] = useState("");
 
-  const fileRef = useRef<HTMLInputElement | null>(null);
 
+  //manejo de imagenes subidas 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //valoracion para ver si file es null
     const file = e.target.files?.[0];
+    //sin archivo no se hace nada 
     if (!file) return;
-
+    //api para leer archivos locales, esto abre la ventana de documentos locales
+    //cuando esto pasa se hace lectur ay convesion e archivo 
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string);
-    };
+    //cuando se termine de leer el archivo , se guarda el resultado en preview
+    reader.onloadend = () => setPreview(reader.result as string);
     reader.readAsDataURL(file);
   };
 
@@ -51,30 +59,28 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
         Business Information
       </h2>
 
-      {/* Image upload */}
       <div className="flex justify-center">
-        <button
-          type="button"
-          onClick={() => fileRef.current?.click()}
-          className="w-20 h-20 rounded-full bg-violet-50 flex items-center justify-center overflow-hidden hover:bg-violet-100 transition"
+        <label
+          htmlFor="business-photo"
+          className="w-20 h-20 rounded-full bg-violet-50 flex items-center justify-center overflow-hidden hover:bg-violet-100 transition cursor-pointer"
         >
           {preview ? (
-            <img
-              src={preview}
-              alt="Business preview"
-              className="w-full h-full object-cover"
-            />
+            <img src={preview} alt="Business preview" className="w-full h-full object-cover" />
           ) : (
             <MdCameraAlt size={26} className="text-violet-500" />
           )}
-        </button>
-
+        </label>
+        //este input abre el explorador de archivos 
         <input
-          ref={fileRef}
+          id="business-photo"
+          //indica selector de archivos 
           type="file"
+          //solo acepta imagenes
           accept="image/*"
           className="hidden"
+          //genera preview
           onChange={handleFile}
+          
         />
       </div>
 
@@ -84,38 +90,12 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
         onChange={(e) => setName(e.target.value)}
       />
 
-      <select
+      <Select
         value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        className="
-      w-full
-      h-8.75
-      rounded-full
-      border
-      border-neutral-300
-      bg-white
-      text-sm
-      text-violet-900
-      px-5
-      pr-10
-      outline-none
-      focus:border-violet-500
-      focus:ring-1
-      focus:ring-violet-500
-      transition-all
-      appearance-none
-    "
-      >
-        <option value="" disabled>
-          Category*
-        </option>
-
-        {CATEGORIES.map((c) => (
-          <option key={c} value={c}>
-            {c}
-          </option>
-        ))}
-      </select>
+        onChange={(value) => setCategory(value)}
+        placeholder="Category*"
+        options={CATEGORY_OPTIONS}
+      />
 
       <Input
         type="tel"
@@ -140,7 +120,6 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
           size="w-28"
           onClick={onBack}
         />
-
         <Button
           text="Next"
           bgColor="bg-violet-500"

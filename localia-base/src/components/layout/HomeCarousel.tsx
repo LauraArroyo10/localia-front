@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useState,useEffect} from 'react'
 import { slidesData } from '../../mockData/data'
 
 
@@ -10,13 +10,21 @@ export function Carousel() {
 
   const prev = () => setCurrent(i => (i - 1 + slidesData.length) % slidesData.length)
   const next = () => setCurrent(i => (i + 1) % slidesData.length)
+  useEffect(() => {
+  const interval = setInterval(next, 4000);
+  return () => clearInterval(interval);
+}, [current]);
 
   return (
+
+
+
     <div className="relative w-full h-full overflow-hidden  rounded-xl ">
       {/* Image */}
       <img
-        src={slidesData[current].image}
-        className="w-full h-130 object-cover "
+         key={current}
+  src={slidesData[current].image}
+  className="w-full h-130 object-cover slide-enter"
       />
 
       {/* Buttons*/}

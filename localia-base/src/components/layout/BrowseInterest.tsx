@@ -5,6 +5,7 @@ import beachImg from '../../assets/brand/beach.jpg.jpg';
 import mountainImg from '../../assets/brand/montain.jpg.jpg';
 import townImg from '../../assets/brand/town.jpg.jpg';
 
+//borrar despues 
 const categories = [
   { name: 'Artisan Goods', img: artisanImg },
   { name: 'Local Food', img: foodImg },
@@ -17,7 +18,7 @@ const categories = [
 function BrowseInterest() {
   return (
     <section className="w-full bg-violet-50 py-16 px-6 flex flex-col items-center">
-      <div className="w-full max-w-300">
+      <div className="w-full max-w-5xl">
         <h2 className="text-3xl font-bold mb-2 text-left text-neutral-900">Browse by Interest</h2>
         <p className="text-sm text-neutral-500 mb-10 text-left">Explore experiences designed around what you love</p>
 

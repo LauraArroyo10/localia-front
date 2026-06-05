@@ -1,5 +1,5 @@
 import Button from '../../ui/Button';
-import { type Role } from '../../authentication/Registerwizard';
+import type { Role } from "../../../types/rol";
 
 interface StepDoneProps {
   role: Role;

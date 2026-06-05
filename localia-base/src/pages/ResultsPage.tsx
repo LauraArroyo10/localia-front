@@ -30,7 +30,7 @@ function ResultsPage() {
         flex
         flex-col
         gap-20
-        bg-color-bg)
+        bg-color-bg
       "
     >
 
@@ -41,7 +41,7 @@ function ResultsPage() {
       />
 
       {/* SEARCH AREA */}
-      <div className="flex flex-col gap-3 w-300 mx-auto relative z-10">
+      <div className="flex flex-col gap-3 max-w-5xl mx-auto relative z-10">
 
         <SearchBar
           placeholder="Search businesses..."

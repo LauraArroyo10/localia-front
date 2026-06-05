@@ -1,69 +1,64 @@
 import { useState } from "react";
 
-
 import NavBar from "../components/layout/NavBar";
 import Header from "../components/layout/Header";
 // import TopDestinations from "../components/layout/Topdestinations";
 import BrowseInterest from "../components/layout/BrowseInterest";
 import Footer from "../components/layout/Footer";
 import { AuthModal } from "../components/authentication/AuthShell";
-import SubscribeBanner from '../components/layout/SuscribeBanner';
+import SubscribeBanner from "../components/layout/SuscribeBanner";
 
 type AuthView = "login" | "register";
 
 function Home() {
-
   const [open, setOpen] = useState(false);
 
-  const [view, setView] =
-    useState<AuthView>("login");
+  const [view, setView] = useState<AuthView>("login");
 
   const openAs = (v: AuthView) => {
     setView(v);
     setOpen(true);
   };
 
-
-return (
-  
-  <main
-    className="
+  return (
+    <main
+      className="
       min-h-screen
       flex
       flex-col
-      gap-20
       bg-color-bg
+      
     "
-  >
-    {/* NAVBAR */}
-    <NavBar
-      onLoginClick={() => openAs("login")}
-      onRegisterClick={() => openAs("register")}
-    />
+    >
+      {/* NAVBAR */}
+      <NavBar
+        onLoginClick={() => openAs("login")}
+        onRegisterClick={() => openAs("register")}
+      />
 
-    {/* HERO */}
-    <Header />
+      {/* HERO */}
+      <Header />
 
-    {/* DESTINATIONS */}
-    {/* <TopDestinations /> */}
+      {/* DESTINATIONS */}
+      {/* <TopDestinations /> */}
 
-    {/* INTERESTS */}
-    <BrowseInterest />
+      {/* INTERESTS */}
+      <BrowseInterest />
 
-    {/* SUBSCRIBE */}
-    <SubscribeBanner />
+      {/* SUBSCRIBE */}
+      <SubscribeBanner />
 
-    {/* FOOTER */}
-    <Footer />
+      {/* FOOTER */}
+      <Footer />
 
-    {/* AUTH MODAL */}
-    <AuthModal
-      show={open}
-      onClose={() => setOpen(false)}
-      initialView={view}
-    />
-  </main>
-);
+      {/* AUTH MODAL */}
+      <AuthModal
+        show={open}
+        onClose={() => setOpen(false)}
+        initialView={view}
+      />
+    </main>
+  );
 }
 
 export default Home;

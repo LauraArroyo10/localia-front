@@ -1,19 +1,26 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+//el contenedor principal del mapa,carga imagenes del mapa, pin marcador,hook de acceso a instancias del mapa
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+//estilos del mapa
 import "leaflet/dist/leaflet.css";
+//libreria de leaflet 
 import L from "leaflet";
 import Button from '../../ui/Button';
 import Input from '../../ui/Input';
 
 //Fix del ícono de Leaflet con bundlers
+//importacion de imagenes manualpor problemas entre leaflet y vite
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
+//elimina el metodo de leaflet que busca las imagenes y se sustituye por las que ingresamso manualemnte
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({ iconRetinaUrl: markerIcon2x, iconUrl: markerIcon, shadowUrl: markerShadow });
 
-
+// interface de la respuesta de la api nominatim 
+//nominatim es un motor geocodificador, esto significa que 
+//convierte nombres en coordeandas. nombre, latitud y longitud 
 interface Suggestion {
   display_name: string;
   lat: string;
@@ -21,7 +28,9 @@ interface Suggestion {
 }
 
 interface StepLocationProps {
+  //se despliega al confirmar la ubiccion 
   onFinish: () => void;
+  //regresar
   onBack: () => void;
 }
 
@@ -36,27 +45,28 @@ function FlyToLocation({ lat, lon }: { lat: number; lon: number }) {
 }
 
 export function StepLocation({ onFinish, onBack }: StepLocationProps) {
+  //bsuqueda del usuario
   const [query, setQuery] = useState("");
+  //la sugerencia del buscador
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  //la sugerencia elegida
   const [selected, setSelected] = useState<Suggestion | null>(null);
   const [loading, setLoading] = useState(false);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Busca en Nominatim con debounce__________________________________________
+  // Busca en Nominatim con debounce
+  // deben haber 3
   useEffect(() => {
     if (query.length < 3 || selected) {
       setSuggestions([]);
       return;
     }
-    if (debounceRef.current) clearTimeout(debounceRef.current);
 
-// Esto es lo que se ve cuando se hace una bsuqueda y se autocompleta con resultados__________________________________________
-    debounceRef.current = setTimeout(async () => {
+    // Esto es lo que se ve cuando se hace una bsuqueda y se autocompleta con resultados__________________________________________
+    const timer = setTimeout(async () => {
       setLoading(true);
       try {
         const res = await fetch(
-         `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5`,
-        
+          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5`,
           { headers: { "Accept-Language": "en" } }
         );
         const data = await res.json();
@@ -67,10 +77,12 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
         setLoading(false);
       }
     }, 500);
+
+    // reinicio del contador de tiempo de la bsuqueda
+    return () => clearTimeout(timer);
   }, [query, selected]);
 
-
-// Guarda y limpia __________________________________________
+  // Guarda y limpia __________________________________________
   const handleSelect = (s: Suggestion) => {
     setSelected(s);
     setQuery(s.display_name);
@@ -82,8 +94,7 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
     setSelected(null);
   };
 
-
- // Posición inicial del mapa — Costa Rica como default
+  // Posición inicial del mapa — Costa Rica como default
   const defaultPosition: [number, number] = [9.7489, -83.7534];
   const selectedPosition: [number, number] | null = selected
     ? [parseFloat(selected.lat), parseFloat(selected.lon)]
@@ -111,7 +122,7 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 
         {/* Sugerencias */}
         {suggestions.length > 0 && (
-          <ul className="absolute z-10 w-full mt-1 bg-white border border-neutral-200 rounded-2xl  overflow-hidden">
+          <ul className="absolute z-10 w-full mt-1 bg-white border border-neutral-200 rounded-2xl overflow-hidden">
             {suggestions.map((s, i) => (
               <li
                 key={i}
@@ -125,9 +136,7 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
         )}
       </div>
 
-
-
-{/* Mapa Leaflet */}
+      {/* Mapa Leaflet */}
       <div className="w-full h-52 rounded-2xl overflow-hidden border border-neutral-200 z-0">
         <MapContainer
           center={defaultPosition}
@@ -169,8 +178,6 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
           disabled={!selected}
         />
       </div>
-
-
     </div>
   );
 }
