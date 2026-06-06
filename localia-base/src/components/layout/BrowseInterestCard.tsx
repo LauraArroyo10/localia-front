@@ -2,12 +2,12 @@
 import React from 'react';
 
 //Imagenes actuales que tenemos 
-import artisanImg from '../../assets/brand/artisan.jpg.jpg';
-import foodImg from '../../assets/brand/food.jpg.jpg';
-import cultureImg from '../../assets/brand/culture.jpg.jpg';
-import beachImg from '../../assets/brand/beach.jpg.jpg';
-import mountainImg from '../../assets/brand/montain.jpg.jpg';
-import townImg from '../../assets/brand/town.jpg.jpg';
+import artisanImg from '../../assets/brand/artisan.jpg';
+import foodImg from '../../assets/brand/food.jpg';
+import cultureImg from '../../assets/brand/culture.jpg';
+import beachImg from '../../assets/brand/beach.jpg';
+import mountainImg from '../../assets/brand/montain.jpg';
+import townImg from '../../assets/brand/town.jpg';
 
 const categories = [
   { name: 'Artisan Goods', img: artisanImg },
@@ -24,9 +24,11 @@ function BrowseInterest(){
   return (
     <section className="w-full bg-[#EBF0F9] py-16 px-6 flex flex-col items-center">
       <div className="w-full max-w-[1200px]">
-        <h2 className="text-3xl font-bold  mb-2 text-left">Browse by Interest</h2>
+        <div className='mb-6'>
+            <h2 className="text-3xl font-bold  mb-2 text-left">Browse by Interest</h2>
         <p className="text-sm text-gray-600 mb-10 text-left">Explore experiences designed around what you love</p>
 
+        </div>
         {/* Cuadrícula de 3 columnas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat, index) => (
