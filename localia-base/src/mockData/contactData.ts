@@ -1,4 +1,4 @@
-import type { Contact } from "../models/Contact.ts"
+import type{ Contact } from "../types/Contact";
 
 export const contactData: Contact = {
   email: "about@localia.com",

@@ -1,7 +1,3 @@
-
-import React from 'react';
-
-//Imagenes actuales que tenemos 
 import artisanImg from '../../assets/brand/artisan.jpg.jpg';
 import foodImg from '../../assets/brand/food.jpg.jpg';
 import cultureImg from '../../assets/brand/culture.jpg.jpg';
@@ -9,6 +5,7 @@ import beachImg from '../../assets/brand/beach.jpg.jpg';
 import mountainImg from '../../assets/brand/montain.jpg.jpg';
 import townImg from '../../assets/brand/town.jpg.jpg';
 
+//borrar despues 
 const categories = [
   { name: 'Artisan Goods', img: artisanImg },
   { name: 'Local Food', img: foodImg },
@@ -18,27 +15,23 @@ const categories = [
   { name: 'Town Places', img: townImg },
 ];
 
-
-
-function BrowseInterest(){
+function BrowseInterest() {
   return (
-    <section className="w-full bg-[#EBF0F9] py-16 px-6 flex flex-col items-center">
-      <div className="w-full max-w-300">
-        <h2 className="text-3xl font-bold  mb-2 text-left">Browse by Interest</h2>
-        <p className="text-sm text-gray-600 mb-10 text-left">Explore experiences designed around what you love</p>
+    <section className="w-full bg-violet-50 py-16 px-6 flex flex-col items-center">
+      <div className="w-full max-w-5xl">
+        <h2 className="text-3xl font-bold mb-2 text-left text-neutral-900">Browse by Interest</h2>
+        <p className="text-sm text-neutral-500 mb-10 text-left">Explore experiences designed around what you love</p>
 
-        {/* Cuadrícula de 3 columnas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat, index) => (
-            <div key={index} className="relative h-64 rounded-3xl overflow-hidden shadow-md group cursor-pointer">
-              <img 
-                src={cat.img} 
-                alt={cat.name} 
+            <div key={index} className="relative h-64 rounded-3xl overflow-hidden group cursor-pointer">
+              <img
+                src={cat.img}
+                alt={cat.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              {/* Degradado superior para que el texto blanco resalte siempre */}
               <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-transparent p-6">
-                <h3 className="text-white font-bold text-xl tracking-wide">{cat.name}</h3>
+                <h3 className="text-neutral-0 font-bold text-xl tracking-wide">{cat.name}</h3>
               </div>
             </div>
           ))}
@@ -46,6 +39,6 @@ function BrowseInterest(){
       </div>
     </section>
   );
-};
+}
 
 export default BrowseInterest;

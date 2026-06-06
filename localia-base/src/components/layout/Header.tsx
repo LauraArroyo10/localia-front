@@ -3,51 +3,43 @@ import SearchBar from "../ui/SearchBar";
 import { useState } from "react";
 
 function Header() {
-  // Estado para saber cuál categoría está seleccionada
   const [activeTab, setActiveTab] = useState("service");
 
   return (
-    <div className="w-full bg-white flex flex-col items-center">
-      <header className="w-full px-6 pt-16 pb-12 flex flex-col items-center">
+    <div className="w-full flex flex-col  items-center">
+      <header className="w-full px-6 pt-8 pb-6 flex flex-col items-center">
         
-        {/* Main title */}
-        <h1 className="text-terracota-500 text-5xl font-medium text-center mb-8 tracking-wide">
+        <h1 className="text-terracota-500 text-5xl font-semibold text-center mb-5 tracking-wide py-15">
           Need a place to go nearby?
         </h1>
 
-        {/* Categories (Filtros superiores) */}
-        {/*Se necesita poner los iconos de la pagina*/ }
-        <div className="flex gap-12 mb-8 text-base border-b border-gray-100 w-full justify-center">
+        <div className="flex gap-8 mb-5 text-sm border-b  border-gray-100  justify-center">
           {[
-            { id: "service", label: "Service", icon: "" },
-            { id: "activity", label: "Activity", icon: "" },
-            { id: "product", label: "Product", icon: "" }
+            //cambiar para que funcione con backend, borrar despues 
+            { id: "service", label: "Service" },
+            { id: "activity", label: "Activity" },
+            { id: "product", label: "Product" }
+
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 pb-3 px-1 font-medium transition-all border-b-2 cursor-pointer
-                ${activeTab === tab.id 
-                  ? "border-[#4D55C8] text-[#4D55C8]" 
-                  : "border-transparent text-gray-400 hover:text-[#4D55C8]"
+              className={`pb-2 px-1 font-medium transition-all border-b-2 cursor-pointer
+                ${activeTab === tab.id
+                  ? "border-violet-500 text-violet-500"
+                  : "border-transparent text-gray-400 hover:text-violet-500"
                 }`}
             >
-              <span>{tab.icon}</span>
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* Main searchbar */}
-        <div className="w-full mb-12">
-          <SearchBar 
-            width="w-full" 
-            placeholder="What would you love to discover today?"
-          />
+        <div className="max-w-5xl mb-6">
+          <SearchBar placeholder="Search businesses..." width="w-300" />
         </div>
 
-        {/* Carousel */}
-        <div className="w-full rounded-3xl overflow-hidden shadow-lg">
+        <div className="w-full  max-w-5xl rounded-2xl overflow-hidden  mt-10 ">
           <Carousel />
         </div>
 

@@ -1,43 +1,87 @@
+import { useState } from "react";
+
 import NavBar from "../components/layout/NavBar";
 import SearchBar from "../components/ui/SearchBar";
 import CategoryFilter from "../components/ui/CategoryFilter";
-import BusinessSection from "../components/sections/BusinessSection";
-import RecommendationSection from "../components/sections/RecommendationSection";
+import RecommendationSection from "../components/sections/RecommendationSection.tsx";
+import BusinessSection from "../components/sections/BusinessSection.tsx";
 import Footer from "../components/layout/Footer";
+import { AuthModal } from "../components/authentication/AuthShell";
+
+type AuthView = "login" | "register";
 
 function ResultsPage() {
-    return (
-    <div className="flex flex-col gap-20">
 
-        <NavBar />
+  const [open, setOpen] = useState(false);
 
-        <div className="flex flex-col gap-5">
+  const [view, setView] =
+    useState<AuthView>("login");
 
-            <SearchBar
-                placeholder="Search businesses..."
-                width="w-300"
-            />
+  const openAs = (v: AuthView) => {
+    setView(v);
+    setOpen(true);
+  };
 
-            <div className="w-full flex justify-start pl-88">
-                <CategoryFilter />
-            </div>
+  return (
 
-            </div>
+    <main
+      className="
+        min-h-screen
+        flex
+        flex-col
+        gap-20
+        bg-color-bg
+      "
+    >
+
+      {/* NAVBAR */}
+       <NavBar
+        onLoginClick={() => openAs("login")}
+        onRegisterClick={() => openAs("register")}
+      />
+
+      {/* SEARCH AREA */}
+      <div className="flex flex-col gap-3 max-w-5xl mx-auto relative z-10">
+
+        <SearchBar
+          placeholder="Search businesses..."
+          width="w-300"
+        />
+
+          <CategoryFilter />
+      
+
+      </div>
 
             <h1 className="text-4xl text-terracota-400 text-center font-bold">
                 Results for: "Tacos de birria"
             </h1>
 
-        <BusinessSection />
+      {/* BUSINESSES */}
+      <BusinessSection />
 
-        <div className="flex flex-col">
-            <RecommendationSection />
-            <Footer />
-        </div>
+      {/* RECOMMENDATIONS + FOOTER */}
+      <div className="flex flex-col">
 
-    </div>
-);
-    
+        <RecommendationSection />
+
+        <Footer />
+
+      </div>
+
+      {/* AUTH MODAL */}
+      <AuthModal
+        show={open}
+        onClose={() => setOpen(false)}
+        initialView={view}
+      />
+
+
+      
+
+    </main>
+
+  );
 }
 
 export default ResultsPage;

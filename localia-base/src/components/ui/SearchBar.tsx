@@ -41,18 +41,18 @@ function SearchBar({
           "
         >
 
-          <input
-            type="text"
-            placeholder={placeholder}
-            className="
-              w-full
-              outline-none
-              bg-transparent
-              text-violet-900
-              placeholder:text-neutral-400
-            "
-          />
-
+        <input
+  type="text"
+  placeholder={placeholder}
+  autoComplete="off"
+  className="
+    w-full
+    outline-none
+    bg-transparent
+    text-violet-900
+    placeholder:text-neutral-400
+  "
+/>
         </div>
 
         {/* SEARCH BUTTON */}

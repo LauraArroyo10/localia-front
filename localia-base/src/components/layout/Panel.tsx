@@ -1,4 +1,4 @@
-import Logo from '../assets/brand/logo vertical.svg?react'
+import Logo from "../../assets/brand/logo-vertical.svg?react";
 
 export function LocaliaPanel() {
   return (

@@ -1,4 +1,4 @@
-import type { Slide } from "../models/Slide"
+import type { Slide } from "./../types/Slide"
 
 
 export const NavbarMenu =[
@@ -21,14 +21,11 @@ export const NavbarMenu =[
 ]
 
 
-export const slidesData: Slide[]=[
-
-
-{ id: 1, image: 'https://picsum.photos/id/13/200/300' },
-  { id: 2, image: 'https://picsum.photos/id/290/200/300'},
-  { id: 3, image: 'https://picsum.photos/id/20/200/300'},
-
-
-
+export const slidesData: Slide[] = [
+  { id: 1, image: 'https://picsum.photos/id/13/1200/500' },
+  { id: 2, image: 'https://picsum.photos/id/290/1200/500' },
+  { id: 3, image: 'https://picsum.photos/id/20/1200/500' },
 ]
+
+
 

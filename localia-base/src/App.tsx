@@ -1,22 +1,16 @@
-import { Routes, Route } from "react-router-dom";
-import Home from './components/pages/Home';
+import DashBoard from "./pages/DashBoard";
+import Home from "./pages/Home";
 import ResultsPage from "./pages/ResultsPage";
 
-
 function App() {
-
   return (
+    <>
+      <DashBoard />
 
-    <ResultsPage />
-    /*<Routes>
+      <Home />
 
-      <Route
-        path="/"
-        element={<Home />}
-      />
-
-    </Routes>*/
-
+      <ResultsPage />
+    </>
   );
 }
 

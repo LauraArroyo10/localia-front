@@ -1,16 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600&display=swap');
 @import "tailwindcss";
 
-
-:root{
+:root {
   background: #f4f4f4;
 }
 
-
-
 @theme {
-
-
   /* ─── Neutral ─── */
   --color-neutral-0:   #ffffff;
   --color-neutral-50:  #fafafa;
@@ -32,183 +27,73 @@
   /* ─── Violet blue ─── */
   --color-violet-50:  #e4e6f7;
   --color-violet-300: #616BFD;
-  --color-violet-500: #5f66cd;
+
+  --color-violet-500: #4D55C8;
   --color-violet-700: #323f8f;
   --color-violet-900: #1f294e;
 
   /* ─── Rojo ─── */
   --color-red-500: #AB0000;
 
-  /* ─── BG─── */
+  /* ─── BG ─── */
   --color-bg: #f4f4f4;
 
-  /* ─── Accent─── */
+  /* ─── Accent ─── */
   --color-accent: #ccc95d;
-
-
- 
 }
 
 @layer base {
-
-
-  
   body {
     font-family: "SN Pro", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
-     padding: 5px 0px 0 0px; 
+    padding: 45px 0px 0 0px;
   }
-}
-
-
-/* 1. Contenedor FOOTER (Flexbox) */
-.footer-main {
-  background-color: var(--color-violet-700);
-  color: var(--color-neutral-0);
-  padding: 45px 10% 40px 10%; 
-  font-family: var(--font-family);
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between; 
-  align-items: flex-start;
-  margin-bottom: 60px; 
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-
-.footer-section-logo {
-  flex: 0 0 55%; 
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.logo-group {
-    margin-top: 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-
-.description-text {
-font-size: 14px;
-  line-height: 1.4;
-  opacity: 0.9;
-  max-width: 490px; 
-  text-align: left;
-  margin-top: 0px;
-}
-
-.copyright-text {
-  font-size: 12px;
-  margin-top: 24px;
-  opacity: 0.7;
-}
-
-.section-title {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  text-transform: capitalize;
-}
-
-
-.footer-section-contact {
-
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-  font-size: 14px;
-}
-
-.contact-link {
-  color: var(--color-text-main);
-  text-decoration: none;
-  font-weight: 500;
-  padding-right: 100%;
-}
-
-.contact-link:hover {
-  text-decoration: underline;
-}
-
-.contact-item {
-  margin: 0;
-  line-height: 1.5;
-}
-
-
-.footer-section-social {
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.social-links-container {
-  display: flex;
-  gap: 12px;
-  margin-top: 15px;
-  align-items: center;
-}
-
-
-.social-placeholder {
-  display: block;
-  width: 24px;
-  height: 24px;
-  background-color: var(--color-text-social);
-  border-radius: 50%;
-}
-
-
-.back-to-top-container {
-  border-top: 1px solid rgb(255, 255, 255); 
-  padding-top: 30px;
-  display: flex;
-  justify-content: center; 
-}
-
-.back-to-top-btn {
-  background: none;
-  border: none;
-  color: var(--color-text-main);
-  font-size: 12px;
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  letter-spacing: 2px;
-}
-
-.arrow-up {
-  font-size: 20px;
-}
 
   h1, h2, h3, p {
     margin: 0;
   }
+}
 
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 40px;
+/* Scrollbar utility — para ocultar barra fea */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer base {
+  html {
+    font-size: 15px; /* reduce levemente la escala base */
   }
-  .footer-section-logo, .footer-section-contact, .footer-section-social {
-    flex: 1 1 auto;
-    width: 100%;
+
+  body {
+    padding-top: 20px; /* solo el alto del navbar */
   }
-} 
+}
 
+/* aniamciones: */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.review-enter {
+  animation: fadeInUp 0.35s ease-out;
+}
+@keyframes softFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
+.slide-enter {
+  animation: softFade 0.6s ease-in-out;
+}

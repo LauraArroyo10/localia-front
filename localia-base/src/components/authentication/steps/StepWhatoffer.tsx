@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Button from '../ui/Button';
-import { TbBuildingStore, TbKayak, TbGift } from "react-icons/tb";
+import Button from '../../ui/Button';
+import { TbBuildingStore, TbCamera, TbGift } from "react-icons/tb";
 
 const SERVICE_OPTIONS = [
   {
@@ -13,7 +13,7 @@ const SERVICE_OPTIONS = [
     id: "activity",
     label: "Activity",
     sub: "Sports, cultural immersion...",
-    icon: <TbKayak size={32} strokeWidth={1.2} />,
+    icon: <TbCamera size={32} strokeWidth={1.2} />,
   },
   {
     id: "product",
@@ -37,7 +37,7 @@ export function StepWhatOffer({ onNext, onBack }: StepWhatOfferProps) {
     );
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-3 w-full">
       <h2 className="text-xl font-bold text-neutral-800 text-center">What do you offer?</h2>
 
       <div className="flex flex-col gap-3">
@@ -48,15 +48,14 @@ export function StepWhatOffer({ onNext, onBack }: StepWhatOfferProps) {
               key={id}
               type="button"
               onClick={() => toggle(id)}
-              className="flex items-center justify-between px-5 py-4 rounded-2xl border text-left transition-all"
-              style={
-                isSelected
-                  ? { borderColor: "#5B5BD6", backgroundColor: "#EEF2FF" }
-                  : { borderColor: "#E5E7EB", backgroundColor: "white" }
-              }
+              className={`flex items-center justify-between px-5 py-4 rounded-2xl border text-left transition-all
+                ${isSelected
+                  ? "border-violet-500 bg-violet-50"
+                  : "border-neutral-200 bg-neutral-0"
+                }`}
             >
               <div className="flex items-center gap-4">
-                <span style={{ color: isSelected ? "#5B5BD6" : "#E8673A" }}>
+                <span className={isSelected ? "text-violet-500" : "text-terracota-500"}>
                   {icon}
                 </span>
                 <div>
@@ -64,8 +63,7 @@ export function StepWhatOffer({ onNext, onBack }: StepWhatOfferProps) {
                   <p className="text-xs text-neutral-400">{sub}</p>
                 </div>
               </div>
-              {/* Flecha derecha */}
-              <span className="text-violet-500 text-lg">→</span>
+              <span className="text-violet-500 text-lg"></span>
             </button>
           );
         })}
@@ -73,14 +71,14 @@ export function StepWhatOffer({ onNext, onBack }: StepWhatOfferProps) {
 
       <div className="flex justify-between pt-2">
         <Button
-          text="← Back"
+          text="Back"
           bgColor="bg-neutral-100"
           textColor="text-neutral-700"
           size="w-28"
           onClick={onBack}
         />
         <Button
-          text="Next →"
+          text="Next"
           bgColor="bg-violet-500"
           textColor="text-neutral-0"
           size="w-28"

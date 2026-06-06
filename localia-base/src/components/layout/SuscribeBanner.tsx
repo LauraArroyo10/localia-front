@@ -1,3 +1,4 @@
+
 function SubscribeBanner() {
 
   return (
@@ -52,11 +53,12 @@ function SubscribeBanner() {
               px-6
               outline-none
               transition-all
-              bg-[var(--color-neutral-0)]
-              text-[var(--color-violet-900)]
-              placeholder:text-[var(--color-neutral-400)]
+              bgneutral-0
+              text-violet-900
+              placeholder:text-neutral-400
               focus:ring-1
-              focus:ring-[var(--color-violet-500)]
+              focus:ring-violet-500
+              bg-bg
             "
           />
 
@@ -68,7 +70,7 @@ function SubscribeBanner() {
               rounded-full
               font-medium
               cursor-pointer
-              shadow-md
+              
               transition-all
               bg-violet-500
               text-neutral-0

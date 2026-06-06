@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FaGoogle, FaFacebook, FaApple } from "react-icons/fa";
-import Button from './ui/Button';
-import Input from './ui/Input';
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, facebookProvider } from "../../lib/firebase";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+
 
 interface LoginFormProps {
   onSwitch: () => void;
@@ -12,11 +15,18 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //se ejecuta al hacer sign in 
   const handleSubmit = (e: React.FormEvent) => {
+    //evita que el form recargue la pagina 
     e.preventDefault();
-    console.log("login", { email, password });
     onClose();
   };
+
+  const socialButtons = [
+    { icon: <FaGoogle size={18} />, label: "Google", provider: googleProvider },
+    { icon: <FaFacebook size={18} />, label: "Facebook", provider: facebookProvider },
+    { icon: <FaApple size={18} />, label: "Apple", provider: null },
+  ];
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full max-w-sm mx-auto">
@@ -31,8 +41,8 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
         required
       />
 
-      <div className="flex flex-col gap-1 text--violet-500 ">
-        <Input  
+      <div className="flex flex-col gap-1">
+        <Input
           id="login-password"
           type="password"
           placeholder="Password"
@@ -61,19 +71,28 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
       <div className="flex flex-col items-center gap-3">
         <span className="text-xs text-violet-700">or continue with</span>
         <div className="flex gap-3">
-          {[
-            { icon: <FaGoogle size={18} />, label: "Google" },
-            { icon: <FaFacebook size={18} />, label: "Facebook" },
-            { icon: <FaApple size={18} />, label: "Apple" },
-          ].map(({ icon, label }) => (
+          {socialButtons.map(({ icon, label, provider }) => (
             <button
               key={label}
               type="button"
               aria-label={label}
-              className="w-10 h-10 rounded-full flex items-center 
-              justify-center text-white 
-              hover:opacity-80 transition-opacity
-               bg-violet-900"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("click", label);
+                if (provider) {
+                  console.log("llamando signInWithPopup...");
+                  signInWithPopup(auth, provider)
+                    .then((result) => {
+                      console.log("User:", result.user);
+                      onClose();
+                    })
+                    .catch((error) => {
+                      console.error("Error:", error);
+                    });
+                }
+              }}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity bg-violet-900"
             >
               {icon}
             </button>

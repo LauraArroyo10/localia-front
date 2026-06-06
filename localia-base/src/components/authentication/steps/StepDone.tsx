@@ -1,5 +1,5 @@
-import Button from '../ui/Button';
-import { type Role } from '../Registerwizard';
+import Button from '../../ui/Button';
+import type { Role } from "../../../types/rol";
 
 interface StepDoneProps {
   role: Role;
@@ -8,7 +8,7 @@ interface StepDoneProps {
 
 export function StepDone({ role, onClose }: StepDoneProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 text-center my-auto py-6">
+    <div className="flex flex-col items-center justify-center gap-3 text-center my-auto py-6">
       <div className="w-16 h-16 rounded-full flex items-center justify-center bg-violet-50">
         <span className="text-3xl text-violet-500">✓</span>
       </div>

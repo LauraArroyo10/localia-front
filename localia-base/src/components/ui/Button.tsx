@@ -7,8 +7,8 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
   disabled?: boolean;
+  border?: string;
 }
-
 function Button({
   text,
   bgColor,
@@ -18,6 +18,7 @@ function Button({
   type = "button",
   onClick,
   disabled,
+  border = "",  
 }: ButtonProps) {
   return (
     <button
@@ -25,7 +26,7 @@ function Button({
       onClick={onClick}
       disabled={disabled}
       className={`
-        ${bgColor} ${textColor} ${size} ${textSize}
+        ${bgColor} ${textColor} ${size} ${textSize} ${border}
         h-8.75 rounded-full font-medium
         disabled:opacity-50 hover:opacity-90 transition-opacity
       `}
