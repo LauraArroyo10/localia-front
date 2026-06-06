@@ -1,19 +1,26 @@
 import Carousel from "./HomeCarousel";
 import SearchBar from "../ui/SearchBar";
 import { useState } from "react";
+import destinationImg from '../../assets/brand/destination-placeholder.jpg'; 
 
 function Header() {
   const [activeTab, setActiveTab] = useState("service");
 
   return (
-    <div className="w-full flex flex-col  items-center">
-      <header className="w-full px-6 pt-8 pb-6 flex flex-col items-center">
+    <div className="w-full bg-white flex flex-col items-center">
+      <header className="w-full max-w-[1200px]px-6  pt-16 pb-12 flex flex-col items-center">
         
-        <h1 className="text-terracota-500 text-5xl font-semibold text-center mb-5 tracking-wide py-15">
+        <div className="mb-6">
+          {/* Main title */}
+        <h1 className="text-terracota-500 text-5xl font-medium text-center tracking-wide">
           Need a place to go nearby?
         </h1>
+        </div>
+        
 
-        <div className="flex gap-8 mb-5 text-sm border-b  border-gray-100  justify-center">
+        {/* Categories (Filtros superiores) */}
+        {/*Se necesita poner los iconos de la pagina*/ }
+        <div className="flex gap-12 mb-8 text-base w-full justify-center">
           {[
             //cambiar para que funcione con backend, borrar despues 
             { id: "service", label: "Service" },
@@ -35,11 +42,16 @@ function Header() {
           ))}
         </div>
 
-        <div className="max-w-5xl mb-6">
-          <SearchBar placeholder="Search businesses..." width="w-300" />
+        {/* Main searchbar */}
+        <div className="w-full mb-12">
+          <SearchBar 
+            width="w-300"
+            placeholder="What would you love to discover today?"
+          />
         </div>
 
-        <div className="w-full  max-w-5xl rounded-2xl overflow-hidden  mt-10 ">
+        {/* Carousel */}
+        <div className="w-full rounded-none overflow-hidden shadow-lg">
           <Carousel />
         </div>
 
