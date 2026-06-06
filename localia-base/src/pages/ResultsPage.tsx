@@ -24,7 +24,7 @@ function ResultsPage() {
 
             </div>
 
-            <h1 className="text-4xl text-[#E35336] text-center font-bold">
+            <h1 className="text-4xl text-terracota-400 text-center font-bold">
                 Results for: "Tacos de birria"
             </h1>
 
