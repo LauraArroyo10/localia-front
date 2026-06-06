@@ -1,78 +1,71 @@
 import type { LocalBusiness } from "../../types/localBusiness";
 import StarRating from "../ui/StarRating";
-import { Card, Button } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useState } from "react";
 
 interface BusinessCardProps {
   business: LocalBusiness;
   onViewMore?: (id: number) => void;
-  size?: "large" | "small";
 }
 
-function BusinessCard({ business, onViewMore, size }: BusinessCardProps) {
+function BusinessCard({ business, onViewMore }: BusinessCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const isSmall = size === "small";
+
   return (
-    <Card
-      className={`overflow-hidden rounded-3xl bg-violet-900 border-0 ${isSmall ? "max-w-70" : "max-w-sm"}`}
-    >
+    <div className="max-w-sm overflow-hidden rounded-3xl bg-violet-900 border-0">
       <div className="relative">
         <img
           src={business.image}
           alt={business.name}
-          className={`w-full object-cover object-center ${isSmall ? "h-46" : "h-55"}`}
+          className="w-full h-55 object-cover object-center"
         />
 
-
         <div
-  onClick={() => setIsFavorite(!isFavorite)}
-  className={`flex items-center justify-center bg-violet-50 rounded-full absolute cursor-pointer z-10
-    ${isSmall ? "w-9 h-9 top-4 right-4 text-2xl" : "w-14 h-14 top-7 right-7 text-4xl"}`}
->
+          onClick={() => setIsFavorite(!isFavorite)}
+          className="absolute top-7 right-7 z-10 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-violet-50 text-4xl"
+        >
           {isFavorite ? (
-            <FaHeart size={isSmall ? 16 : 24} className="text-terracota-500 " />
+            <FaHeart className="text-red-500" />
           ) : (
-            <FaRegHeart size={isSmall ? 16 : 24} className="text-violet-900" />
+            <FaRegHeart className="text-violet-900" />
           )}
         </div>
       </div>
 
-      <div className="px-7 pt-1 pb-7">
-        <h2 className="text-2xl font-bold text-violet-50">{business.name}</h2>
+      <div className="px-7 py-7">
+        <h2 className="text-2xl font-bold text-violet-50">
+          {business.name}
+        </h2>
 
         <div className="py-2">
-          <p className="text-terracota-400 text-lg">{business.location}</p>
-          <p className="text-violet-50 text-base line-clamp-2">
+          <p className="text-lg text-terracota-400">
+            {business.location}
+          </p>
+
+          <p className="line-clamp-2 text-base text-violet-50">
             {business.description}
           </p>
         </div>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <p className="text-base text-violet-50">{business.rating}</p>
+            <p className="text-base text-violet-50">
+              {business.rating}
+            </p>
 
-            <div className="px-2">
-              <StarRating
-                rating={business.rating}
-                className={isSmall ? "text-sm" : "text-lg"}
-              />
-            </div>
+            <StarRating rating={business.rating} />
           </div>
 
           <Button
-            className={`text-violet-50 bg-violet-500 cursor-pointer hover:bg-violet-700 ${
-              isSmall
-                ? "text-xs w-20 h-9 rounded-2xl"
-                : "text-base w-34 h-13 rounded-3xl"
-            }`}
+            className="h-13 w-28 cursor-pointer rounded-3xl bg-violet-500 text-base text-violet-50 hover:bg-violet-300"
             onClick={() => onViewMore?.(business.id)}
           >
             See more
           </Button>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }
 

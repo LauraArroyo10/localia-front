@@ -53,17 +53,9 @@ function ResultsPage() {
 
       </div>
 
-      {/* TITLE */}
-      <h1
-        className="
-          text-4xl
-          text-center
-          font-bold
-          text-color-terracota-500
-        "
-      >
-        Results for: "Tacos de birria"
-      </h1>
+            <h1 className="text-4xl text-terracota-400 text-center font-bold">
+                Results for: "Tacos de birria"
+            </h1>
 
       {/* BUSINESSES */}
       <BusinessSection />
