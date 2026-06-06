@@ -67,11 +67,11 @@ function RecommendationSection() {
     };
 
     return (
-        <div className="w-full bg-[#E2725B] py-28">
+        <div className="w-full bg-terracota-400 py-28">
 
             <div className="max-w-7xl mx-auto px-6 flex flex-col gap-10">
 
-                <h2 className="text-4xl text-[#E4E6F7] text-center font-bold">
+                <h2 className="text-4xl text-violet-50 text-center font-bold">
                     You may also like...
                 </h2>
 

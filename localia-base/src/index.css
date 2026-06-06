@@ -31,9 +31,13 @@
 
   /* ─── Violet blue ─── */
   --color-violet-50:  #e4e6f7;
+  --color-violet-300: #616BFD;
   --color-violet-500: #5f66cd;
   --color-violet-700: #323f8f;
   --color-violet-900: #1f294e;
+
+  /* ─── Rojo ─── */
+  --color-red-500: #AB0000;
 
   /* ─── BG─── */
   --color-bg: #f4f4f4;
