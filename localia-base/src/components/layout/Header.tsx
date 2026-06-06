@@ -51,7 +51,7 @@ function Header() {
         </div>
 
         {/* Carousel */}
-        <div className="w-full rounded-none overflow-hidden shadow-lg">
+        <div className="w-full rounded-none overflow-hidden ">
           <Carousel />
         </div>
 

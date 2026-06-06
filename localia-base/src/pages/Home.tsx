@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import NavBar from "../components/layout/NavBar";
 import Header from "../components/layout/Header";
- import TopDestinations from "../components/layout/topdestinations";
-import BrowseInterest from "../components/layout/BrowseInterest";
+import TopDestinations from "../components/layout/TopdestinationsCard";
+import BrowseInterest from "../components/layout/BrowseInterestCard";
 import Footer from "../components/layout/Footer";
 import { AuthModal } from "../components/authentication/AuthShell";
 import SubscribeBanner from "../components/layout/SuscribeBanner";

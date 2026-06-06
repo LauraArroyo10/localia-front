@@ -1,5 +1,5 @@
 
-import  { useState, useRef, ChangeEvent } from "react";
+import  { useState, useRef, type ChangeEvent } from "react";
 
 interface ProfileData {
   businessName: string;
@@ -38,7 +38,7 @@ export default function ProfileEdit({ initialData, onSave, onCancel }: ProfileEd
   };
 
   return (
-    <div className="w-full max-w-[850px] bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200">
+    <div className="w-full max-w-[850px] bg-white rounded-3xl  overflow-hidden border border-gray-200">
       
       {/* Header Edición */}
       <div className="bg-[#EAEBFA] px-10 py-8 flex justify-between items-center border-b border-gray-200">
@@ -63,7 +63,7 @@ export default function ProfileEdit({ initialData, onSave, onCancel }: ProfileEd
 
         {/* Círculo cambiador de imagen */}
         <div className="relative group cursor-pointer" onClick={() => fileInputRef.current?.click()}>
-          <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-200 relative">
+          <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white  bg-gray-200 relative">
             <img src={formData.avatarUrl} alt="Preview Avatar" className="w-full h-full object-cover opacity-70" />
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-xs font-medium text-center p-2">
               Cambiar Foto
@@ -75,7 +75,7 @@ export default function ProfileEdit({ initialData, onSave, onCancel }: ProfileEd
 
       {/* Cuerpo inferior */}
       <div className="p-10">
-        <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-gray-200 shadow-md min-h-[420px]">
+        <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-gray-200  min-h-[420px]">
           
           {/* Lado Azul */}
           <div className="w-full md:w-[45%] bg-[#5A63D3] p-8 text-white flex flex-col justify-between gap-6">
@@ -106,13 +106,13 @@ export default function ProfileEdit({ initialData, onSave, onCancel }: ProfileEd
           <div className="w-full md:w-[55%] relative bg-gray-100">
             <img src={formData.bannerImgUrl} alt="Preview Interior" className="w-full h-full object-cover opacity-60" />
             <div className="absolute inset-0 bg-black/20 flex flex-col items-center justify-center p-6 gap-2">
-              <label className="text-white text-xs font-bold bg-black/50 px-3 py-1 rounded-full shadow-sm">URL de la imagen del local:</label>
+              <label className="text-white text-xs font-bold bg-black/50 px-3 py-1 rounded-full ">URL de la imagen del local:</label>
               <input
                 type="text"
                 name="bannerImgUrl"
                 value={formData.bannerImgUrl}
                 onChange={handleChange}
-                className="w-[90%] bg-white text-gray-800 text-xs rounded-lg px-3 py-2 shadow-md focus:outline-none"
+                className="w-[90%] bg-white text-gray-800 text-xs rounded-lg px-3 py-2  focus:outline-none"
                 placeholder="Pegar enlace de imagen (http...)"
               />
             </div>
@@ -129,7 +129,7 @@ export default function ProfileEdit({ initialData, onSave, onCancel }: ProfileEd
           </button>
           <button
             onClick={() => onSave(formData)}
-            className="px-8 py-2.5 bg-[#4D55C8] hover:bg-[#3E45A8] text-white font-semibold rounded-full shadow-md transition-all cursor-pointer text-sm"
+            className="px-8 py-2.5 bg-[#4D55C8] hover:bg-[#3E45A8] text-white font-semibold rounded-full  transition-all cursor-pointer text-sm"
           >
             Guardar Cambios
           </button>

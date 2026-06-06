@@ -1,7 +1,7 @@
 // src/components/profile/ProfileView.tsx
-import React from "react";
 
-interface ProfileViewProps {
+
+export interface ProfileViewProps {
   data: {
     businessName: string;
     subtitle: string;
@@ -31,14 +31,14 @@ export default function ProfileView({ data, onEditClick }: ProfileViewProps) {
         </div>
 
         {/* Avatar Circular */}
-        <div className="w-33 h-33 rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
+        <div className="w-33 h-33 rounded-full overflow-hidden border-4 border-white  bg-white">
           <img src={data.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
         </div>
 
         {/* Botón flotante para activar edición */}
         <button
           onClick={onEditClick}
-          className="absolute top-4 right-4 bg-white/80 hover:bg-white text-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold shadow-sm border border-gray-200 transition-all cursor-pointer"
+          className="absolute top-4 right-4 bg-white/80 hover:bg-white text-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold  border border-gray-200 transition-all cursor-pointer"
         >
            Editar Perfil
         </button>
@@ -46,7 +46,7 @@ export default function ProfileView({ data, onEditClick }: ProfileViewProps) {
 
       {/* Bloque de Información Inferior */}
       <div className="p-10">
-        <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-gray-200 shadow-md min-h-[420px]">
+        <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-gray-200  min-h-[420px]">
           
           {/* Sub-tarjeta Izquierda (Azul de Localia) */}
           <div className="w-full md:w-[45%] bg-[#5A63D3] p-8 text-white flex flex-col justify-between">

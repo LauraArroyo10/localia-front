@@ -8,6 +8,7 @@ import CategoryFilter from "../components/ui/CategoryFilter";
 import ReviewsSection from "../components/sections/ReviewSection";
 import { AuthModal } from "../components/authentication/AuthShell";
 import ProductSection from "../components/sections/ProductsSection";
+import ProfilePage from "../components/layout/ProfilePage";
 
 type AuthView = "login" | "register";
 
@@ -29,6 +30,8 @@ export default function DashBoard() {
 
       <section className="p-4">
         <div className="flex flex-col gap-3 max-w-5xl mx-auto relative z-10">
+
+<ProfilePage/>
 
 
           <SearchBar placeholder="Search businesses..." width="w-full" />
