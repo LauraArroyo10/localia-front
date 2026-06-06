@@ -70,7 +70,7 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
             <MdCameraAlt size={26} className="text-violet-500" />
           )}
         </label>
-        //este input abre el explorador de archivos 
+        {/* este input abre el explorador de archivos  */}
         <input
           id="business-photo"
           //indica selector de archivos 

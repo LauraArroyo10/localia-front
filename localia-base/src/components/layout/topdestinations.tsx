@@ -4,7 +4,7 @@ function TopDestinations() {
   const cards = Array(4).fill(null);
 
   return (
-    <section className="w-full mx-auto px-6 py-16 bg-neutral-0">
+    <section className=" max-w-7xl mx-auto px-6 py-16">
       <div className="flex justify-between items-center mb-10">
         <h2 className="text-3xl font-bold text-violet-900">Top destinations near you</h2>
         <button className="px-6 py-3 bg-accent text-violet-900 rounded-full font-semibold hover:opacity-80 transition-all cursor-pointer text-sm">

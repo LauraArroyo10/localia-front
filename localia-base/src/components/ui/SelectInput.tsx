@@ -91,7 +91,7 @@ function Select({ value, onChange, placeholder, options }: SelectProps) {
           <div
             ref={portalRef}
             style={dropdownStyle}
-            className="rounded-3xl bg-violet-50 z-[9999] max-h-60 overflow-y-auto scrollbar-hide shadow-md"
+            className="rounded-3xl bg-violet-50 z-9999 max-h-60 overflow-y-auto scrollbar-hide "
           >
             {options.map((option) => (
               <button

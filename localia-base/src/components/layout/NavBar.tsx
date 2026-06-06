@@ -8,7 +8,7 @@ interface NavBarProps {
 
 function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
   return (
-    <nav className="sticky top-0 z-50 bg-bg border-b border-violet-700 w-full">
+    <nav className="sticky top-0 z-50 bg-bg  border-violet-700 w-full">
   <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-13">
     
     <div className="flex items-center gap-2">

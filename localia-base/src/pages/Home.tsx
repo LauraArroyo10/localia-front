@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import NavBar from "../components/layout/NavBar";
 import Header from "../components/layout/Header";
-// import TopDestinations from "../components/layout/Topdestinations";
+ import TopDestinations from "../components/layout/topdestinations";
 import BrowseInterest from "../components/layout/BrowseInterest";
 import Footer from "../components/layout/Footer";
 import { AuthModal } from "../components/authentication/AuthShell";
@@ -40,7 +40,7 @@ function Home() {
       <Header />
 
       {/* DESTINATIONS */}
-      {/* <TopDestinations /> */}
+      <TopDestinations />
 
       {/* INTERESTS */}
       <BrowseInterest />

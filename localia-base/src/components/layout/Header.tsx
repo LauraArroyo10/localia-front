@@ -9,11 +9,11 @@ function Header() {
     <div className="w-full flex flex-col  items-center">
       <header className="w-full px-6 pt-8 pb-6 flex flex-col items-center">
         
-        <h1 className="text-terracota-500 text-5xl font-medium text-center mb-5 tracking-wide py-15">
+        <h1 className="text-terracota-500 text-5xl font-semibold text-center mb-5 tracking-wide py-15">
           Need a place to go nearby?
         </h1>
 
-        <div className="flex gap-8 mb-5 text-sm border-b border-gray-100  justify-center">
+        <div className="flex gap-8 mb-5 text-sm border-b  border-gray-100  justify-center">
           {[
             //cambiar para que funcione con backend, borrar despues 
             { id: "service", label: "Service" },
