@@ -1,6 +1,5 @@
-export interface Contact{
-
-    email:string
-    phone:string
-    addressLines:string[]
+export interface Contact {
+	email: string;
+	phone: string;
+	addressLines: string[];
 }

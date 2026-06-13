@@ -1,17 +1,17 @@
-import DashBoard from "./pages/DashBoard";
-import Home from "./pages/Home";
-import ResultsPage from "./pages/ResultsPage";
+// import DashBoard from "./pages/DashBoard";
+// import Home from "./pages/Home";
+// import ResultsPage from "./pages/ResultsPage";
 
-function App() {
-  return (
-    <>
-      <DashBoard />
+// function App() {
+// 	return (
+// 		<>
+// 			<DashBoard />
 
-      <Home />
+// 			<Home />
 
-      <ResultsPage />
-    </>
-  );
-}
+// 			<ResultsPage />
+// 		</>
+// 	);
+// }
 
-export default App;
+// export default App;

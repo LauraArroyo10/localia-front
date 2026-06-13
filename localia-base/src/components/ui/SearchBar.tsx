@@ -1,30 +1,23 @@
 import { CiSearch } from "react-icons/ci";
 
 interface SearchBarProps {
-  placeholder: string;
-  width: string;
+	placeholder: string;
+	width: string;
 }
 
-function SearchBar({
-  placeholder,
-  width,
-}: SearchBarProps) {
-
-  return (
-
-    <div className="flex justify-center w-full">
-
-      <div
-        className={`
+function SearchBar({ placeholder, width }: SearchBarProps) {
+	return (
+		<div className="flex justify-center w-full">
+			<div
+				className={`
           ${width}
           flex
           gap-4
         `}
-      >
-
-        {/* INPUT */}
-        <div
-          className="
+			>
+				{/* INPUT */}
+				<div
+					className="
             flex-1
             h-12
             border
@@ -39,25 +32,24 @@ function SearchBar({
             focus-within:ring-violet-500
             transition-all
           "
-        >
-
-        <input
-  type="text"
-  placeholder={placeholder}
-  autoComplete="off"
-  className="
+				>
+					<input
+						type="text"
+						placeholder={placeholder}
+						autoComplete="off"
+						className="
     w-full
     outline-none
     bg-transparent
     text-violet-900
     placeholder:text-neutral-400
   "
-/>
-        </div>
+					/>
+				</div>
 
-        {/* SEARCH BUTTON */}
-        <button
-          className="
+				{/* SEARCH BUTTON */}
+				<button
+					className="
             w-24
             h-12
             rounded-full
@@ -69,22 +61,17 @@ function SearchBar({
             bg-violet-500
             hover:bg-violet-300
           "
-        >
-
-          <CiSearch
-            className="
+				>
+					<CiSearch
+						className="
               text-neutral-0
               text-4xl
             "
-          />
-
-        </button>
-
-      </div>
-
-    </div>
-
-  );
+					/>
+				</button>
+			</div>
+		</div>
+	);
 }
 
 export default SearchBar;

@@ -1,10 +1,7 @@
-
 function SubscribeBanner() {
-
-  return (
-
-    <section
-      className="
+	return (
+		<section
+			className="
         w-full
         py-20
         px-6
@@ -15,24 +12,22 @@ function SubscribeBanner() {
         bg-terracota-400
         text-neutral-0
       "
-    >
-
-      <div className="flex flex-col items-center gap-8">
-
-        <h2
-          className="
+		>
+			<div className="flex flex-col items-center gap-8">
+				<h2
+					className="
             text-3xl
             md:text-4xl
             font-semibold
             leading-tight
           "
-        >
-          Explore what’s waiting for you on your next adventure
-        </h2>
+				>
+					Explore what’s waiting for you on your next adventure
+				</h2>
 
-        {/* FORM */}
-        <div
-          className="
+				{/* FORM */}
+				<div
+					className="
             w-full
             flex
             flex-col
@@ -40,13 +35,12 @@ function SubscribeBanner() {
             gap-4
             justify-center
           "
-        >
-
-          {/* INPUT */}
-          <input
-            type="email"
-            placeholder="Email"
-            className="
+				>
+					{/* INPUT */}
+					<input
+						type="email"
+						placeholder="Email"
+						className="
               flex-1
               h-12
               rounded-full
@@ -60,11 +54,11 @@ function SubscribeBanner() {
               focus:ring-violet-500
               bg-bg
             "
-          />
+					/>
 
-          {/* BUTTON */}
-          <button
-            className="
+					{/* BUTTON */}
+					<button
+						className="
               h-12
               px-8
               rounded-full
@@ -76,28 +70,25 @@ function SubscribeBanner() {
               text-neutral-0
               hover:bg-violet-700
             "
-          >
-            Subscribe
-          </button>
+					>
+						Subscribe
+					</button>
+				</div>
 
-        </div>
-
-        {/* TEXT */}
-        <p
-          className="
+				{/* TEXT */}
+				<p
+					className="
             text-xs
             leading-relaxed
             text-neutral-100
           "
-        >
-          We’ll send you inspiring updates and information about our experiences.
-        </p>
-
-      </div>
-
-    </section>
-
-  );
+				>
+					We’ll send you inspiring updates and information about our
+					experiences.
+				</p>
+			</div>
+		</section>
+	);
 }
 
 export default SubscribeBanner;
