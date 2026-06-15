@@ -21,7 +21,7 @@ function ResultsPage() {
 	};
 
 	return (
-		<main className="min-h-screen flex flex-col gap-20 bg-color-bg">
+		<div className="min-h-screen flex flex-col gap-20 bg-color-bg">
 			{/* NAVBAR */}
 			<NavBar
 				onLoginClick={() => openAs("login")}
@@ -53,7 +53,7 @@ function ResultsPage() {
 				onClose={() => setOpen(false)}
 				initialView={view}
 			/>
-		</main>
+		</div>
 	);
 }
 

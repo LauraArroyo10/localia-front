@@ -1,155 +1,86 @@
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
+// ─── Interfaces ───────────────────────────────────────────────────────────────
 
-
-import { useAuthContext } from '../context/authContext';
-export function useAuth() {
-  return useAuthContext();
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "tourist" | "seller" | "guest";
+  avatar?: string;
+  location?: string;
 }
 
+interface LoginData {
+  email: string;
+  password: string;
+}
 
-//import { useState, useEffect } from 'react';
-// const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+  role: "guest" | "tourist" | "seller";
+}
 
-// // ─── TypeScript: Interfaces ───────────────────────────────────────────────────
+interface AuthStore {
+  user: AuthUser | null;
+  loading: boolean;
+  error: string | null;
+  login: (data: LoginData) => Promise<void>;
+  register: (data: RegisterData) => Promise<void>;
+  logout: () => void;
+}
 
-// export interface AuthUser {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: "tourist" | "seller" | "admin";
-//   avatar?: string;
-//   location?: string;
-// }
+// ─── Store ────────────────────────────────────────────────────────────────────
 
-// interface AuthResponse {
-//   message: string;
-//   user: AuthUser;
-//   token: string;
-// }
+export const useAuth = create<AuthStore>()(persist(
+  (set) => ({
+    user: null,
+    loading: false,
+    error: null,
 
-// interface RegisterData {
-//   name: string;
-//   email: string;
-//   password: string;
-//   role: "guest" | "tourist" | "seller";
-// }
+   login: async (data: LoginData) => {
+    set({ loading: true });
+    try {
+        const res = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        console.log("login response:", json); // ← aquí
+        if (!res.ok) throw new Error(json.message ?? "Login failed");
+        set({ user: json.user });
+    } catch (err) {
+        set({ error: err instanceof Error ? err.message : "Error" });
+    } finally {
+        set({ loading: false });
+    }
+},
 
-// interface LoginData {
-//   email: string;
-//   password: string;
-// }
+    register: async (data: RegisterData) => {
+      set({ loading: true });
+      try {
+        const res = await fetch(`${API_URL}/auth/register`, {
+          method: "POST",
+          headers: { "Content-TYPE": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.message ?? "Registration failed");
+        set({ user: json.user });
+      } catch (err) {
+        set({ error: err instanceof Error ? err.message : "Error" });
+      } finally {
+        set({ loading: false });
+      }
+    },
 
-// interface UseAuthResult {
-//   user: AuthUser | null;
-//   loading: boolean;
-//   error: string | null;
-//   register: (data: RegisterData) => Promise<void>;
-//   login: (data: LoginData) => Promise<void>;
-//   logout: () => void;
-// }
-
-// // ─── Helpers ─────────────────────────────────────────────────────────────────
-
-// const saveSession = (token: string, user: AuthUser) => {
-//   localStorage.setItem("token", token);
-//   localStorage.setItem("user", JSON.stringify(user));
-// };
-
-// const getSavedUser = (): AuthUser | null => {
-//   const raw = localStorage.getItem("user");
-//   return raw ? (JSON.parse(raw) as AuthUser) : null;
-// };
-
-// const clearSession = () => {
-//   localStorage.removeItem("token");
-//   localStorage.removeItem("user");
-// };
-
-// /**
-//  * Custom authentication hook.
-//  * Handles login, registration, logout and session persistence.
-//  *
-//  * @returns {UseAuthResult} user state and authentication functions
-//  */
-// export function useAuth(): UseAuthResult {
-//   const [user, setUser] = useState<AuthUser | null>(null);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState<string | null>(null);
-
-//   // ─── React Topic: Restore session on mount ────────────────────────────────
-//   useEffect(() => {
-//     const savedUser = getSavedUser();
-//     if (savedUser) {
-//       setUser(savedUser);
-//     }
-//   }, []);
-
-//   // ─── Register ──────────────────────────────────────────────────────────────
-//   const register = async (data: RegisterData) => {
-//     setLoading(true);
-
-//     try {
-//       const response = await fetch(`${API_URL}/auth/register`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(data),
-//       });
-
-//       const json: AuthResponse = await response.json();
-
-//       if (!response.ok) {
-//         throw new Error(json.message ?? "Registration failed");
-//       }
-
-//       saveSession(json.token, json.user);
-//       setUser(json.user);
-//     } catch (err) {
-//       setError(err instanceof Error ? err.message : "Error");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   // ─── Login ────────────────────────────────────────────────────────────────
-//   const login = async (data: LoginData) => {
-//     setLoading(true);
-
-//     try {
-//       const response = await fetch(`${API_URL}/auth/login`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(data),
-//       });
-
-//       const json: AuthResponse = await response.json();
-
-//       if (!response.ok) {
-//         throw new Error(json.message ?? "Login failed");
-//       }
-
-//       saveSession(json.token, json.user);
-//       setUser(json.user);
-//     } catch (err) {
-//       setError(err instanceof Error ? err.message : "Error");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   // ─── Logout ────────────────────────────────────────────────────────────────
-//   const logout = () => {
-//     clearSession();
-//     setUser(null);
-//   };
-
-//   return {
-//     user,
-//     loading,
-//     error,
-//     register,
-//     login,
-//     logout,
-//   };
-  
-// }
+    logout: () => set({ user: null, error: null }),
+  }),
+  { name: "auth" }
+));

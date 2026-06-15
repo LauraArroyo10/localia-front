@@ -32,7 +32,7 @@ Qué quieres lograr con el proyecto.
 
 ---
 
-## 4. Lo aprendido en clase
+## 4. Lo aprendido 
 
 -
 -

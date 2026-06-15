@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 //libreria de leaflet
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
+
 //Fix del ícono de Leaflet con bundlers
 //importacion de imagenes manualpor problemas entre leaflet y vite
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
@@ -59,21 +60,17 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 	// Busca en Nominatim con debounce
 	// deben haber 3
 	useEffect(() => {
-		if (query.length < 3 || selected) {
-			setSuggestions([]);
-			return;
-		}
+		if (query.length < 3 || selected) return setSuggestions([]);
 
-		// Esto es lo que se ve cuando se hace una bsuqueda y se autocompleta con resultados__________________________________________
+		// Esto es lo que se ve cuando se hace una bsuqueda y se autocompleta con resultados
 		const timer = setTimeout(async () => {
 			setLoading(true);
 			try {
 				const res = await fetch(
 					`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5`,
-					{ headers: { "Accept-Language": "en" } },
+					{ headers: { "Accept-Language": "en" } }
 				);
-				const data = await res.json();
-				setSuggestions(data);
+				setSuggestions(await res.json());
 			} catch {
 				setSuggestions([]);
 			} finally {
@@ -85,20 +82,14 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 		return () => clearTimeout(timer);
 	}, [query, selected]);
 
-	// Guarda y limpia __________________________________________
+	// Guarda y limpia
 	const handleSelect = (s: Suggestion) => {
 		setSelected(s);
 		setQuery(s.display_name);
 		setSuggestions([]);
 	};
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(e.target.value);
-		setSelected(null);
-	};
-
 	// Posición inicial del mapa — Costa Rica como default
-	const defaultPosition: [number, number] = [9.7489, -83.7534];
 	const selectedPosition: [number, number] | null = selected
 		? [parseFloat(selected.lat), parseFloat(selected.lon)]
 		: null;
@@ -114,7 +105,7 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 				<Input
 					placeholder="Search your city or address..."
 					value={query}
-					onChange={handleChange}
+					onChange={(e) => { setQuery(e.target.value); setSelected(null); }}
 					required
 				/>
 
@@ -144,10 +135,9 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 			{/* Mapa Leaflet */}
 			<div className="w-full h-52 rounded-2xl overflow-hidden border border-neutral-200 z-0">
 				<MapContainer
-					center={defaultPosition}
+					center={[9.7489, -83.7534]}
 					zoom={7}
 					style={{ width: "100%", height: "100%" }}
-					zoomControl={true}
 					scrollWheelZoom={false} // evita zoom accidental al scrollear el formulario
 				>
 					<TileLayer
@@ -160,31 +150,15 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 						<>
 							<Marker position={selectedPosition} />
 							{/* Mueve el mapa a la nueva ubicación */}
-							<FlyToLocation
-								lat={selectedPosition[0]}
-								lon={selectedPosition[1]}
-							/>
+							<FlyToLocation lat={selectedPosition[0]} lon={selectedPosition[1]} />
 						</>
 					)}
 				</MapContainer>
 			</div>
 
 			<div className="flex justify-between pt-1">
-				<Button
-					text="Back"
-					bgColor="bg-neutral-100"
-					textColor="text-neutral-700"
-					size="w-28"
-					onClick={onBack}
-				/>
-				<Button
-					text="Finish"
-					bgColor="bg-violet-500"
-					textColor="text-neutral-0"
-					size="w-28"
-					onClick={onFinish}
-					disabled={!selected}
-				/>
+				<Button text="Back" bgColor="bg-neutral-100" textColor="text-neutral-700" size="w-28" onClick={onBack} />
+				<Button text="Finish" bgColor="bg-violet-500" textColor="text-neutral-0" size="w-28" onClick={onFinish} disabled={!selected} />
 			</div>
 		</div>
 	);
