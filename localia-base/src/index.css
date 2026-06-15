@@ -20,13 +20,14 @@
 	--color-neutral-900: #1f1f1f;
 	--color-neutral-950: #000000;
 
-	/* ─── Terracota ─── */
-	--color-terracota-500: #e35336;
-	--color-terracota-400: #e2725b;
+  /* ─── Terracota ─── */
+  --color-terracota-400: #e2725b;
+  --color-terracota-500: #e35336;
 
-	/* ─── Violet blue ─── */
-	--color-violet-50: #e4e6f7;
-	--color-violet-300: #616bfd;
+  /* ─── Violet blue ─── */
+  --color-violet-50:  #e4e6f7;
+  --color-violet-100: #EAEBFA;
+  --color-violet-300: #616BFD;
 
 	--color-violet-500: #4d55c8;
 	--color-violet-700: #323f8f;
