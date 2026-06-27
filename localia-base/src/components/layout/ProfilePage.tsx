@@ -32,7 +32,7 @@ export default function ProfilePage() {
     rating: 4,
   });
  
-  const handleSave = (updatedData: ProfileData) => {
+  const handleSaveData = (updatedData: ProfileData) => {
     setProfileData(updatedData);
     setIsEditing(false);
   };

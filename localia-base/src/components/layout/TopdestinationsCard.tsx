@@ -4,7 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 function TopDestinations(){
   
   const cards = Array(4).fill(null);
-
+const navigate = useNavigate();
   return (
     
     <section className="w-full  py-16 px-6 flex flex-col items-center">
@@ -15,7 +15,12 @@ function TopDestinations(){
         {/* Encabezado de Sección */}
         <div className="flex justify-between items-center mb-10 w-full max-w-[1200px]">
           <h2 className="text-3xl font-bold text-violet-900">Top destinations near you</h2>
-          <button className="px-6 py-3 bg-accent text-violet-900 rounded-full font-semibold hover:bg-accent-100 transition-all cursor-pointer text-sm">
+          <button
+						onClick={() => navigate({ to: "/results" })}
+						className="px-6 py-3 bg-accent text-violet-900 rounded-full font-semibold hover:bg-accent-100 transition-all cursor-pointer text-sm"
+					>
+
+    
             Find more places
           </button>
         </div>
