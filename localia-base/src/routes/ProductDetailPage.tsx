@@ -30,7 +30,11 @@ const { id } = Route.useSearch();
     };
 
 const product:Product={
-    id
+    id: 1,
+    image: "/img/hamburguesas.jpg",
+    name: "Hamburguesa especial",
+    description: "Hamburguesa con carne, queso, lechuga y salsa de la casa.",
+    price: 10
 }
     // const product: Product = {
     // id: 1,
@@ -50,8 +54,8 @@ const product:Product={
 			/>
 
 			{/* SEARCH AREA */}
-			<div className="flex flex-col gap-3 max-w-5xl mx-auto relative z-10">
-				<SearchBar placeholder="Search businesses..." width="w-300" />
+			<div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
+				<SearchBar placeholder="Search businesses..." />
 				<CategoryFilter />
 			</div>
 

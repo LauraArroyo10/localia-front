@@ -28,16 +28,15 @@ function DashboardPage() {
 	};
 
 	return (
-		<main className="min-h-screen flex flex-col bg-color-bg">
+		<main className="min-h-screen flex flex-col gap-20 bg-color-bg">
 			<NavBar
 				onLoginClick={() => openAs("login")}
 				onRegisterClick={() => openAs("register")}
 			/>
 
-			<section className="flex-1 p-4">
-				<div className="flex flex-col gap-3 max-w-5xl mx-auto relative z-10">
-					
-					<SearchBar placeholder="Search businesses..." width="w-full" />
+			<section>
+				  <div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
+					<SearchBar placeholder="Search businesses..." />
 					<CategoryFilter />
 					<ProfilePage />
 					
