@@ -1,22 +1,21 @@
+import React from "react";
 
-import React from 'react';
+//Imagenes actuales que tenemos
+import artisanImg from "../../assets/brand/artisan.jpg";
+import beachImg from "../../assets/brand/beach.jpg";
+import cultureImg from "../../assets/brand/culture.jpg";
+import foodImg from "../../assets/brand/food.jpg";
+import mountainImg from "../../assets/brand/montain.jpg";
+import townImg from "../../assets/brand/town.jpg";
 
-//Imagenes actuales que tenemos 
-import artisanImg from '../../assets/brand/artisan.jpg';
-import foodImg from '../../assets/brand/food.jpg';
-import cultureImg from '../../assets/brand/culture.jpg';
-import beachImg from '../../assets/brand/beach.jpg';
-import mountainImg from '../../assets/brand/montain.jpg';
-import townImg from '../../assets/brand/town.jpg';
-
-//borrar despues 
+//borrar despues
 const categories = [
-  { name: 'Artisan Goods', img: artisanImg },
-  { name: 'Local Food', img: foodImg },
-  { name: 'Culture', img: cultureImg },
-  { name: 'The Beach', img: beachImg },
-  { name: 'The Mountain', img: mountainImg },
-  { name: 'Town Places', img: townImg },
+	{ name: "Artisan Goods", img: artisanImg },
+	{ name: "Local Food", img: foodImg },
+	{ name: "Culture", img: cultureImg },
+	{ name: "The Beach", img: beachImg },
+	{ name: "The Mountain", img: mountainImg },
+	{ name: "Town Places", img: townImg },
 ];
 
 function BrowseInterest() {

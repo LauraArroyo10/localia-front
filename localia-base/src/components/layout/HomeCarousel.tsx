@@ -1,33 +1,33 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import destinationImg from '../../assets/brand/destination-placeholder.jpg';
-import foodImg from '../../assets/brand/food.jpg';  
-
+import destinationImg from "../../assets/brand/destination-placeholder.jpg";
+import foodImg from "../../assets/brand/food.jpg";
 
 export function Carousel() {
-  const [current, setCurrent] = useState(0);
+	const [current, setCurrent] = useState(0);
 
-  // Array local 
-  const bannerSlides = [
-    { id: 1, image: destinationImg, alt: "Beautiful beach destination" },
-    { id: 2, image: foodImg, alt: "Delicius food" },
-    { id: 3, image: foodImg, alt: "Delicius food" },
-    { id: 4, image: foodImg, alt: "Delicius food" }
-  ];
+	// Array local
+	const bannerSlides = [
+		{ id: 1, image: destinationImg, alt: "Beautiful beach destination" },
+		{ id: 2, image: foodImg, alt: "Delicius food" },
+		{ id: 3, image: foodImg, alt: "Delicius food" },
+		{ id: 4, image: foodImg, alt: "Delicius food" },
+	];
 
-  const prev = () => setCurrent(i => (i - 1 + bannerSlides.length) % bannerSlides.length);
-  const next = () => setCurrent(i => (i + 1) % bannerSlides.length);
+	const prev = () =>
+		setCurrent((i) => (i - 1 + bannerSlides.length) % bannerSlides.length);
+	const next = () => setCurrent((i) => (i + 1) % bannerSlides.length);
 
-  return (
-    <div className="relative w-full h-[480px] group overflow-hidden">
-      {/* Image */}
-      <img
-        src={bannerSlides[current].image}
-        alt={bannerSlides[current].alt}
-        className="w-full h-full object-cover transition-all duration-700 ease-in-out transform scale-100 group-hover:scale-[1.01]"
-      />
+	return (
+		<div className="relative w-full h-[480px] group overflow-hidden">
+			{/* Image */}
+			<img
+				src={bannerSlides[current].image}
+				alt={bannerSlides[current].alt}
+				className="w-full h-full object-cover transition-all duration-700 ease-in-out transform scale-100 group-hover:scale-[1.01]"
+			/>
 
-      <div className="" />
+			<div className="" />
 
       {/* Button Prev */}
       <button 

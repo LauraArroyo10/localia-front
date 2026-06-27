@@ -1,13 +1,13 @@
 import type { CommentProps } from "../../types/comment";
 import type { Role } from "../../types/rol";
-import StarRating from "../ui/StarRating";
 import Button from "../ui/Button";
+import StarRating from "../ui/StarRating";
 
 export interface ReviewCardProps {
-  reviewCard: CommentProps;
-  userRole: Role;
-  //para boton de comentarios
-  onHelpful: (id: string) => void;
+	reviewCard: CommentProps;
+	userRole: Role;
+	//para boton de comentarios
+	onHelpful: (id: string) => void;
 }
 
 export default function ReviewCard({ reviewCard, userRole, onHelpful }: ReviewCardProps) {
@@ -25,9 +25,9 @@ export default function ReviewCard({ reviewCard, userRole, onHelpful }: ReviewCa
         </div>
       </div>
 
-      <div className="flex items-center mb-1 space-x-2">
-        <StarRating rating={reviewCard.rating} className="text-sm" />
-      </div>
+			<div className="flex items-center mb-1 space-x-2">
+				<StarRating rating={reviewCard.rating} className="text-sm" />
+			</div>
 
       <footer className="mb-3 text-xs text-neutral-500">
         <p>Reviewed on <time>{reviewCard.reviewDate}</time></p>

@@ -1,10 +1,10 @@
-import BusinessCard from "../cards/BusinessCard";
 import { mockBusinesses } from "../../mockData/mockBusinesses";
+import BusinessCard from "../cards/BusinessCard";
 
 function BusinessSection() {
-  const handleViewMore = (id: number) => {
-    console.log("Ver más", id);
-  };
+	const handleViewMore = (id: number) => {
+		console.log("Ver más", id);
+	};
 
   return (
     <div className="max-w-7xl mx-auto px-6 ">

@@ -1,17 +1,16 @@
 // src/components/profile/ProfileView.tsx
 
-
 export interface ProfileViewProps {
-  data: {
-    businessName: string;
-    subtitle: string;
-    avatarUrl: string;
-    bannerImgUrl: string;
-    description: string;
-    location: string;
-    rating: number;
-  };
-  onEditClick: () => void; // Función que avisa a la página padre que queremos editar
+	data: {
+		businessName: string;
+		subtitle: string;
+		avatarUrl: string;
+		bannerImgUrl: string;
+		description: string;
+		location: string;
+		rating: number;
+	};
+	onEditClick: () => void; // Función que avisa a la página padre que queremos editar
 }
 
 export default function ProfileView({ data, onEditClick }: ProfileViewProps) {

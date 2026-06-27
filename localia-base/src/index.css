@@ -1,24 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=SN+Pro:wght@400;600&display=swap");
 @import "tailwindcss";
 
 :root {
-  background: #f4f4f4;
+	background: #f4f4f4;
 }
 
 @theme {
-  /* ─── Neutral ─── */
-  --color-neutral-0:   #ffffff;
-  --color-neutral-50:  #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e8e8e8;
-  --color-neutral-300: #d9d9d9;
-  --color-neutral-400: #bfbfbf;
-  --color-neutral-500: #8c8c8c;
-  --color-neutral-600: #595959;
-  --color-neutral-700: #434343;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #1f1f1f;
-  --color-neutral-950: #000000;
+	/* ─── Neutral ─── */
+	--color-neutral-0: #ffffff;
+	--color-neutral-50: #fafafa;
+	--color-neutral-100: #f5f5f5;
+	--color-neutral-200: #e8e8e8;
+	--color-neutral-300: #d9d9d9;
+	--color-neutral-400: #bfbfbf;
+	--color-neutral-500: #8c8c8c;
+	--color-neutral-600: #595959;
+	--color-neutral-700: #434343;
+	--color-neutral-800: #262626;
+	--color-neutral-900: #1f1f1f;
+	--color-neutral-950: #000000;
 
   /* ─── Terracota ─── */
   --color-terracota-400: #e2725b;
@@ -29,9 +29,9 @@
   --color-violet-100: #EAEBFA;
   --color-violet-300: #616BFD;
 
-  --color-violet-500: #4D55C8;
-  --color-violet-700: #323f8f;
-  --color-violet-900: #1f294e;
+	--color-violet-500: #4d55c8;
+	--color-violet-700: #323f8f;
+	--color-violet-900: #1f294e;
 
   /* ─── Rojo ─── */
   --color-red-500: #AB0000;
@@ -39,8 +39,8 @@
   /* ─── Amarillo ─── */
   --color-yellow-500: #FDC700;
 
-  /* ─── BG ─── */
-  --color-bg: #f4f4f4;
+	/* ─── BG ─── */
+	--color-bg: #f4f4f4;
 
   /* ─── Accent ─── */
   --color-accent: #ccc95d;
@@ -48,57 +48,64 @@
 }
 
 @layer base {
-  body {
-    font-family: "SN Pro", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    padding: 45px 0px 0 0px;
-  }
+	body {
+		font-family: "SN Pro", sans-serif;
+		font-optical-sizing: auto;
+		font-style: normal;
+		padding: 45px 0px 0 0px;
+	}
 
-  h1, h2, h3, p {
-    margin: 0;
-  }
+	h1,
+	h2,
+	h3,
+	p {
+		margin: 0;
+	}
 }
 
 /* Scrollbar utility — para ocultar barra fea */
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 @layer base {
-  html {
-    font-size: 15px; /* reduce levemente la escala base */
-  }
+	html {
+		font-size: 15px; /* reduce levemente la escala base */
+	}
 
-  body {
-    padding-top: 20px; /* solo el alto del navbar */
-  }
+	body {
+		padding-top: 20px; /* solo el alto del navbar */
+	}
 }
 
 /* aniamciones: */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .review-enter {
-  animation: fadeInUp 0.35s ease-out;
+	animation: fadeInUp 0.35s ease-out;
 }
 @keyframes softFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .slide-enter {
-  animation: softFade 0.6s ease-in-out;
+	animation: softFade 0.6s ease-in-out;
 }

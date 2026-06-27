@@ -1,86 +1,121 @@
 import { useState } from "react";
-
-import { StepWhatOffer } from "./steps/StepWhatoffer";
-import { StepBusinessInfo } from "./steps/StepBusinessInfo";
-import { StepLocation } from "./steps/StepLocation";
-import { StepDone } from "./steps/StepDone";
-import { StepBasicInfo } from "./steps/StepBasicInfo";
-import { StepIndicator } from '../ui/StepIndicator';
-
+import { useAuth } from "../../hooks/useAuth";
 import type { Role } from "../../types/rol";
+import { StepIndicator } from "../ui/StepIndicator";
+import { StepBasicInfo } from "./steps/StepBasicInfo";
+import { StepBusinessInfo } from "./steps/StepBusinessInfo";
+import { StepDone } from "./steps/StepDone";
+import { StepLocation } from "./steps/StepLocation";
+import { StepWhatOffer } from "./steps/StepWhatoffer";
 
+import { useNavigate } from "@tanstack/react-router"
 
 
 type StepKey = "basic" | "offer" | "business" | "location" | "done";
 
 function getSteps(role: Role): StepKey[] {
-  if (role === "seller") return ["basic", "offer", "business", "location", "done"];
-  if (role === "tourist") return ["basic", "done"];
-  return ["basic", "done"];
+	if (role === "seller")
+		return ["basic", "offer", "business", "location", "done"];
+	return ["basic", "done"];
 }
 
 interface RegisterWizardProps {
-  //cerrar formulario
-  onClose: () => void;
-  //cambiar de paso
-  onSwitch: () => void;
+	onClose: () => void;
+	onSwitch: () => void;
+}
+
+interface RegisterData {
+	name: string;
+	email: string;
+	password: string;
+	role: Role;
 }
 
 export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
-  //para cambiar eel form, comeinza en 0 
-  const [stepIndex, setStepIndex] = useState(0);
-  //para cambiar depenmdiendod el rol ingresado 
-  const [role, setRole] = useState<Role>("tourist");
-//para obtener los pasos de cada rol separado 
-  const steps = getSteps(role);
-  //referencia delqo ue se tiene seleccionado en el momento 
-  const currentStep = steps[stepIndex];
-  // esto para ver la cantidad de pasos y usarlo en los movimientos de next y back
-  const totalSteps = steps.length - 1;
+	const [stepIndex, setStepIndex] = useState(0);
+	const [role, setRole] = useState<Role>("tourist");
+	const { register } = useAuth();
+	const [registerData, setRegisterData] = useState<RegisterData>({
+		name: "",
+		email: "",
+		password: "",
+		role: "tourist",
+	});
+	
+	const steps = getSteps(role);
+	const currentStep = steps[stepIndex];
+	const totalSteps = steps.length - 1;
+const navigate = useNavigate();
+	const next = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
 
-  //para los botones sigueinte y atras
-  const next = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
-  const back = () => setStepIndex((i) => Math.max(i - 1, 0));
+	const back = () => setStepIndex((i) => Math.max(i - 1, 0));
 
-  return (
-    <div className="flex flex-col  w-full max-w-sm mx-auto h-full">
+	const handleRegister = async () => {
+		try {
+			console.log("Sending to backend:", registerData);
 
-      {/* Stepper siempre visible  para los pasos el vendedor que son varios*/}
-     <div className="h-12">
-  {role === "seller" && currentStep !== "done" && (
-    <StepIndicator current={stepIndex} total={totalSteps} />
-  )}
-</div>
+			const response = await register(registerData);
 
-      {/* justify-center solo en done, resto scrollea normal */}
-      <div className={`flex-1 overflow-y-auto flex flex-col ${currentStep === "done" ? "justify-center" : ""}`}>
-        {currentStep === "basic" && (
-          <StepBasicInfo
-            role={role}
-            onRoleChange={setRole}
-            onNext={(selectedRole) => {
-              setRole(selectedRole);
-              next();
-            }}
-            onSwitch={onSwitch}
-          />
-        )}
-        {currentStep === "offer" && (
-          <StepWhatOffer onNext={next} onBack={back} />
-        )}
-        {currentStep === "business" && (
-          <StepBusinessInfo onNext={next} onBack={back} />
-        )}
-        {currentStep === "location" && (
-           <StepLocation onFinish={next} onBack={back} />
-        )}
-        {currentStep === "done" && (
-          <StepDone role={role} onClose={onClose} />
-        )}
-      </div>
-    </div>
-  );
+			console.log("User registered:", response);
 
+			onClose();
+       navigate({ to: "/dashboard" }); 
+		} catch (error) {
+			console.error("Registration error:", error);
+		}
+	};
+
+	return (
+		<div className="flex flex-col w-full max-w-sm mx-auto h-full">
+			<div className="h-12">
+				{role === "seller" && currentStep !== "done" && (
+					<StepIndicator current={stepIndex} total={totalSteps} />
+				)}
+			</div>
+
+			<div
+				className={`flex-1 overflow-y-auto flex flex-col ${
+					currentStep === "done" ? "justify-center" : ""
+				}`}
+			> 
+			{currentStep === "basic" && (
+    <StepBasicInfo
+        role={role}
+        onRoleChange={setRole}
+        onNext={async (selectedRole, data) => {
+    setRole(selectedRole);
+    const newData = { ...data, role: selectedRole };
+    setRegisterData(newData);
+
+    if (selectedRole === "tourist") {
+        await register(newData);
+        next();
+        navigate({ to: "/dashboard" });
+    } else {
+        next();
+    }}
+	
+	}
+        onSwitch={onSwitch}
+    />
+)}
+
+				{currentStep === "offer" && (
+					<StepWhatOffer onNext={next} onBack={back} />
+				)}
+
+				{currentStep === "business" && (
+					<StepBusinessInfo onNext={next} onBack={back} />
+				)}
+
+				{currentStep === "location" && (
+					<StepLocation onFinish={next} onBack={back} />
+				)}
+
+				{currentStep === "done" && (
+					<StepDone role={role} onClose={handleRegister} />
+				)}
+			</div>
+		</div>
+	);
 }
-
-

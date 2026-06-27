@@ -1,6 +1,6 @@
-import type { SocialLink } from '../../types/types';
-import Logo from '../../assets/brand/logo.svg?react';
-import { contactData } from '../../mockData/contactData';
+import Logo from "../../assets/brand/logo.svg?react";
+import { contactData } from "../../mockData/contactData";
+import type { SocialLink } from "../../types/types";
 
 const socialLinks: SocialLink[] = [
   { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "facebook" },
@@ -10,11 +10,11 @@ const socialLinks: SocialLink[] = [
 ];
 
 function Footer() {
-  const currentYear = new Date().getFullYear();
+	const currentYear = new Date().getFullYear();
 
-  const handleGoBackOnTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+	const handleGoBackOnTop = () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	};
 
   return (
     <footer className="bg-violet-700 text-neutral-0 flex flex-col px-[10%] pt-11 pb-10">
@@ -37,40 +37,41 @@ function Footer() {
           </p>
         </div>
 
-        {/* Sección Contacto */}
-        <div className="flex flex-col text-sm max-md:w-full">
-          <h4 className="text-sm font-bold mb-4 capitalize">Contact Us</h4>
-          <a
-            href={`mailto:${contactData.email}`}
-            className="font-medium hover:underline"
-          >
-            {contactData.email}
-          </a>
-          <p className="leading-6">Tel: {contactData.phone}</p>
-          <p className="leading-6">Address:</p>
-          {contactData.addressLines.map((line: string, index: number) => (
-            <p key={index} className="leading-6">{line}</p>
-          ))}
-        </div>
+				{/* Sección Contacto */}
+				<div className="flex flex-col text-sm max-md:w-full">
+					<h4 className="text-sm font-bold mb-4 capitalize">Contact Us</h4>
+					<a
+						href={`mailto:${contactData.email}`}
+						className="font-medium hover:underline"
+					>
+						{contactData.email}
+					</a>
+					<p className="leading-6">Tel: {contactData.phone}</p>
+					<p className="leading-6">Address:</p>
+					{contactData.addressLines.map((line: string, index: number) => (
+						<p key={index} className="leading-6">
+							{line}
+						</p>
+					))}
+				</div>
 
-        {/* Sección Redes Sociales */}
-        <div className="flex flex-col gap-2.5 ml-auto max-md:ml-0 max-md:w-full">
-          <h4 className="text-sm font-bold capitalize">Follow Us</h4>
-          <div className="flex gap-3 mt-4 items-center">
-            {socialLinks.map((link: SocialLink, index: number) => (
-              <a
-                key={index}
-                href={link.href}
-                aria-label={`Follow us on ${link.platform}`}
-                className="opacity-70 hover:opacity-100 transition-opacity"
-              >
-                {link.icon}
-              </a>
-            ))}
-          </div>
-        </div>
-
-      </div>
+				{/* Sección Redes Sociales */}
+				<div className="flex flex-col gap-2.5 ml-auto max-md:ml-0 max-md:w-full">
+					<h4 className="text-sm font-bold capitalize">Follow Us</h4>
+					<div className="flex gap-3 mt-4 items-center">
+						{socialLinks.map((link: SocialLink, index: number) => (
+							<a
+								key={index}
+								href={link.href}
+								aria-label={`Follow us on ${link.platform}`}
+								className="opacity-70 hover:opacity-100 transition-opacity"
+							>
+								{link.icon}
+							</a>
+						))}
+					</div>
+				</div>
+			</div>
 
       {/* Botón volver arriba */}
       <div className="border-t border-neutral-0 pt-7 flex justify-center">

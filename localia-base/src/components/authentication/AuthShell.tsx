@@ -1,34 +1,39 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { LocaliaPanel } from "../layout/Panel";
 import { LoginForm } from "./LoginForm";
 import { RegisterWizard } from "./Registerwizard";
-import { LocaliaPanel } from "../layout/Panel";
 
 //type para usar en mostrar el modulo para registrasre o muestra el de ingreso
 type AuthView = "login" | "register";
 
 interface AuthModalProps {
-  //se rendriza o no 
-  show: boolean;
-  //cerrar modal 
-  onClose: () => void;
-  //que se va aver primero? el deefault es el login pero esto cambia 
-  initialView?: AuthView;
+	//se rendriza o no
+	show: boolean;
+	//cerrar modal
+	onClose: () => void;
+	//que se va aver primero? el deefault es el login pero esto cambia
+	initialView?: AuthView;
 }
 
-export function AuthModal({ show, onClose, initialView = "login" }: AuthModalProps) {
-  //el estado solo p uede ser register o login , setView login o sertView register
-  const [view, setView] = useState<AuthView>(initialView);
+export function AuthModal({
+	show,
+	onClose,
+	initialView = "login",
+}: AuthModalProps) {
+	//el estado solo p uede ser register o login , setView login o sertView register
+	const [view, setView] = useState<AuthView>(initialView);
 
-  useEffect(() => {
-    // si semuestra , se pone la vista inicial 
-    if (show) setView(initialView);
-  }, 
-  //array de dependencias: ejecuta el effect cada que cambie show o initial view
-  [show, initialView]);
+	useEffect(
+		() => {
+			// si semuestra , se pone la vista inicial
+			if (show) setView(initialView);
+		},
+		//array de dependencias: ejecuta el effect cada que cambie show o initial view
+		[show, initialView],
+	);
 
-
-  //si no se muestra, no regreasa nada
-  if (!show) return null;
+	//si no se muestra, no regreasa nada
+	if (!show) return null;
 
   return (
     <div
@@ -51,18 +56,27 @@ export function AuthModal({ show, onClose, initialView = "login" }: AuthModalPro
             ✕
           </button>
 
-          <div
-            className="h-120 flex flex-col justify-center overflow-y-auto"
-            onClick={(e) => { console.log("inner div clicked"); e.stopPropagation(); }}
-          >
-            {view === "login" ? (
-              <LoginForm onSwitch={() => setView("register")} onClose={onClose} />
-            ) : (
-              <RegisterWizard onClose={onClose} onSwitch={() => setView("login")} />
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+					<div
+						className="h-120 flex flex-col justify-center overflow-y-auto"
+						onClick={(e) => {
+							console.log("inner div clicked");
+							e.stopPropagation();
+						}}
+					>
+						{view === "login" ? (
+							<LoginForm
+								onSwitch={() => setView("register")}
+								onClose={onClose}
+							/>
+						) : (
+							<RegisterWizard
+								onClose={onClose}
+								onSwitch={() => setView("login")}
+							/>
+						)}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

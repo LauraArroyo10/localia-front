@@ -1,3 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { AuthModal } from "../components/authentication/AuthShell";
+
+
 import NavBar from "../components/layout/NavBar";
 import SearchBar from "../components/ui/SearchBar";
 import CategoryFilter from "../components/ui/CategoryFilter";
@@ -6,8 +11,18 @@ import Profile from "../components/profile/Profile";
 import BusinessLocationMap from "../components/ui/BusinessLocationMap";
 import type { LocalBusiness } from "../types/localBusiness";
 
+type AuthView = "login" | "register";
 
 function LocationPage() {
+
+const [open, setOpen] = useState(false);
+    const [view, setView] = useState<AuthView>("login");
+
+    const openAs = (v: AuthView) => {
+        setView(v);
+        setOpen(true);
+    };
+
 
     const business: LocalBusiness = {
         id: 1,
@@ -51,12 +66,22 @@ function LocationPage() {
 
         </div>
                 
-            
-                <Footer />
+        	<div className="flex flex-col">
+				<Footer />
+			</div>
+
+			{/* AUTH MODAL */}
+			<AuthModal
+				show={open}
+				onClose={() => setOpen(false)}
+				initialView={view}
+			/>
                 </div>
         
     );
 }
 
 
-export default LocationPage;
+export const Route = createFileRoute("/LocationPage")({
+    component: LocationPage,
+});

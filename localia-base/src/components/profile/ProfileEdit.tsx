@@ -1,41 +1,45 @@
-
-import  { useState, useRef, type ChangeEvent } from "react";
+import { type ChangeEvent, useRef, useState } from "react";
 
 interface ProfileData {
-  businessName: string;
-  subtitle: string;
-  avatarUrl: string;
-  bannerImgUrl: string;
-  description: string;
-  location: string;
-  rating: number;
+	businessName: string;
+	subtitle: string;
+	avatarUrl: string;
+	bannerImgUrl: string;
+	description: string;
+	location: string;
+	rating: number;
 }
 
 interface ProfileEditProps {
-  initialData: ProfileData;
-  onSave: (updatedData: ProfileData) => void;
-  onCancel: () => void;
+	initialData: ProfileData;
+	onSave: (updatedData: ProfileData) => void;
+	onCancel: () => void;
 }
 
-export default function ProfileEdit({ initialData, onSave, onCancel }: ProfileEditProps) {
+export default function ProfileEdit({
+	initialData,
+	onSave,
+	onCancel,
+}: ProfileEditProps) {
+	//Se usa useref , hook que permite que un dato sea mutable durante el ciclo del com pnente
+	const [formData, setFormData] = useState<ProfileData>({ ...initialData });
+	const fileInputRef = useRef<HTMLInputElement>(null);
 
-  //Se usa useref , hook que permite que un dato sea mutable durante el ciclo del com pnente
-  const [formData, setFormData] = useState<ProfileData>({ ...initialData });
-  const fileInputRef = useRef<HTMLInputElement>(null);
+	// Tipado limpio como ChangeEvent directamente
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+	};
 
-  // Tipado limpio como ChangeEvent directamente
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setFormData((prev) => ({ ...prev, avatarUrl: imageUrl }));
-    }
-  };
+	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const imageUrl = URL.createObjectURL(file);
+			setFormData((prev) => ({ ...prev, avatarUrl: imageUrl }));
+		}
+	};
 
   return (
     <div className="w-full max-w-[1150px] bg-neutral-0 rounded-3xl  overflow-hidden ">
