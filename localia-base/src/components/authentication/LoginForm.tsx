@@ -92,7 +92,7 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
                     });
                 }
               }}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity bg-violet-900"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 hover:opacity-80 transition-opacity bg-violet-900"
             >
               {icon}
             </button>

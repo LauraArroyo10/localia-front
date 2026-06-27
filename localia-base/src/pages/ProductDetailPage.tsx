@@ -23,11 +23,11 @@ function ProductDetailPage() {
         <div className="flex flex-col gap-20">
             <NavBar />
             
-        <div className="flex flex-col gap-3 max-w-5xl mx-auto relative z-10">
+        <div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
 
             <SearchBar
             placeholder="Search businesses..."
-            width="w-300" />
+            />
             
                 <CategoryFilter />
                 </div>

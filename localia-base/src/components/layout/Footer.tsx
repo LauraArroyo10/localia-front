@@ -3,10 +3,10 @@ import Logo from '../../assets/brand/logo.svg?react';
 import { contactData } from '../../mockData/contactData';
 
 const socialLinks: SocialLink[] = [
-  { icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />, href: "#", platform: "facebook" },
-  { icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />, href: "#", platform: "twitter" },
-  { icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />, href: "#", platform: "instagram" },
-  { icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />, href: "#", platform: "linkedin" },
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "facebook" },
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "twitter" },
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "instagram" },
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "linkedin" },
 ];
 
 function Footer() {
@@ -17,7 +17,7 @@ function Footer() {
   };
 
   return (
-    <footer className="bg-violet-700 text-white flex flex-col px-[10%] pt-11 pb-10">
+    <footer className="bg-violet-700 text-neutral-0 flex flex-col px-[10%] pt-11 pb-10">
 
       <div className="flex justify-between items-start mb-15 max-md:flex-col max-md:gap-10">
 
@@ -73,10 +73,10 @@ function Footer() {
       </div>
 
       {/* Botón volver arriba */}
-      <div className="border-t border-white pt-7 flex justify-center">
+      <div className="border-t border-neutral-0 pt-7 flex justify-center">
         <button
           onClick={handleGoBackOnTop}
-          className="bg-transparent border-none text-white text-xs font-bold flex flex-col items-center gap-1.5 cursor-pointer tracking-[2px] hover:opacity-70 transition-opacity"
+          className="bg-transparent border-none text-neutral-0 text-xs font-bold flex flex-col items-center gap-1.5 cursor-pointer tracking-[2px] hover:opacity-70 transition-opacity"
         >
           <span className="text-xl">^</span>
           GO BACK ON TOP

@@ -37,7 +37,7 @@ export function AuthModal({ show, onClose, initialView = "login" }: AuthModalPro
     >
       <div
       // e.stopPropagation(): para evitar clicks qu eno queramos en las diferentes capas del ui
-        className="flex w-full max-w-4xl rounded-4xl bg-white mx-4 p-3"
+        className="flex w-full max-w-4xl rounded-4xl bg-neutral-0 mx-4 p-3"
         onClick={(e) => e.stopPropagation()}
       >
        {/* espacio de la izqueirda que muestra informacion */}
@@ -46,7 +46,7 @@ export function AuthModal({ show, onClose, initialView = "login" }: AuthModalPro
         <div className="flex-1 flex flex-col justify-center px-10 py-10 relative">
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+            className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 transition-colors"
           >
             ✕
           </button>

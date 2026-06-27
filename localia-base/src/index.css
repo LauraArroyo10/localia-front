@@ -36,11 +36,15 @@
   /* ─── Rojo ─── */
   --color-red-500: #AB0000;
 
+  /* ─── Amarillo ─── */
+  --color-yellow-500: #FDC700;
+
   /* ─── BG ─── */
   --color-bg: #f4f4f4;
 
   /* ─── Accent ─── */
   --color-accent: #ccc95d;
+  --color-accent-100: #E2DE64;
 }
 
 @layer base {

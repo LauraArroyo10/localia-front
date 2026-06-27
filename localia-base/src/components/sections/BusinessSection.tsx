@@ -14,7 +14,7 @@ function BusinessSection() {
             key={business.id}
             business={business}
             onViewMore={handleViewMore}
-            size="large"
+            
           />
         ))}
       </div>

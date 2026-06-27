@@ -57,7 +57,7 @@ export default function ReviewsSection({
       {userRole === "guest" && <Alert color="info">Registro necesario</Alert>}
 
       {userRole !== "guest" && (
-        <div className="p-5 bg-white border border-gray-200 rounded-2xl flex flex-col gap-3">
+        <div className="p-5 bg-neutral-0 border border-neutral-200 rounded-2xl flex flex-col gap-3">
           <p className="font-medium text-gray-900">Leave a review</p>
 
           <StarRating
@@ -67,7 +67,7 @@ export default function ReviewsSection({
           />
 
           <input
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
+            className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm"
             placeholder="Title"
             value={newReview.title}
             onChange={(e) =>
@@ -76,7 +76,7 @@ export default function ReviewsSection({
           />
 
           <textarea
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm resize-none"
+            className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm resize-none"
             placeholder="Write your review..."
             rows={3}
             value={newReview.body}
