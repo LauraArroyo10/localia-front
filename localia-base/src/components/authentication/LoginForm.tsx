@@ -102,37 +102,37 @@ const navigate = useNavigate();
 				disabled={isLoading}
 			/>
 
-			<div className="flex flex-col items-center gap-3">
-				<span className="text-xs text-violet-700">or continue with</span>
-				<div className="flex gap-3">
-					{socialButtons.map(({ icon, label, provider }) => (
-						<button
-							key={label}
-							type="button"
-							aria-label={label}
-							onClick={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-								console.log("click", label);
-								if (provider) {
-									console.log("llamando signInWithPopup...");
-									signInWithPopup(auth, provider)
-										.then((result) => {
-											console.log("User:", result.user);
-											onClose();
-										})
-										.catch((error) => {
-											console.error("Error:", error);
-										});
-								}
-							}}
-							className="w-10 h-10 rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity bg-violet-900"
-						>
-							{icon}
-						</button>
-					))}
-				</div>
-			</div>
+      <div className="flex flex-col items-center gap-3">
+        <span className="text-xs text-violet-700">or continue with</span>
+        <div className="flex gap-3">
+          {socialButtons.map(({ icon, label, provider }) => (
+            <button
+              key={label}
+              type="button"
+              aria-label={label}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("click", label);
+                if (provider) {
+                  console.log("llamando signInWithPopup...");
+                  signInWithPopup(auth, provider)
+                    .then((result) => {
+                      console.log("User:", result.user);
+                      onClose();
+                    })
+                    .catch((error) => {
+                      console.error("Error:", error);
+                    });
+                }
+              }}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 hover:opacity-80 transition-opacity bg-violet-900"
+            >
+              {icon}
+            </button>
+          ))}
+        </div>
+      </div>
 
 			<p className="text-sm text-center text-neutral-500">
 				Don't have an account?{" "}

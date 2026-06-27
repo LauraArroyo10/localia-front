@@ -6,7 +6,7 @@ interface ProductInformationProps {
 
 export default function ProductInformation({ product }: ProductInformationProps) {
     return (
-        <div className="max-w-[1150px] mx-auto px-10 bg-violet-100 rounded-3xl">
+        <div className="max-w-[1150px] mx-auto px-10 bg-violet-50 rounded-3xl">
 
             <div className="flex flex-col gap-8 p-10">
 

@@ -39,19 +39,16 @@ const [open, setOpen] = useState(false);
 
     return (
         <div className="flex flex-col gap-20">
-           {/* NAVBAR */}
-			<NavBar
-				onLoginClick={() => openAs("login")}
-				onRegisterClick={() => openAs("register")}
-			/>
+            <NavBar />
+            
+        <div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
 
-			{/* SEARCH AREA */}
-			<div className="flex flex-col gap-3 max-w-5xl mx-auto relative z-10">
-				<SearchBar placeholder="Search businesses..." width="w-300" />
-				<CategoryFilter />
-			</div>
-
-	
+            <SearchBar
+            placeholder="Search businesses..."
+            />
+            
+            <CategoryFilter />
+        </div>
 
             <Profile
             businessName="Comidas rápidas"

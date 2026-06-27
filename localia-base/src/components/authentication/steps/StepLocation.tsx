@@ -116,21 +116,21 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 					</span>
 				)}
 
-				{/* Sugerencias */}
-				{suggestions.length > 0 && (
-					<ul className="absolute z-10 w-full mt-1 bg-white border border-neutral-200 rounded-2xl overflow-hidden">
-						{suggestions.map((s, i) => (
-							<li
-								key={i}
-								onClick={() => handleSelect(s)}
-								className="px-4 py-2.5 text-sm text-neutral-700 hover:bg-violet-50 hover:text-violet-700 cursor-pointer transition-colors"
-							>
-								{s.display_name}
-							</li>
-						))}
-					</ul>
-				)}
-			</div>
+        {/* Sugerencias */}
+        {suggestions.length > 0 && (
+          <ul className="absolute z-10 w-full mt-1 bg-neutral-0 border border-neutral-200 rounded-2xl overflow-hidden">
+            {suggestions.map((s, i) => (
+              <li
+                key={i}
+                onClick={() => handleSelect(s)}
+                className="px-4 py-2.5 text-sm text-neutral-700 hover:bg-violet-50 hover:text-violet-700 cursor-pointer transition-colors"
+              >
+                {s.display_name}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
 			{/* Mapa Leaflet */}
 			<div className="w-full h-52 rounded-2xl overflow-hidden border border-neutral-200 z-0">

@@ -3,26 +3,10 @@ import { contactData } from "../../mockData/contactData";
 import type { SocialLink } from "../../types/types";
 
 const socialLinks: SocialLink[] = [
-	{
-		icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />,
-		href: "#",
-		platform: "facebook",
-	},
-	{
-		icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />,
-		href: "#",
-		platform: "twitter",
-	},
-	{
-		icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />,
-		href: "#",
-		platform: "instagram",
-	},
-	{
-		icon: <span className="block w-6 h-6 bg-white/60 rounded-full" />,
-		href: "#",
-		platform: "linkedin",
-	},
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "facebook" },
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "twitter" },
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "instagram" },
+  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "linkedin" },
 ];
 
 function Footer() {
@@ -32,24 +16,26 @@ function Footer() {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
-	return (
-		<footer className="bg-violet-700 text-white flex flex-col px-[10%] pt-11 pb-10">
-			<div className="flex justify-between items-start mb-15 max-md:flex-col max-md:gap-10">
-				{/* Sección Izquierda */}
-				<div className="flex flex-col gap-1 basis-[55%] max-md:w-full">
-					<div className="flex items-center gap-3 mb-5">
-						<Logo className="w-60 h-30 brightness-0 invert" />
-					</div>
-					<p className="text-sm leading-snug opacity-90 max-w-122">
-						Localia offers you the comfort of discovering new ways to enjoy your
-						trip. No fixed plans — just hidden places to explore and share
-						unforgettable moments with the community. Not only helping others,
-						but also giving a little something back to yourself.
-					</p>
-					<p className="text-xs mt-6 opacity-70">
-						© {currentYear} Localia. All rights reserved.
-					</p>
-				</div>
+  return (
+    <footer className="bg-violet-700 text-neutral-0 flex flex-col px-[10%] pt-11 pb-10">
+
+      <div className="flex justify-between items-start mb-15 max-md:flex-col max-md:gap-10">
+
+        {/* Sección Izquierda */}
+        <div className="flex flex-col gap-1 basis-[55%] max-md:w-full">
+          <div className="flex items-center gap-3 mb-5">
+            <Logo className="w-60 h-30 brightness-0 invert" />
+          </div>
+          <p className="text-sm leading-snug opacity-90 max-w-122">
+            Localia offers you the comfort of discovering new ways to enjoy your
+            trip. No fixed plans — just hidden places to explore and share
+            unforgettable moments with the community. Not only helping others,
+            but also giving a little something back to yourself.
+          </p>
+          <p className="text-xs mt-6 opacity-70">
+            © {currentYear} Localia. All rights reserved.
+          </p>
+        </div>
 
 				{/* Sección Contacto */}
 				<div className="flex flex-col text-sm max-md:w-full">
@@ -87,18 +73,19 @@ function Footer() {
 				</div>
 			</div>
 
-			{/* Botón volver arriba */}
-			<div className="border-t border-white pt-7 flex justify-center">
-				<button
-					onClick={handleGoBackOnTop}
-					className="bg-transparent border-none text-white text-xs font-bold flex flex-col items-center gap-1.5 cursor-pointer tracking-[2px] hover:opacity-70 transition-opacity"
-				>
-					<span className="text-xl">^</span>
-					GO BACK ON TOP
-				</button>
-			</div>
-		</footer>
-	);
+      {/* Botón volver arriba */}
+      <div className="border-t border-neutral-0 pt-7 flex justify-center">
+        <button
+          onClick={handleGoBackOnTop}
+          className="bg-transparent border-none text-neutral-0 text-xs font-bold flex flex-col items-center gap-1.5 cursor-pointer tracking-[2px] hover:opacity-70 transition-opacity"
+        >
+          <span className="text-xl">^</span>
+          GO BACK ON TOP
+        </button>
+      </div>
+
+    </footer>
+  );
 }
 
 export default Footer;

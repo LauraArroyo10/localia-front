@@ -105,13 +105,13 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 				onChange={(e) => setPhone(e.target.value)}
 			/>
 
-			<textarea
-				placeholder="Description*"
-				value={description}
-				onChange={(e) => setDescription(e.target.value)}
-				rows={3}
-				className="w-full rounded-2xl border border-neutral-300 bg-white text-sm px-5 py-3 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-none"
-			/>
+      <textarea
+        placeholder="Description*"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        rows={3}
+        className="w-full rounded-2xl border border-neutral-300 bg-neutral-0 text-sm px-5 py-3 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-none"
+      />
 
 			<div className="flex justify-between pt-1">
 				<Button

@@ -2,66 +2,81 @@ import type { LocalBusiness } from "../../types/localBusiness";
 import RecommendationCard from "../cards/RecommendationCard";
 
 function RecommendationSection() {
-	const businesses: LocalBusiness[] = [
-		{
-			id: 1,
-			name: "Cafe Central",
-			location: "San José",
-			description:
-				"Un lugar tranquilo con excelente café artesanal y ambiente relajado.",
-			image: "/img/hogar.jpg",
-			rating: 4.5,
-			category: "Cafe",
-		},
-		{
-			id: 2,
-			name: "Pizza House",
-			location: "Heredia",
-			description:
-				"Pizzas artesanales con ingredientes frescos y masa crujiente.",
-			image: "/img/pizzeria.jpg",
-			rating: 4.2,
-			category: "Restaurant",
-		},
-		{
-			id: 3,
-			name: "Sushi Sakura",
-			location: "Escazú",
-			description:
-				"Sushi fresco preparado al momento con recetas japonesas auténticas.",
-			image: "/img/sushi.jpg",
-			rating: 4.8,
-			category: "Restaurant",
-		},
-		{
-			id: 4,
-			name: "Burger Lab",
-			location: "Alajuela",
-			description:
-				"Hamburguesas gourmet con combinaciones únicas y mucho sabor.",
-			image: "/img/hamburguesas.jpg",
-			rating: 4.3,
-			category: "Fast Food",
-		},
-		{
-			id: 5,
-			name: "Green Smoothie Bar",
-			location: "San Pedro",
-			description: "Batidos naturales, saludables y llenos de energía.",
-			image: "/img/batidos.jpg",
-			rating: 4.6,
-			category: "Healthy",
-		},
-		{
-			id: 6,
-			name: "Taco Fiesta",
-			location: "Cartago",
-			description: "Tacos auténticos mexicanos con sabores intensos y caseros.",
-			image: "/img/tacos.jpg",
-			rating: 4.4,
-			category: "Restaurant",
-		},
-	];
+  const businesses: LocalBusiness[] = [
+    
+      {
+  id: 1,
+  name: "Cafe Central",
+  location: "San José",
+  latitude: 9.9281,
+  longitude: -84.0907,
+  description:
+    "Un lugar tranquilo con excelente café artesanal y ambiente relajado.",
+  image: "/img/hogar.jpg",
+  rating: 4.5,
+  category: "Cafe",
+},
+{
+  id: 2,
+  name: "Pizza House",
+  location: "Heredia",
+  latitude: 10.0024,
+  longitude: -84.1165,
+  description:
+    "Pizzas artesanales con ingredientes frescos y masa crujiente.",
+  image: "/img/pizzeria.jpg",
+  rating: 4.2,
+  category: "Restaurant",
+},
+{
+  id: 3,
+  name: "Sushi Sakura",
+  location: "Escazú",
+  latitude: 9.9189,
+  longitude: -84.1399,
+  description:
+    "Sushi fresco preparado al momento con recetas japonesas auténticas.",
+  image: "/img/sushi.jpg",
+  rating: 4.8,
+  category: "Restaurant",
+},
+{
+  id: 4,
+  name: "Burger Lab",
+  location: "Alajuela",
+  latitude: 10.0163,
+  longitude: -84.2144,
+  description:
+    "Hamburguesas gourmet con combinaciones únicas y mucho sabor.",
+  image: "/img/hamburguesas.jpg",
+  rating: 4.3,
+  category: "Fast Food",
+},
+{
+  id: 5,
+  name: "Green Smoothie Bar",
+  location: "San Pedro",
+  latitude: 9.9347,
+  longitude: -84.0515,
+  description:
+    "Batidos naturales, saludables y llenos de energía.",
+  image: "/img/batidos.jpg",
+  rating: 4.6,
+  category: "Healthy",
+},
+{
+  id: 6,
+  name: "Taco Fiesta",
+  location: "Cartago",
+  latitude: 9.8644,
+  longitude: -83.9194,
+  description:
+    "Tacos auténticos mexicanos con sabores intensos y caseros.",
+  image: "/img/tacos.jpg",
+  rating: 4.4,
+  category: "Restaurant",
+},
+  ];
 
 	const handleViewMore = (id: number) => {
 		console.log("Ver más", id);

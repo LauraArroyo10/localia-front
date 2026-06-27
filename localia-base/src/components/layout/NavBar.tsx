@@ -9,20 +9,13 @@ interface NavBarProps {
 }
 
 function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
-	const { user, logout } = useAuth();
-	const navigate = useNavigate();
-
-	const handleLogout = () => {
-		logout();
-		navigate({ to: "/" });
-	};
-
-	return (
-		<nav className="sticky top-0 z-50 bg-bg border-violet-700 w-full">
-			<div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-13">
-				<div className="flex items-center gap-2">
-					<Logo className="w-30 h-30" />
-				</div>
+  return (
+    <nav className="sticky top-0 z-50 bg-bg  border-violet-700 w-full ">
+  <div className=" max-w-[1150px] mx-auto flex items-center justify-between h-13">
+    
+    <div className="flex items-center gap-2">
+      <Logo className="w-30 h-30" />
+    </div>
 
 				<div className="flex items-center gap-1">
 					<a

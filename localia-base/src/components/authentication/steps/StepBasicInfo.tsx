@@ -107,46 +107,60 @@ const [submitting,setSubmitting]=useState(false);
 				required
 			/>
 
-			<Input
-				type="password"
-				placeholder="Password*"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				required
-			/>
-			<Button
-    type="submit"
-    text={submitting ? "Signing up..." : "Sign up"}
-    bgColor="bg-violet-500"
-    textColor="text-neutral-0"
-    size="w-full"
-    disabled={!isValid || submitting}
-/>
+      {/* PASSWORD */}
+      <Input
+        type="password"
+        placeholder="Password*"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
 
-			<div className="flex flex-col items-center gap-3">
-				<span className="text-xs text-neutral-400">or continue with</span>
-				<div className="flex gap-3">
-					{socialButtons.map(({ icon, label, provider }) => (
-						<button
-							key={label}
-							type="button"
-							aria-label={label}
-							onClick={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-								if (provider) {
-									signInWithPopup(auth, provider)
-										.then((result) => console.log("User:", result.user))
-										.catch((error) => console.error("Error:", error));
-								}
-							}}
-							className="w-10 h-10 rounded-full flex items-center justify-center text-white bg-violet-900 hover:opacity-80 transition-opacity"
-						>
-							{icon}
-						</button>
-					))}
-				</div>
-			</div>
+      {/* BUTTON */}
+      <Button
+        type="submit"
+        text="Sign up"
+        bgColor="bg-violet-500"
+        textColor="text-neutral-0"
+        size="w-full"
+        //verificaciond e boton activo para seguir 
+        disabled={!isValid}
+      />
+
+      {/* SOCIALS:acceso visual a los botones de autenticacion con facebook y google (firebase abre un popup) */}
+      
+      <div className="flex flex-col items-center gap-3">
+        <span className="text-xs text-neutral-400">or continue with</span>
+        <div className="flex gap-3">
+         {/* recorre el arreglo de botones que tenemos arriba */}
+          {socialButtons.map(({ icon, label, provider }) => (
+            <button key={label} 
+            type="button" 
+            aria-label={label} 
+            onClick={(e) => {
+              //evita un submit del form
+                e.preventDefault();
+                //evita que el click cierre el modal 
+                e.stopPropagation();
+                //si hay provider manda lo de firebase (no tenemos el de apple por eso no hace nada)
+                if (provider) {
+                  signInWithPopup(auth, provider)
+                  //.then recibe usuario 
+                    .then((result) => {
+                      console.log("User:", result.user);
+                    })
+                    .catch((error) => {
+                      console.error("Error:", error);
+                    });
+                }
+              }}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 bg-violet-900 hover:opacity-80 transition-opacity"
+            >
+              {icon}
+            </button>
+          ))}
+        </div>
+      </div>
 
 			<p className="text-sm text-center text-neutral-500">
 				Already have an account?{" "}

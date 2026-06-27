@@ -49,9 +49,9 @@ export default function ReviewsSection({
 
 			{error && <Alert color="failure">{error}</Alert>}
 
-			{userRole !== "guest" && (
-				<div className="p-5 bg-white border border-gray-200 rounded-2xl flex flex-col gap-3">
-					<p className="font-medium text-gray-900">Leave a review</p>
+      {userRole !== "guest" && (
+        <div className="p-5 bg-neutral-0 border border-neutral-200 rounded-2xl flex flex-col gap-3">
+          <p className="font-medium text-gray-900">Leave a review</p>
 
 					<StarRating
 						rating={newReview.rating}
@@ -59,24 +59,24 @@ export default function ReviewsSection({
 						onRate={(r) => setNewReview((prev) => ({ ...prev, rating: r }))}
 					/>
 
-					<input
-						className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
-						placeholder="Title"
-						value={newReview.title}
-						onChange={(e) =>
-							setNewReview((prev) => ({ ...prev, title: e.target.value }))
-						}
-					/>
+          <input
+            className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm"
+            placeholder="Title"
+            value={newReview.title}
+            onChange={(e) =>
+              setNewReview((prev) => ({ ...prev, title: e.target.value }))
+            }
+          />
 
-					<textarea
-						className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm resize-none"
-						placeholder="Write your review..."
-						rows={3}
-						value={newReview.body}
-						onChange={(e) =>
-							setNewReview((prev) => ({ ...prev, body: e.target.value }))
-						}
-					/>
+          <textarea
+            className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm resize-none"
+            placeholder="Write your review..."
+            rows={3}
+            value={newReview.body}
+            onChange={(e) =>
+              setNewReview((prev) => ({ ...prev, body: e.target.value }))
+            }
+          />
 
 					<div className="flex justify-end">
 						<Button

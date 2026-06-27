@@ -1,23 +1,29 @@
 import { CiSearch } from "react-icons/ci";
 
 interface SearchBarProps {
-	placeholder: string;
-	width: string;
+  placeholder: string;
+  
 }
 
-function SearchBar({ placeholder, width }: SearchBarProps) {
-	return (
-		<div className="flex justify-center w-full">
-			<div
-				className={`
-          ${width}
+function SearchBar({
+  placeholder,
+}: SearchBarProps) {
+
+  return (
+
+    <div className="flex justify-center w-full">
+
+      <div
+        className="
+          w-[1200px]
           flex
           gap-4
-        `}
-			>
-				{/* INPUT */}
-				<div
-					className="
+        "
+      >
+
+        {/* INPUT */}
+        <div
+          className="
             flex-1
             h-12
             border

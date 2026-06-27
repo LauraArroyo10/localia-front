@@ -38,26 +38,18 @@ export default function ProfilePage() {
   };
  
   return (
-  <div className="flex justify-center items-start py-6 px-4">
-      {user?.role === "tourist" ? (
-        <TouristProfileView
-          name={user.name}
-          avatarUrl={user.avatar ?? undefined}
-          location={user.location ?? undefined}
+    <div className=" flex justify-center items-start py-16 ">
+      {isEditing ? (
+        <ProfileEdit
+          initialData={profileData}
+          onSave={handleSaveData}
+          onCancel={() => setIsEditing(false)}
         />
       ) : (
-        isEditing ? (
-          <ProfileEdit
-            initialData={profileData}
-            onSave={handleSave}
-            onCancel={() => setIsEditing(false)}
-          />
-        ) : (
-          <ProfileView
-            data={profileData}
-            onEditClick={() => setIsEditing(true)}
-          />
-        )
+        <ProfileView 
+          data={profileData} 
+          onEditClick={() => setIsEditing(true)} 
+        />
       )}
     </div>
   );
