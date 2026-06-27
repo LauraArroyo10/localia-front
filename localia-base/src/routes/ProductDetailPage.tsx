@@ -23,20 +23,22 @@ function ProductDetailPage() {
 
 const [open, setOpen] = useState(false);
     const [view, setView] = useState<AuthView>("login");
-
+const { id } = Route.useSearch();
     const openAs = (v: AuthView) => {
         setView(v);
         setOpen(true);
     };
 
-
-    const product: Product = {
-    id: 1,
-    image: "/img/hamburguesas.jpg",
-    name: "Hamburguesa especial",
-    description: "Hamburguesa con carne, queso, lechuga y salsa de la casa.",
-    price: 10
-    };
+const product:Product={
+    id
+}
+    // const product: Product = {
+    // id: 1,
+    // image: "/img/hamburguesas.jpg",
+    // name: "Hamburguesa especial",
+    // description: "Hamburguesa con carne, queso, lechuga y salsa de la casa.",
+    // price: 10
+    // };
 
     return (
         
@@ -79,4 +81,8 @@ const [open, setOpen] = useState(false);
 
 export const Route = createFileRoute("/ProductDetailPage")({
     component: ProductDetailPage,
+    validateSearch: (search) => ({
+        id: Number(search.id) || 0,
+    }),
+
 });

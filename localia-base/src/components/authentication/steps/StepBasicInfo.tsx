@@ -6,10 +6,12 @@ import type { Role } from "../../../types/rol";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import Select from "../../ui/SelectInput";
+import { toast } from "sonner";
 
 interface StepBasicInfoProps {
 	role: Role;
 	onRoleChange: (r: Role) => void;
+	
 	onNext: (
 		selectedRole: Role,
 		data: { name: string; email: string; password: string },
@@ -27,7 +29,8 @@ export function StepBasicInfo({
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
+const [error,setError]=useState<string | null>(null);
+const [submitting,setSubmitting]=useState(false);
 	const isValid =
 		firstName.trim() &&
 		lastName.trim() &&
@@ -36,13 +39,22 @@ export function StepBasicInfo({
 		role;
 
 	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!isValid) return;
+    e.preventDefault();
+    if (!isValid) return;
 
-		// Combina firstName y lastName en un solo name para el backend
-		const name = `${firstName.trim()} ${lastName.trim()}`;
-		onNext(role, { name, email, password });
-	};
+    setSubmitting(true);
+
+    const name = `${firstName.trim()} ${lastName.trim()}`;
+
+    try {
+        await onNext(role, { name, email, password });
+    } catch (err) {
+        const message = err instanceof Error ? err.message : "Ocurrió un error al registrarse";
+       toast.error(message, { style: { background: "#ab0000", color: "#ffffff" } }); 
+    } finally {
+        setSubmitting(false);
+    }
+};
 
 	const ROLES = [
 		{ value: "tourist" as Role, label: "Tourist" },
@@ -60,7 +72,7 @@ export function StepBasicInfo({
 	];
 
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
+		<form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 w-full">
 			<h2 className="text-2xl font-bold text-neutral-800 text-center">
 				Sign Up
 			</h2>
@@ -102,15 +114,14 @@ export function StepBasicInfo({
 				onChange={(e) => setPassword(e.target.value)}
 				required
 			/>
-
 			<Button
-				type="submit"
-				text="Sign up"
-				bgColor="bg-violet-500"
-				textColor="text-neutral-0"
-				size="w-full"
-				disabled={!isValid}
-			/>
+    type="submit"
+    text={submitting ? "Signing up..." : "Sign up"}
+    bgColor="bg-violet-500"
+    textColor="text-neutral-0"
+    size="w-full"
+    disabled={!isValid || submitting}
+/>
 
 			<div className="flex flex-col items-center gap-3">
 				<span className="text-xs text-neutral-400">or continue with</span>

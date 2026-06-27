@@ -83,22 +83,19 @@ const navigate = useNavigate();
         role={role}
         onRoleChange={setRole}
         onNext={async (selectedRole, data) => {
-            setRole(selectedRole);
-            const newData = { ...data, role: selectedRole };
-            setRegisterData(newData);
+    setRole(selectedRole);
+    const newData = { ...data, role: selectedRole };
+    setRegisterData(newData);
 
-            if (selectedRole === "tourist") {
-                try {
-                    await register(newData);
-                    next();
-                    navigate({ to: "/dashboard" });
-                } catch (error) {
-                    console.error("Registration error:", error);
-                }
-            } else {
-                next();
-            }
-        }}
+    if (selectedRole === "tourist") {
+        await register(newData);
+        next();
+        navigate({ to: "/dashboard" });
+    } else {
+        next();
+    }}
+	
+	}
         onSwitch={onSwitch}
     />
 )}

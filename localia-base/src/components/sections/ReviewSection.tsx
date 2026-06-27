@@ -1,59 +1,53 @@
 import { Alert } from "flowbite-react";
 import { useState } from "react";
-import type { CommentProps } from "../../types/comment";
 import type { Role } from "../../types/rol";
 import ReviewCard from "../cards/ReviewCard";
 import Button from "../ui/Button";
 import StarRating from "../ui/StarRating";
+import { useReviews } from "../../hooks/useReviews";
 
 interface ReviewsSectionProps {
 	userRole: Role;
-	comments: CommentProps[];
+	businessId: string;
 }
 
 export default function ReviewsSection({
 	userRole,
-	comments,
+	businessId,
 }: ReviewsSectionProps) {
-	const [localComments, setLocalComments] = useState<CommentProps[]>(comments);
+	const { reviews, loading, error, createReview, markHelpful } =
+		useReviews(businessId);
+
 	const [newReview, setNewReview] = useState({
 		title: "",
 		body: "",
 		rating: 0,
 	});
 	const [showAll, setShowAll] = useState(false);
-	const visibleComments = showAll ? localComments : localComments.slice(0, 3);
+	const [submitting, setSubmitting] = useState(false); // NUEVO: estado propio del envío, separado del loading general
+	const visibleComments = showAll ? reviews : reviews.slice(0, 3);
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (!newReview.title || !newReview.body || newReview.rating === 0) return;
 
-		const comment: CommentProps = {
-			id: Date.now().toString(),
-			name: "You",
-			location: "",
-			joinedDate: "Just now",
-			reviewDate: new Date().toLocaleDateString(),
-			rating: newReview.rating,
-			title: newReview.title,
-			body: newReview.body,
-			helpfulCount: 0,
-		};
-
-		setLocalComments((prev) => [comment, ...prev]); // agrega arriba
-		setNewReview({ title: "", body: "", rating: 0 }); // limpia el form
-	};
-
-	const handleHelpful = (id: string) => {
-		setLocalComments((prev) =>
-			prev.map((c) =>
-				c.id === id ? { ...c, helpfulCount: c.helpfulCount + 1 } : c,
-			),
-		);
+		setSubmitting(true);
+		try {
+			await createReview(newReview);
+			// Solo llegamos aquí si createReview tuvo éxito (no lanzó excepción)
+			setNewReview({ title: "", body: "", rating: 0 });
+		} catch {
+			// El hook ya guardó el mensaje en `error` y se muestra en el Alert;
+			// aquí simplemente NO limpiamos el formulario para que el usuario no pierda lo escrito.
+		} finally {
+			setSubmitting(false);
+		}
 	};
 
 	return (
 		<section className="space-y-4">
 			{userRole === "guest" && <Alert color="info">Registro necesario</Alert>}
+
+			{error && <Alert color="failure">{error}</Alert>}
 
 			{userRole !== "guest" && (
 				<div className="p-5 bg-white border border-gray-200 rounded-2xl flex flex-col gap-3">
@@ -87,29 +81,34 @@ export default function ReviewsSection({
 					<div className="flex justify-end">
 						<Button
 							type="button"
-							text="Submit review"
+							text={submitting ? "Submitting..." : "Submit review"} // NUEVO
 							bgColor="bg-violet-500"
 							textColor="text-white"
 							size="w-36"
 							onClick={handleSubmit}
 							disabled={
-								!newReview.title || !newReview.body || newReview.rating === 0
+								submitting || // NUEVO
+								!newReview.title ||
+								!newReview.body ||
+								newReview.rating === 0
 							}
 						/>
 					</div>
 				</div>
 			)}
 
+			{loading && <p className="text-sm text-gray-500">Cargando reviews...</p>}
+
 			{visibleComments.map((comment) => (
 				<div key={comment.id} className="review-enter">
 					<ReviewCard
 						reviewCard={comment}
 						userRole={userRole}
-						onHelpful={handleHelpful}
+						onHelpful={markHelpful}
 					/>
 				</div>
 			))}
-			{localComments.length > 3 && (
+			{reviews.length > 3 && (
 				<Button
 					text={showAll ? "Show less" : "Show more"}
 					bgColor="bg-white"

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import type { LocalBusiness } from "../../types/localBusiness";
 import StarRating from "../ui/StarRating";
+import { useAuth } from "../../hooks/useAuth";
 
 interface BusinessCardProps {
 	business: LocalBusiness;
@@ -12,6 +13,7 @@ interface BusinessCardProps {
 
 function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 	const [isFavorite, setIsFavorite] = useState(false);
+	const { user } = useAuth();
 
 	return (
 		<div className="max-w-sm overflow-hidden rounded-3xl bg-violet-900 border-0">
@@ -22,16 +24,18 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 					className="w-full h-55 object-cover object-center"
 				/>
 
-				<div
-					onClick={() => setIsFavorite(!isFavorite)}
-					className="absolute top-7 right-7 z-10 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-violet-50 text-4xl"
-				>
-					{isFavorite ? (
-						<FaHeart className="text-red-500" />
-					) : (
-						<FaRegHeart className="text-violet-900" />
-					)}
-				</div>
+				{user && (
+					<div
+						onClick={() => setIsFavorite(!isFavorite)}
+						className="absolute top-7 right-7 z-10 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-violet-50 text-4xl"
+					>
+						{isFavorite ? (
+							<FaHeart className="text-red-500" />
+						) : (
+							<FaRegHeart className="text-violet-900" />
+						)}
+					</div>
+				)}
 			</div>
 
 			<div className="px-7 py-7">

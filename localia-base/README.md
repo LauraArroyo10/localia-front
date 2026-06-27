@@ -91,3 +91,52 @@ Qué quieres lograr con el proyecto.
 
 ```txt id="prompt1"
 "Cómo usar TanStack Router en React"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PRIORIDAD:
+terminar los endpoints---->Laura
+arreglar el ui (clases de colores, borrar categorias principales del front, agregar botond e categoria,arreglar ancho y dimensiones de componeentes)---->Franciny
+subir las imagenes a la bd y ubicarlas en backend---->Franciny
+Terminar hooks (state y fetch)---->Laura/Carlos
+Revisar que funcione la bd ---->Laura/Carlos
+Terminar controladores ---->Laura
+Revisar las validaciones y seguridad de auth ---->Laura
+Revisar el uso de permisos de acuerdo a los roles---->Laura
+Eliminar toda la carpeta mockdata/Limpiar datos hardcodeados  y arreglar uso de datos en componentes--->
+
+
+
+SECUNDARIO:
+Arreglar rutas de botones, imagenes categoria apretables, links de ver mas (para que abran xy paginas)--->
+Agregar anadir imagen en galeria para rol de negocios y eliminar foto cuando existe una en galeria --->
+
+
+
+REVISIONES FINALES:
+Documentacion de funciones y uso de librerias o temas que aprendimos ---->
+Terminar el MD para documentar el uso de ia y aspectos del proyecto---->
+Iniciar cuentas en plataforma para cronograma de actividades ---->
+Organizar y revisar las carpetas, nombres de clases, rutas, eliminar carpetas y clases sin usar que no aporten nada al proyecto
+Revisar el codigo en general, eliminar codigo innecesario(variables sueltas, console log sueltos,etc) esto se puede ejecutar con copilot pero primero hacer lo de 
+roberto, aplicar biome para formato
+(Para revisar el código sin modificarlo:
+npx biome check .
+Para revisar y aplicar correcciones automáticamente:
+npx biome check --write .
+Para solo formatear:
+npx biome format --write .
+Para solo hacer lint:
+npx biome lint --write .)---->Todos
+

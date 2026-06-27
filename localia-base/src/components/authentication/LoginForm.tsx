@@ -7,6 +7,8 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 
 import { useNavigate } from "@tanstack/react-router"
+import { toast } from "sonner";
+
 
 interface LoginFormProps {
 	onSwitch: () => void;
@@ -26,15 +28,16 @@ const navigate = useNavigate();
 		//evita que el form recargue la pagina
 		e.preventDefault();
 		setIsLoading(true);
-		setError(null);
+		
 	try {
 			await login({ email, password });
 			onClose();
 			navigate({ to: "/dashboard" });
 		} catch (err) {
-			setError(err instanceof Error ? err.message : "Login failed");
-		} finally {
-			setIsLoading(false);
+			  const message = err instanceof Error ? err.message : "Login failed";
+        toast.error(message, { style: { background: "#ab0000", color: "#ffffff" } }); 
+    } finally {
+        setIsLoading(false);
 		}
 	};
 

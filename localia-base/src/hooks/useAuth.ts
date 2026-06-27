@@ -28,6 +28,7 @@ interface RegisterData {
 
 interface AuthStore {
   user: AuthUser | null;
+  token: string | null;
   loading: boolean;
   error: string | null;
   login: (data: LoginData) => Promise<void>;
@@ -40,47 +41,67 @@ interface AuthStore {
 export const useAuth = create<AuthStore>()(persist(
   (set) => ({
     user: null,
+    token: null,
     loading: false,
     error: null,
 
-   login: async (data: LoginData) => {
-    set({ loading: true });
-    try {
+    login: async (data: LoginData) => {
+      console.log("Enviando login:", data);
+
+      set({ loading: true });
+
+      try {
         const res = await fetch(`${API_URL}/auth/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
         });
+
         const json = await res.json();
-        console.log("login response:", json); // ← aquí
-        if (!res.ok) throw new Error(json.message ?? "Login failed");
-        set({ user: json.user });
-    } catch (err) {
-        set({ error: err instanceof Error ? err.message : "Error" });
-    } finally {
+
+        console.log("Status:", res.status);
+        console.log("Respuesta:", json);
+
+        if (!res.ok) throw new Error(json.message);
+
+        set({
+          user: json.user,
+          token: json.token,
+        });
+      } finally {
         set({ loading: false });
-    }
-},
+      }
+    },
 
     register: async (data: RegisterData) => {
       set({ loading: true });
       try {
         const res = await fetch(`${API_URL}/auth/register`, {
           method: "POST",
-          headers: { "Content-TYPE": "application/json" },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
         const json = await res.json();
-        if (!res.ok) throw new Error(json.message ?? "Registration failed");
-        set({ user: json.user });
+
+        if (!res.ok) {
+          const detailMessage =
+            Array.isArray(json.errors) && json.errors.length > 0
+              ? json.errors.map((e: { message: string }) => e.message).join(" ")
+              : json.message ?? "Registration failed";
+
+          throw new Error(detailMessage);
+        }
+
+        set({ user: json.user, token: json.token });
       } catch (err) {
         set({ error: err instanceof Error ? err.message : "Error" });
+        throw err; // 🔑 IMPRESCINDIBLE: sin esto, register() nunca "falla" para quien lo llama
       } finally {
         set({ loading: false });
       }
     },
 
-    logout: () => set({ user: null, error: null }),
+    logout: () => set({ user: null, token: null, error: null }),
   }),
   { name: "auth" }
 ));

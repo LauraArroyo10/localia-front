@@ -9,10 +9,13 @@ import ProductSection from "../components/sections/ProductsSection";
 import ReviewsSection from "../components/sections/ReviewSection";
 import CategoryFilter from "../components/ui/CategoryFilter";
 import SearchBar from "../components/ui/SearchBar";
-import { mockReviews } from "../mockData/reviews";
 import { useAuth } from "../hooks/useAuth";
 
 type AuthView = "login" | "register";
+
+// TEMPORAL: id real de "Restaurante El Cacao" sacado de Neon, solo para probar reviews.
+// Cuando tengas la página de detalle de negocio real, este id debe venir de ahí.
+const TEMP_BUSINESS_ID = "283e5221-4bb6-424c-b90d-adc4faa05436";
 
 function DashboardPage() {
 	const [open, setOpen] = useState(false);
@@ -43,7 +46,7 @@ function DashboardPage() {
 						<>
 							<ProductSection />
 							<div className="mt-6">
-								<ReviewsSection userRole="seller" comments={mockReviews} />
+								<ReviewsSection userRole="seller" businessId={TEMP_BUSINESS_ID} />
 							</div>
 						</>
 					)}
