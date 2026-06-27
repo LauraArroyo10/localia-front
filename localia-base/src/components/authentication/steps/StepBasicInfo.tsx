@@ -140,7 +140,7 @@ export function StepBasicInfo({ role, onRoleChange, onNext, onSwitch }: StepBasi
                     });
                 }
               }}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white bg-violet-900 hover:opacity-80 transition-opacity"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 bg-violet-900 hover:opacity-80 transition-opacity"
             >
               {icon}
             </button>

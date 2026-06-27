@@ -122,7 +122,7 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 
         {/* Sugerencias */}
         {suggestions.length > 0 && (
-          <ul className="absolute z-10 w-full mt-1 bg-white border border-neutral-200 rounded-2xl overflow-hidden">
+          <ul className="absolute z-10 w-full mt-1 bg-neutral-0 border border-neutral-200 rounded-2xl overflow-hidden">
             {suggestions.map((s, i) => (
               <li
                 key={i}

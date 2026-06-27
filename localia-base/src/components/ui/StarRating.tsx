@@ -25,7 +25,7 @@ function StarRating(props: StarRatingProps) {
                     className={`
                     ${props.className ?? "text-base"}
 
-                    ${starValue <= props.rating ? "text-yellow-400" : "text-gray-300"}
+                    ${starValue <= props.rating ? "text-yellow-500" : "text-neutral-300"}
                     
                     ${props.interactive ? "cursor-pointer hover:scale-110" : ""} 
                     `}

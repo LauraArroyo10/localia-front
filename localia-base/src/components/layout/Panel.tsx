@@ -11,7 +11,7 @@ export function LocaliaPanel() {
       <Logo className="w-60 h-40  " />
 
       {/* Tagline */}
-      <p className="text-xs mt-10 leading-relaxed text-white">
+      <p className="text-xs mt-10 leading-relaxed text-neutral-0">
         Localia empowers your business to shine locally while opening doors to tourists eager to
         discover authentic experiences
       </p>

@@ -39,7 +39,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center items-start py-16 px-4">
+    <div className=" flex justify-center items-start py-16 ">
       {isEditing ? (
         <ProfileEdit
           initialData={profileData}

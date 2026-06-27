@@ -2,12 +2,11 @@ import { CiSearch } from "react-icons/ci";
 
 interface SearchBarProps {
   placeholder: string;
-  width: string;
+  
 }
 
 function SearchBar({
   placeholder,
-  width,
 }: SearchBarProps) {
 
   return (
@@ -15,11 +14,11 @@ function SearchBar({
     <div className="flex justify-center w-full">
 
       <div
-        className={`
-          ${width}
+        className="
+          w-[1200px]
           flex
           gap-4
-        `}
+        "
       >
 
         {/* INPUT */}

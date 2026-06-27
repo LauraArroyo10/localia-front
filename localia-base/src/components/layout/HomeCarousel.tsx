@@ -32,7 +32,7 @@ export function Carousel() {
       {/* Button Prev */}
       <button 
         onClick={prev} 
-        className="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/25 hover:bg-white/40 text-white flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
+        className="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-neutral-0/25 hover:bg-neutral-0/40 text-neutral-0 flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
       >
         ‹
       </button>
@@ -40,7 +40,7 @@ export function Carousel() {
       {/* Button Next */}
       <button 
         onClick={next} 
-        className="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/25 hover:bg-white/40 text-white flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
+        className="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-neutral-0/25 hover:bg-neutral-0/40 text-neutral-0 flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
       >
         ›
       </button>

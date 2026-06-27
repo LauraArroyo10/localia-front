@@ -67,7 +67,7 @@ function Select({ value, onChange, placeholder, options }: SelectProps) {
           rounded-full
           border
           border-neutral-300
-          bg-white
+          bg-neutral-0
           px-5
           text-sm
           text-violet-900

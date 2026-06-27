@@ -3,7 +3,7 @@ import { mockProducts } from "../../mockData/mockProducts";
 
 function ProductSection() {
   return (
-    <div className="max-w-7xl mx-auto px-6">
+    <div className="w-full max-w-[1150px] mx-auto ">
       <div className="flex flex-col gap-10">
         <p className="mb-10 text-4xl font-bold text-violet-700">
           Productos destacados
