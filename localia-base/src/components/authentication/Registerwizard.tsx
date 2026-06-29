@@ -41,6 +41,7 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 		password: "",
 		role: "tourist",
 	});
+	const [businessData, setBusinessData] = useState<any>(null);
 	
 	const steps = getSteps(role);
 	const currentStep = steps[stepIndex];
@@ -55,6 +56,34 @@ const navigate = useNavigate();
 			console.log("Sending to backend:", registerData);
 
 			const response = await register(registerData);
+			if(registerData.role === "seller" && businessData){
+
+	const formData = new FormData();
+
+	formData.append("name", businessData.name);
+	formData.append("category", businessData.category);
+	formData.append("type", "product");
+	formData.append("description", businessData.description);
+	formData.append("phone", businessData.phone);
+	formData.append("address", businessData.address);
+	formData.append("city", businessData.city);
+	formData.append("lat", String(businessData.lat));
+	formData.append("lng", String(businessData.lng));
+
+	if(businessData.image){
+		formData.append("image", businessData.image);
+	}
+
+
+	await fetch("http://localhost:3000/api/businesses",{
+		method:"POST",
+		headers:{
+			Authorization:`Bearer ${useAuth.getState().token}`
+		},
+		body:formData
+	});
+
+}
 
 			console.log("User registered:", response);
 
@@ -105,11 +134,23 @@ const navigate = useNavigate();
 				)}
 
 				{currentStep === "business" && (
-					<StepBusinessInfo onNext={next} onBack={back} />
+					<StepBusinessInfo onNext={(data) => {
+						setBusinessData(data);
+						next();
+					}}
+						onBack={back} />
 				)}
 
 				{currentStep === "location" && (
-					<StepLocation onFinish={next} onBack={back} />
+					<StepLocation onFinish={(location)=>{
+		setBusinessData({
+			...businessData,
+			...location
+		});
+
+		next();
+					}}
+						onBack={back} />
 				)}
 
 				{currentStep === "done" && (

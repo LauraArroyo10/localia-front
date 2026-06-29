@@ -28,12 +28,13 @@ L.Icon.Default.mergeOptions({
 interface Suggestion {
 	display_name: string;
 	lat: string;
-	lon: string;
+  lon: string;
+  
 }
 
 interface StepLocationProps {
 	//se despliega al confirmar la ubiccion
-	onFinish: () => void;
+	onFinish: (location:any) => void;
 	//regresar
 	onBack: () => void;
 }
@@ -158,7 +159,14 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 
 			<div className="flex justify-between pt-1">
 				<Button text="Back" bgColor="bg-neutral-100" textColor="text-neutral-700" size="w-28" onClick={onBack} />
-				<Button text="Finish" bgColor="bg-violet-500" textColor="text-neutral-0" size="w-28" onClick={onFinish} disabled={!selected} />
+				<Button text="Finish" bgColor="bg-violet-500" textColor="text-neutral-0" size="w-28" onClick={() =>
+	onFinish({
+    address: selected?.display_name,
+    city: selected?.display_name,
+		lat: Number(selected?.lat),
+		lng: Number(selected?.lon)
+	})
+} disabled={!selected} />
 			</div>
 		</div>
 	);
