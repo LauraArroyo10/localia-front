@@ -36,21 +36,33 @@ export default function ProfilePage() {
     setProfileData(updatedData);
     setIsEditing(false);
   };
- 
+
+  if (user?.role === "tourist") {
   return (
-    <div className=" flex justify-center items-start py-16 ">
-      {isEditing ? (
-        <ProfileEdit
-          initialData={profileData}
-          onSave={handleSaveData}
-          onCancel={() => setIsEditing(false)}
-        />
-      ) : (
-        <ProfileView 
-          data={profileData} 
-          onEditClick={() => setIsEditing(true)} 
-        />
-      )}
+    <div className="flex justify-center items-start py-16">
+      <TouristProfileView
+        name={user.name}
+        avatarUrl={user.avatar}
+        location={user.location}
+      />
     </div>
   );
+}
+
+return (
+  <div className="flex justify-center items-start py-16">
+    {isEditing ? (
+      <ProfileEdit
+        initialData={profileData}
+        onSave={handleSaveData}
+        onCancel={() => setIsEditing(false)}
+      />
+    ) : (
+      <ProfileView
+        data={profileData}
+        onEditClick={() => setIsEditing(true)}
+      />
+    )}
+  </div>
+);
 }

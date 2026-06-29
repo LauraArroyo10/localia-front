@@ -106,31 +106,72 @@ Qué quieres lograr con el proyecto.
 
 
 PRIORIDAD:
-terminar los endpoints---->Laura
-arreglar el ui (clases de colores, borrar categorias principales del front, agregar botond e categoria,arreglar ancho y dimensiones de componeentes)---->Franciny
-subir las imagenes a la bd y ubicarlas en backend---->Franciny
-Terminar hooks (state y fetch)---->Laura/Carlos
-Revisar que funcione la bd ---->Laura/Carlos
-Terminar controladores ---->Laura
-Revisar las validaciones y seguridad de auth ---->Laura
-Revisar el uso de permisos de acuerdo a los roles---->Laura
-Eliminar toda la carpeta mockdata/Limpiar datos hardcodeados  y arreglar uso de datos en componentes--->
+LAURA
+Home:
+detalles y correcciones de funcionalidad-> 
+  carrusel
+  botones de categorias, filtro desde backend
+Comentarios:
+  eliminar y editar/funcion con backend
+  detalle boton helpfull
+  ruteo de botones coon tanstack (redireccion de see more a detailpage, redireccion a locationpage)
+  1 propmt front
+  1 prompr bakcned
+  1 promt de tareas generales (entender errores, uso de librerias, consultas de tecnologias, y otras)
+  Rellenar en el markdown que IA uso y en que situaciones 
+
+CARLOS
+PerfilNegocio:
+   mostrar informacion desde le backend
+   editar informacion y guardar
+   agregar boton de ver ubicacion y de subir foto desde la compu
+PerfilTurista:
+   Guardar foto subida al backned
+   NavBar: 
+   buscar/ todo, con filtro aplicado, 
+   You may also like: 
+    1 propmt front
+  1 prompr bakcned
+  1 promt de tareas generales (entender errores, uso de librerias, consultas de tecnologias, y otras)
+Rellenar en el markdown que IA uso y en que situaciones 
+
+FRANCINY
+Productos destacados:
+    get/mostrar en dashboard
+Galeria:
+    get imagenes en galeria
+    get imagenes en detailpage
+    botones de next y back 
+   1 propmt front
+  1 prompr bakcned
+  1 promt de tareas generales (entender errores, uso de librerias, consultas de tecnologias, y otras)
+Rellenar en el markdown que IA uso y en que situaciones 
+
+
+ULTIMA REVISION en conjunto 
 
 
 
-SECUNDARIO:
-Arreglar rutas de botones, imagenes categoria apretables, links de ver mas (para que abran xy paginas)--->
-Agregar anadir imagen en galeria para rol de negocios y eliminar foto cuando existe una en galeria --->
+Documentacion :
+funciones, uso de librerias, trozos de codigo relevante 
+
+Organizar y revisar las carpetas:
+nombres de clases
+eliminar carpetas y clases sin usar
 
 
+Revisar el codigo en general:
+esto se puede ejecutar con copilot
 
-REVISIONES FINALES:
-Documentacion de funciones y uso de librerias o temas que aprendimos ---->
-Terminar el MD para documentar el uso de ia y aspectos del proyecto---->
-Iniciar cuentas en plataforma para cronograma de actividades ---->
-Organizar y revisar las carpetas, nombres de clases, rutas, eliminar carpetas y clases sin usar que no aporten nada al proyecto
-Revisar el codigo en general, eliminar codigo innecesario(variables sueltas, console log sueltos,etc) esto se puede ejecutar con copilot pero primero hacer lo de 
-roberto, aplicar biome para formato
+Eliminar codigo innecesario
+(variables sueltas, console log sueltos,etc) 
+Homogenizar las clases de color
+Revisar que las medidas no tengan [] y que sean todas iguales
+
+
+<!--  -->
+aplicar biome para formato:
+
 (Para revisar el código sin modificarlo:
 npx biome check .
 Para revisar y aplicar correcciones automáticamente:

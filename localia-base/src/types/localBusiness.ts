@@ -1,13 +1,17 @@
 export interface LocalBusiness {
+	id: string;
+	name: string;
+	description: string;
+	category: string;
 
-    id: number;
-    name: string;
-    location: string;
-    latitude: number;
-    longitude: number;
-    description: string;
-    image: string;
-    rating: number;
-    category: string;
+	location: string;
+	city?: string;
+
+	latitude: number;
+	longitude: number;
+
+	image: string;
+
+	rating: number;
 
 }

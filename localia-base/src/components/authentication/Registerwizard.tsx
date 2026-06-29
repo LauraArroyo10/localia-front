@@ -74,7 +74,6 @@ const navigate = useNavigate();
 		formData.append("image", businessData.image);
 	}
 
-
 	await fetch("http://localhost:3000/api/businesses",{
 		method:"POST",
 		headers:{

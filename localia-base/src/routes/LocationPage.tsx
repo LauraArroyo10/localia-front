@@ -25,7 +25,7 @@ const [open, setOpen] = useState(false);
 
 
     const business: LocalBusiness = {
-        id: 1,
+        id: "1",
         name: "Comidas rápidas",
         location: "Puntarenas, Costa Rica",
         latitude: 9.9281,
