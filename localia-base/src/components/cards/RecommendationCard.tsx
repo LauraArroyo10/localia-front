@@ -7,7 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 interface RecommendationCardProps {
 	business: LocalBusiness;
-	onViewMore?: (id: number) => void;
+	onViewMore?: (id: string) => void;
 }
 
 function RecommendationCard({ business, onViewMore }: RecommendationCardProps) {

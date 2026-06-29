@@ -2,7 +2,7 @@
 import { useNavigate } from "@tanstack/react-router";
 
 interface FavoriteItem {
-	id: number;
+	id: string;
 	name: string;
 	avatarUrl: string;
 	location: string;
@@ -16,7 +16,7 @@ interface FavoritesPopupProps {
 export default function FavoritesPopup({ favorites, onClose }: FavoritesPopupProps) {
 	const navigate = useNavigate();
 
-	const handleSelect = (id: number) => {
+	const handleSelect = (id: string) => {
 		onClose();
 		navigate({ to: "/business/$businessId", params: { businessId: String(id) } });
 	};

@@ -10,7 +10,7 @@ export function Carousel() {
 	const bannerSlides = [
 		{ id: 1, image: destinationImg, alt: "Beautiful beach destination" },
 		{ id: 2, image: foodImg, alt: "Delicius food" },
-		{ id: 3, image: foodImg, alt: "Delicius food" },
+		{ id: 3, image: destinationImg, alt:  "Beautiful beach destination" },
 		{ id: 4, image: foodImg, alt: "Delicius food" },
 	];
 

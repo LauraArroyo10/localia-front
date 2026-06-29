@@ -1,35 +1,53 @@
 import { Button } from "flowbite-react";
-import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import type { LocalBusiness } from "../../types/localBusiness";
 import StarRating from "../ui/StarRating";
 import { useAuth } from "../../hooks/useAuth";
+import { useFavorites } from "../../hooks/useFavorites";
 
 interface BusinessCardProps {
 	business: LocalBusiness;
-	onViewMore?: (id: number) => void;
-	// size?: "small" | "medium" | "large";
+	onViewMore?: (id: string) => void;
 }
 
 function BusinessCard({ business, onViewMore }: BusinessCardProps) {
-	const [isFavorite, setIsFavorite] = useState(false);
 	const { user } = useAuth();
 
+	const {
+		isFavorite,
+		addFavorite,
+		removeFavorite,
+	} = useFavorites();
+
+	const favorite = isFavorite(business.id);
+
+	const handleFavorite = async (
+		e: React.MouseEvent<HTMLDivElement>
+	) => {
+		e.stopPropagation();
+
+		if (favorite) {
+			await removeFavorite(business.id);
+		} else {
+			await addFavorite(business.id);
+		}
+	};
+
 	return (
-		<div className="max-w-sm overflow-hidden rounded-3xl bg-violet-900 border-0">
+		<div className="max-w-sm overflow-hidden rounded-3xl border-0 bg-violet-900">
 			<div className="relative">
 				<img
 					src={business.image}
 					alt={business.name}
-					className="w-full h-55 object-cover object-center"
+					className="h-55 w-full object-cover object-center"
 				/>
 
 				{user && (
 					<div
-						onClick={() => setIsFavorite(!isFavorite)}
+						onClick={handleFavorite}
 						className="absolute top-7 right-7 z-10 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-violet-50 text-4xl"
 					>
-						{isFavorite ? (
+						{favorite ? (
 							<FaHeart className="text-red-500" />
 						) : (
 							<FaRegHeart className="text-violet-900" />
@@ -39,10 +57,14 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 			</div>
 
 			<div className="px-7 py-7">
-				<h2 className="text-2xl font-bold text-violet-50">{business.name}</h2>
+				<h2 className="text-2xl font-bold text-violet-50">
+					{business.name}
+				</h2>
 
 				<div className="py-2">
-					<p className="text-lg text-terracota-400">{business.location}</p>
+					<p className="text-lg text-terracota-400">
+						{business.location}
+					</p>
 
 					<p className="line-clamp-2 text-base text-violet-50">
 						{business.description}
@@ -51,7 +73,9 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-2">
-						<p className="text-base text-violet-50">{business.rating}</p>
+						<p className="text-base text-violet-50">
+							{business.rating}
+						</p>
 
 						<StarRating rating={business.rating} />
 					</div>

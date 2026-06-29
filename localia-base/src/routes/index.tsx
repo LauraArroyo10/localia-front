@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { AuthModal } from "../components/authentication/AuthShell";
-import BrowseInterest from "../components/layout/BrowseInterestCard";
+import BrowseInterest from "../components/cards/BrowseInterestCard";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
 import NavBar from "../components/layout/NavBar";
 import SubscribeBanner from "../components/layout/SuscribeBanner";
-import TopDestinations from "../components/layout/TopdestinationsCard";
+import TopDestinations from "../components/layout/Topdestination";
 
 type AuthView = "login" | "register";
 
