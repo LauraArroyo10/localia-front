@@ -56,7 +56,7 @@ const [open, setOpen] = useState(false);
             avatarUrl="/img/hogar.jpg"
                 onEditClick={() => alert("Editar perfil")} />
             
-        <div className="flex flex-col gap-20">
+        <div className="flex flex-col gap-20  ">
 
             <BusinessLocationMap
                 latitude={business.latitude}

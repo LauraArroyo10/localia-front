@@ -19,12 +19,13 @@ const CATEGORY_OPTIONS = CATEGORIES.map((c) => ({ value: c, label: c }));
 
 //botones siguewinte atras
 interface StepBusinessInfoProps {
-	onNext: () => void;
+	onNext: (data: any) => void;
 	onBack: () => void;
 }
 
 export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
-	//preview de la imagen a subir
+  //preview de la imagen a subir
+  const [image, setImage] = useState<File | null>(null);
 	const [preview, setPreview] = useState<string | null>(null);
 	const [name, setName] = useState("");
 	const [category, setCategory] = useState("");
@@ -36,7 +37,8 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		//valoracion para ver si file es null
 		const file = e.target.files?.[0];
 		//sin archivo no se hace nada
-		if (!file) return;
+    if (!file) return;
+    setImage(file);
 		//api para leer archivos locales, esto abre la ventana de documentos locales
 		//cuando esto pasa se hace lectur ay convesion e archivo
 		const reader = new FileReader();
@@ -126,7 +128,15 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 					bgColor="bg-violet-500"
 					textColor="text-white"
 					size="w-28"
-					onClick={onNext}
+					onClick={() =>
+	onNext({
+		name,
+		category,
+		description,
+		phone,
+		image
+	})
+}
 					disabled={!isValid}
 				/>
 			</div>
