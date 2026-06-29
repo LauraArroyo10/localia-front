@@ -3,8 +3,6 @@ import { useState } from "react";
 import { AuthModal } from "../components/authentication/AuthShell";
 
 
-
-
 import NavBar from "../components/layout/NavBar";
 import SearchBar from "../components/ui/SearchBar";
 import CategoryFilter from "../components/ui/CategoryFilter";
@@ -97,7 +95,7 @@ const [open, setOpen] = useState(false);
                 <ProductGallery products={products} />
                 
             
-                 <div className="flex flex-col">
+                <div className="flex flex-col">
 				<Footer />
 			</div>
 
