@@ -31,7 +31,7 @@ const [open, setOpen] = useState(false);
         latitude: 9.9281,
         longitude: -85.0907,
         description: "Comida rápida deliciosa.",
-        image: "/img/hogar.jpg",
+        image_url: "/img/hogar.jpg",
         rating: 4.5,
         category: "Restaurante"
     };

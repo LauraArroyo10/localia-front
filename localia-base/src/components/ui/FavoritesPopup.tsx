@@ -4,7 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 interface FavoriteItem {
 	id: string;
 	name: string;
-	avatarUrl: string;
+		imageUrl: string;
 	location: string;
 }
 
@@ -17,9 +17,15 @@ export default function FavoritesPopup({ favorites, onClose }: FavoritesPopupPro
 	const navigate = useNavigate();
 
 	const handleSelect = (id: string) => {
-		onClose();
-		navigate({ to: "/business/$businessId", params: { businessId: String(id) } });
-	};
+	onClose();
+
+	navigate({
+		to: "/dashboard",
+		search: {
+			businessId: id,
+		},
+	});
+};
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-violet-900/40">
@@ -47,10 +53,10 @@ export default function FavoritesPopup({ favorites, onClose }: FavoritesPopupPro
 								className="flex items-center gap-4 p-3 rounded-2xl hover:bg-violet-50 transition-colors cursor-pointer text-left review-enter"
 							>
 								<img
-									src={fav.avatarUrl}
-									alt={fav.name}
-									className="w-12 h-12 rounded-full object-cover"
-								/>
+	src={fav.imageUrl}
+	alt={fav.name}
+	className="w-12 h-12 rounded-full object-cover"
+/>
 								<div>
 									<p className="font-semibold text-neutral-800">{fav.name}</p>
 									<p className="text-sm text-terracota-400">{fav.location}</p>

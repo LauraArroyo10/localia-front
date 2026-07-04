@@ -9,8 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ResultsRouteImport } from './routes/Results'
-import { Route as DashboardRouteImport } from './routes/Dashboard'
+import { Route as ResultsRouteImport } from './routes/results'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ProductsPageRouteImport } from './routes/ProductsPage'
 import { Route as ProductDetailPageRouteImport } from './routes/ProductDetailPage'
 import { Route as LocationPageRouteImport } from './routes/LocationPage'

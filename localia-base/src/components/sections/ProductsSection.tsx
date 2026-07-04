@@ -1,15 +1,14 @@
-import { mockProducts } from "../../mockData/mockProducts";
 import ProductCard from "../cards/ProductCard";
 import { useState } from "react";
 import { MdCameraAlt } from "react-icons/md";
-
-
+import type { Product } from "../../types/product";
 
 function ProductSection() {
   const [showForm, setShowForm] = useState(false);
-const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const products: Product[] = [];
 
-const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 	const file = e.target.files?.[0];
 
 	if (!file) return;
@@ -21,7 +20,7 @@ const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 	};
 
 	reader.readAsDataURL(file);
-};
+  };
   return (
     <div className="w-full max-w-[1150px] mx-auto ">
       <div className="flex flex-col gap-10">
@@ -103,7 +102,7 @@ const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 )}
 
 				<div className="grid grid-cols-1 gap-9 sm:grid-cols-2 lg:grid-cols-3">
-					{mockProducts.map((product) => (
+					{products.map((product) => (
 						<ProductCard key={product.id} product={product} />
 					))}
 				</div>

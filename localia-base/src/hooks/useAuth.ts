@@ -95,7 +95,7 @@ export const useAuth = create<AuthStore>()(persist(
         set({ user: json.user, token: json.token });
       } catch (err) {
         set({ error: err instanceof Error ? err.message : "Error" });
-        throw err; // 🔑 IMPRESCINDIBLE: sin esto, register() nunca "falla" para quien lo llama
+        throw err; 
       } finally {
         set({ loading: false });
       }

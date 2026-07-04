@@ -1,10 +1,7 @@
-
-
 import SearchBar from "../ui/SearchBar";
 import { useState } from "react";
 import CategoryFilter from "../ui/CategoryFilter";
 import Carousel from "./HomeCarousel";
-import destinationImg from '../../assets/brand/destination-placeholder.jpg'; 
 
 function Header() {
 	const [activeTab, setActiveTab] = useState("service");

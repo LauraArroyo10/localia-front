@@ -19,7 +19,10 @@ export function useReviews(businessId: string) {
 
     try {
       const res = await fetch(
-        `${API_URL}/api/businesses/${businessId}/reviews?page=${page}`
+        `${API_URL}/api/businesses/${businessId}/reviews?page=${page}`,
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+        }
       );
 
       const json = await res.json();
@@ -80,6 +83,68 @@ export function useReviews(businessId: string) {
     }
   };
 
+  const updateReview = async (
+    reviewId: string,
+    data: { rating: number; title: string; body: string }
+  ) => {
+    if (!token) {
+      const msg = "Debes iniciar sesión";
+      setError(msg);
+      throw new Error(msg);
+    }
+
+    setError(null);
+
+    try {
+      const res = await fetch(`${API_URL}/api/businesses/reviews/${reviewId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        throw new Error(json.message ?? "Failed to update review");
+      }
+
+      await fetchReviews();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Error";
+      setError(msg);
+      throw err;
+    }
+  };
+
+  const deleteReview = async (reviewId: string) => {
+    if (!token) {
+      setError("Debes iniciar sesión");
+      return;
+    }
+
+    setError(null);
+
+    try {
+      const res = await fetch(`${API_URL}/api/businesses/reviews/${reviewId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        throw new Error(json.message ?? "Failed to delete review");
+      }
+
+      setReviews((prev) => prev.filter((r) => r.id !== reviewId));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error");
+    }
+  };
+
   const markHelpful = async (reviewId: string) => {
     if (!token) {
       setError("Debes iniciar sesión para marcar como útil");
@@ -106,7 +171,7 @@ export function useReviews(businessId: string) {
       setReviews((prev) =>
         prev.map((r) =>
           r.id === reviewId
-            ? { ...r, helpfulCount: json.helpful }
+            ? { ...r, helpfulCount: json.helpful, markedHelpfulByMe: true }
             : r
         )
       );
@@ -127,6 +192,8 @@ export function useReviews(businessId: string) {
     loading,
     error,
     createReview,
+    updateReview,
+    deleteReview,
     markHelpful,
     fetchReviews,
   };

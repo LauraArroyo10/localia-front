@@ -9,7 +9,7 @@ import { StepLocation } from "./steps/StepLocation";
 import { StepWhatOffer } from "./steps/StepWhatoffer";
 
 import { useNavigate } from "@tanstack/react-router"
-
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 type StepKey = "basic" | "offer" | "business" | "location" | "done";
 
@@ -74,7 +74,7 @@ const navigate = useNavigate();
 		formData.append("image", businessData.image);
 	}
 
-	await fetch("http://localhost:3000/api/businesses",{
+	await fetch(`${API_URL}/api/businesses`,{
 		method:"POST",
 		headers:{
 			Authorization:`Bearer ${useAuth.getState().token}`
