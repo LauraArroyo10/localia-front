@@ -12,6 +12,10 @@ export interface AuthUser {
   role: "tourist" | "seller" | "guest";
   avatar?: string;
   location?: string;
+  business?: { 
+    id: string;
+    name: string;
+  };
 }
 
 interface LoginData {
@@ -65,9 +69,12 @@ export const useAuth = create<AuthStore>()(persist(
         if (!res.ok) throw new Error(json.message);
 
         set({
-          user: json.user,
-          token: json.token,
-        });
+          user: {
+    ...json.user,
+    business: json.business,
+  },
+  token: json.token,
+});
       } finally {
         set({ loading: false });
       }

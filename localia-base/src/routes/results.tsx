@@ -60,9 +60,11 @@ function ResultsPage() {
 	);
 }
 
+
 export const Route = createFileRoute("/results")({
 	validateSearch: (search: Record<string, unknown>): ResultsSearch => ({
 		category: (search.category as string) || undefined,
 	}),
+
 	component: ResultsPage,
 });

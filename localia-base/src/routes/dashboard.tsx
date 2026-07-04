@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { AuthModal } from "../components/authentication/AuthShell";
@@ -13,19 +13,32 @@ import { useAuth } from "../hooks/useAuth";
 
 type AuthView = "login" | "register";
 
-// TEMPORAL: id real de "Restaurante El Cacao" sacado de Neon, solo para probar reviews.
-// Cuando tengas la página de detalle de negocio real, este id debe venir de ahí.
-const TEMP_BUSINESS_ID = "283e5221-4bb6-424c-b90d-adc4faa05436";
+interface DashboardSearch {
+	category?: string;
+}
 
 function DashboardPage() {
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<AuthView>("login");
 	const { user } = useAuth();
+	const businessId = user?.business?.id;
+
+	const { category } = Route.useSearch();
+    const navigate = useNavigate({ from: Route.fullPath });
 
 	const openAs = (v: AuthView) => {
 		setView(v);
 		setOpen(true);
 	};
+
+	const handleCategoryChange = (newCategory: string | undefined) => {
+	navigate({
+		search: (prev: DashboardSearch): DashboardSearch => ({
+			...prev,
+			category: newCategory,
+		}),
+	});
+};
 
 	return (
 		<main className="min-h-screen flex flex-col gap-20 bg-color-bg">
@@ -35,17 +48,20 @@ function DashboardPage() {
 			/>
 
 			<section>
-				  <div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
+				<div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
 					<SearchBar placeholder="Search businesses..." />
-					<CategoryFilter />
+					<CategoryFilter value={category} onChange={handleCategoryChange} />
 					<ProfilePage />
-					
 
-					{user?.role === "seller" && (
+					{user?.role === "seller" && businessId && (
 						<>
-							<ProductSection />
+							<ProductSection businessId={businessId} />
+
 							<div className="mt-6">
-								<ReviewsSection userRole="seller" businessId={TEMP_BUSINESS_ID} />
+								<ReviewsSection
+									userRole="seller"
+									businessId={businessId}
+								/>
 							</div>
 						</>
 					)}
@@ -63,6 +79,9 @@ function DashboardPage() {
 	);
 }
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/Dashboard")({
+	validateSearch: (search: Record<string, unknown>): DashboardSearch => ({
+		category: (search.category as string) || undefined,
+	}),
 	component: DashboardPage,
 });

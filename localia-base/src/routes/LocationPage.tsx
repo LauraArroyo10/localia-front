@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { AuthModal } from "../components/authentication/AuthShell";
 
@@ -12,21 +12,59 @@ import BusinessLocationMap from "../components/ui/BusinessLocationMap";
 import type { LocalBusiness } from "../types/localBusiness";
 
 type AuthView = "login" | "register";
+
+interface LocationSearch {
+	category?: string;
+}
+
 function LocationPage() {
-  const [open, setOpen] = useState(false);
-  const [view, setView] = useState<AuthView>("login");
-  const [category, setCategory] = useState<string | undefined>(undefined);
 
-  const { lat, lng, location, name } = Route.useSearch();
+    const { category } = Route.useSearch();
+    const navigate = useNavigate({ from: Route.fullPath });
+    
+const [open, setOpen] = useState(false);
+    const [view, setView] = useState<AuthView>("login");
 
-  return (
-    <div className="flex flex-col gap-20">
-      <NavBar />
+    const openAs = (v: AuthView) => {
+        setView(v);
+        setOpen(true);
+    };
 
-      <div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
-        <SearchBar placeholder="Search businesses..." />
-        <CategoryFilter onChange={setCategory} />
-      </div>
+    const handleCategoryChange = (newCategory: string | undefined) => {
+	navigate({
+		search: (prev: LocationSearch): LocationSearch => ({
+			...prev,
+			category: newCategory,
+		}),
+	});
+};
+
+
+    const business: LocalBusiness = {
+        id: "1",
+        name: "Comidas rápidas",
+        location: "Puntarenas, Costa Rica",
+        latitude: 9.9281,
+        longitude: -85.0907,
+        description: "Comida rápida deliciosa.",
+        image_url: "/img/hogar.jpg",
+        rating: 4.5,
+        category: "Restaurante"
+    };
+
+
+    return (
+        <div className="flex flex-col gap-20">
+            <NavBar />
+            
+        <div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
+
+            <SearchBar
+            placeholder="Search businesses..."
+            />
+            
+            <CategoryFilter value={category} onChange={handleCategoryChange} />
+        </div>
 
       <Profile
         businessName={name ?? "Business"}
@@ -54,16 +92,9 @@ function LocationPage() {
 
 
 export const Route = createFileRoute("/LocationPage")({
-  component: LocationPage,
-  validateSearch: (search: any) => {
-  const lat = Number(search.lat);
-  const lng = Number(search.lng);
+	validateSearch: (search: Record<string, unknown>): LocationSearch => ({
+		category: (search.category as string) || undefined,
+	}),
 
-  return {
-    lat: Number.isFinite(lat) ? lat : 9.9281,
-    lng: Number.isFinite(lng) ? lng : -84.0907,
-    location: search.location ?? "",
-    name: search.name ?? "",
-  };
-},
+	component: LocationPage,
 });

@@ -1,116 +1,67 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { AuthModal } from "../components/authentication/AuthShell";
-
-
-import NavBar from "../components/layout/NavBar";
-import SearchBar from "../components/ui/SearchBar";
-import CategoryFilter from "../components/ui/CategoryFilter";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import Footer from "../components/layout/Footer";
+import NavBar from "../components/layout/NavBar";
 import Profile from "../components/profile/Profile";
-import ProductGallery from "../components/ui/ProductGallery";
+import AllProductsSection from "../components/sections/AllProductsSection";
+import CategoryFilter from "../components/ui/CategoryFilter";
+import SearchBar from "../components/ui/SearchBar";
 
-
-import type { Product } from "../types/product";
-type AuthView = "login" | "register";
+interface ProductsSearch {
+	category?: string;
+	businessId?: string;
+}
 
 function ProductsPage() {
+	const { businessId, category } = Route.useSearch();
+    const navigate = useNavigate({ from: Route.fullPath });
 
-
-const [open, setOpen] = useState(false);
-    const [view, setView] = useState<AuthView>("login");
-
-    const openAs = (v: AuthView) => {
-        setView(v);
-        setOpen(true);
-    };
-
-
-
-    const products: Product[] = [
-    {
-        id: 1,
-        image: "/img/hamburguesas.jpg",
-        name: "Hamburguesa",
-        description: "",
-        price: 1000
-    },
-    {
-        id: 2,
-        image: "/img/tacos.jpg",
-        name: "Tacos",
-        description: "",
-        price: 0
-        },
-    {
-        id: 3,
-        image: "/img/hamburguesas.jpg",
-        name: "Hamburguesa",
-        description: "",
-        price: 1000
-    },
-    {
-        id: 4,
-        image: "/img/tacos.jpg",
-        name: "Tacos",
-        description: "",
-        price: 0
-        },
-    {
-        id: 5,
-        image: "/img/hamburguesas.jpg",
-        name: "Hamburguesa",
-        description: "",
-        price: 1000
-    },
-    {
-        id: 6,
-        image: "/img/tacos.jpg",
-        name: "Tacos",
-        description: "",
-        price: 0
-    }
-];
-
-    return (
-        
-        <div className="flex flex-col gap-20">
-            <NavBar />
-            
-        <div className="flex flex-col gap-3 w-full max-w-[1150px] mx-auto relative z-10">
-
-            <SearchBar
-            placeholder="Search businesses..."
-            />
-            
-                <CategoryFilter />
-                </div>
-
-            <Profile
-            businessName="Comidas rápidas"
-            subtitle="Profile"
-            avatarUrl="/img/hogar.jpg"
-                onEditClick={() => alert("Editar perfil")} />
-            
-                <ProductGallery products={products} />
-                
-            
-                <div className="flex flex-col">
-				<Footer />
-			</div>
-
-			{/* AUTH MODAL */}
-			<AuthModal
-				show={open}
-				onClose={() => setOpen(false)}
-				initialView={view}
-			/>
-                </div>
-
-    )
+    const handleCategoryChange = (newCategory: string | undefined) => {
+	navigate({
+		search: (prev: ProductsSearch): ProductsSearch => ({
+			...prev,
+			category: newCategory,
+		}),
+	});
 };
 
 
+	if (!businessId) {
+		return (
+			<div className="text-center mt-10">
+				No business selected
+			</div>
+		);
+	}
+
+	return (
+		<div className="flex flex-col gap-20">
+			<NavBar />
+
+			<div className="flex flex-col gap-3 w-full max-w-[1150px] mx-auto relative z-10">
+				<SearchBar placeholder="Search businesses..." />
+				<CategoryFilter value={category} onChange={handleCategoryChange} />
+			</div>
+
+			<Profile
+				businessName="Comidas rápidas"
+				subtitle="Profile"
+				avatarUrl="/img/hogar.jpg"
+				onEditClick={() => alert("Editar perfil")}
+			/>
+
+			<AllProductsSection businessId={businessId} />
+
+			<Footer />
+
+
+		</div>
+	);
+}
+
 export const Route = createFileRoute("/ProductsPage")({
-    component: ProductsPage,
+	validateSearch: (search: Record<string, unknown>): ProductsSearch => ({
+		businessId: (search.businessId as string) || undefined,
+		category: (search.category as string) || undefined,
+	}),
+	component: ProductsPage,
 });
