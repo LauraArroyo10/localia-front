@@ -1,18 +1,20 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useNearbyBusinesses } from "../../hooks/useResults";
+import { useUserLocation } from "../../hooks/useUserLocation";
 import TopDestinationCard from "../cards/TopDestinationCard";
 import type { LocalBusiness } from "../../types/localBusiness";
 
 function TopDestinations() {
 	const navigate = useNavigate();
-	const { businesses, loading, error } = useNearbyBusinesses(100, 1);
+	const { lat, lng } = useUserLocation();
+	const { businesses, loading, error } = useNearbyBusinesses(lat, lng, 100, 1);
 
 	if (!loading && (error || businesses.length === 0)) {
 		return null;
 	}
 
 	const handleViewMore = (id: string) => {
-		navigate({ to: "/dashboard" , params: { id } });
+		navigate({ to: "/dashboard", params: { id } });
 	};
 
 	return (
@@ -35,7 +37,6 @@ function TopDestinations() {
 				<div className="relative flex gap-6 overflow-x-auto pb-4 scrollbar-none w-full">
 
 					{loading
-					
 						? Array(4).fill(null).map((_, index) => (
 								<div
 									key={index}
@@ -44,7 +45,7 @@ function TopDestinations() {
 						  ))
 						: (businesses as LocalBusiness[])
 							.slice(0, 4)
-						.map((business) => (
+							.map((business) => (
 								<TopDestinationCard
 									key={business.id}
 									business={business}

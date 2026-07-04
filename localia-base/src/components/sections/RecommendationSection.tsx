@@ -1,86 +1,48 @@
-import type { LocalBusiness } from "../../types/localBusiness";
+import { useEffect, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { FaArrowRight } from "react-icons/fa";
+import { toast } from "sonner";
 import RecommendationCard from "../cards/RecommendationCard";
+import { useNearbyBusinesses } from "../../hooks/useResults";
+import { useUserLocation } from "../../hooks/useUserLocation";
 
 function RecommendationSection() {
-  const businesses: LocalBusiness[] = [
-    
-      {
-  id: 1,
-  name: "Cafe Central",
-  location: "San José",
-  latitude: 9.9281,
-  longitude: -84.0907,
-  description:
-    "Un lugar tranquilo con excelente café artesanal y ambiente relajado.",
-  image: "/img/hogar.jpg",
-  rating: 4.5,
-  category: "Cafe",
-},
-{
-  id: 2,
-  name: "Pizza House",
-  location: "Heredia",
-  latitude: 10.0024,
-  longitude: -84.1165,
-  description:
-    "Pizzas artesanales con ingredientes frescos y masa crujiente.",
-  image: "/img/pizzeria.jpg",
-  rating: 4.2,
-  category: "Restaurant",
-},
-{
-  id: 3,
-  name: "Sushi Sakura",
-  location: "Escazú",
-  latitude: 9.9189,
-  longitude: -84.1399,
-  description:
-    "Sushi fresco preparado al momento con recetas japonesas auténticas.",
-  image: "/img/sushi.jpg",
-  rating: 4.8,
-  category: "Restaurant",
-},
-{
-  id: 4,
-  name: "Burger Lab",
-  location: "Alajuela",
-  latitude: 10.0163,
-  longitude: -84.2144,
-  description:
-    "Hamburguesas gourmet con combinaciones únicas y mucho sabor.",
-  image: "/img/hamburguesas.jpg",
-  rating: 4.3,
-  category: "Fast Food",
-},
-{
-  id: 5,
-  name: "Green Smoothie Bar",
-  location: "San Pedro",
-  latitude: 9.9347,
-  longitude: -84.0515,
-  description:
-    "Batidos naturales, saludables y llenos de energía.",
-  image: "/img/batidos.jpg",
-  rating: 4.6,
-  category: "Healthy",
-},
-{
-  id: 6,
-  name: "Taco Fiesta",
-  location: "Cartago",
-  latitude: 9.8644,
-  longitude: -83.9194,
-  description:
-    "Tacos auténticos mexicanos con sabores intensos y caseros.",
-  image: "/img/tacos.jpg",
-  rating: 4.4,
-  category: "Restaurant",
-},
-  ];
+	const [page, setPage] = useState(1);
+	const { lat, lng } = useUserLocation();
+	const { businesses, loading, error } = useNearbyBusinesses(lat, lng, 4, page);
+	const navigate = useNavigate();
 
-	const handleViewMore = (id: number) => {
-		console.log("Ver más", id);
+	useEffect(() => {
+		if (error) {
+			toast.error("No se pudieron cargar las recomendaciones.", {
+				style: { background: "#ab0000", color: "#ffffff" },
+			});
+		}
+	}, [error]);
+
+	const handleViewMore = (id: string) => {
+		navigate({ to: `/business/${id}` });
 	};
+
+	const handleNext = () => {
+		setPage((prev) => prev + 1);
+	};
+
+	if (loading) {
+		return (
+			<div className="w-full bg-terracota-400 py-28">
+				<p className="text-center text-violet-50">Loading recommendations...</p>
+			</div>
+		);
+	}
+
+	if (error) {
+		return null;
+	}
+
+	if (businesses.length === 0) {
+		return null;
+	}
 
 	return (
 		<div className="w-full bg-terracota-400 py-28">
@@ -97,6 +59,16 @@ function RecommendationSection() {
 							onViewMore={handleViewMore}
 						/>
 					))}
+				</div>
+
+				<div className="flex justify-end mt-6">
+					<button
+						onClick={handleNext}
+						aria-label="Next recommendations"
+						className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-neutral-0 hover:opacity-90 transition-opacity cursor-pointer"
+					>
+						<FaArrowRight size={20} />
+					</button>
 				</div>
 			</div>
 		</div>

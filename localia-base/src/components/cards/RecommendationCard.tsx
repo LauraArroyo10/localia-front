@@ -1,9 +1,11 @@
 import { Button } from "flowbite-react";
-import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import type { LocalBusiness } from "../../types/localBusiness";
 import StarRating from "../ui/StarRating";
 import { useAuth } from "../../hooks/useAuth";
+import { useFavorites } from "../../hooks/useFavorites";
+
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 interface RecommendationCardProps {
 	business: LocalBusiness;
@@ -11,24 +13,34 @@ interface RecommendationCardProps {
 }
 
 function RecommendationCard({ business, onViewMore }: RecommendationCardProps) {
-	const [isFavorite, setIsFavorite] = useState(false);
 	const { user } = useAuth();
+	const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+
+	const favorited = isFavorite(business.id);
+
+	const handleToggleFavorite = () => {
+		if (favorited) {
+			removeFavorite(business.id);
+		} else {
+			addFavorite(business.id);
+		}
+	};
 
 	return (
 		<div className="max-w-70 overflow-hidden rounded-3xl bg-violet-900 border-0">
 			<div className="relative">
 				<img
-					src={business.image}
-					alt=""
-					className="w-full h-46 object-cover object-center"
-				/>
+	src={business.image_url ? `${API_URL}${business.image_url}` : undefined}
+	alt=""
+	className="w-full h-46 object-cover object-center"
+/>
 
 				{user && (
 					<div
-						onClick={() => setIsFavorite(!isFavorite)}
+						onClick={handleToggleFavorite}
 						className="absolute top-7 right-7 z-10 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-violet-50 text-4xl"
 					>
-						{isFavorite ? (
+						{favorited ? (
 							<FaHeart className="text-red-500" />
 						) : (
 							<FaRegHeart className="text-violet-900" />

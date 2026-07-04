@@ -9,15 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ResultsRouteImport } from './routes/Results'
+import { Route as ResultsRouteImport } from './routes/results'
 import { Route as ProductsPageRouteImport } from './routes/ProductsPage'
 import { Route as LocationPageRouteImport } from './routes/LocationPage'
 import { Route as DashboardRouteImport } from './routes/Dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ResultsRoute = ResultsRouteImport.update({
-  id: '/Results',
-  path: '/Results',
+  id: '/results',
+  path: '/results',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsPageRoute = ProductsPageRouteImport.update({
@@ -46,14 +46,14 @@ export interface FileRoutesByFullPath {
   '/Dashboard': typeof DashboardRoute
   '/LocationPage': typeof LocationPageRoute
   '/ProductsPage': typeof ProductsPageRoute
-  '/Results': typeof ResultsRoute
+  '/results': typeof ResultsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Dashboard': typeof DashboardRoute
   '/LocationPage': typeof LocationPageRoute
   '/ProductsPage': typeof ProductsPageRoute
-  '/Results': typeof ResultsRoute
+  '/results': typeof ResultsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,20 +61,20 @@ export interface FileRoutesById {
   '/Dashboard': typeof DashboardRoute
   '/LocationPage': typeof LocationPageRoute
   '/ProductsPage': typeof ProductsPageRoute
-  '/Results': typeof ResultsRoute
+  '/results': typeof ResultsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/Dashboard' | '/LocationPage' | '/ProductsPage' | '/Results'
+  fullPaths: '/' | '/Dashboard' | '/LocationPage' | '/ProductsPage' | '/results'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/Dashboard' | '/LocationPage' | '/ProductsPage' | '/Results'
+  to: '/' | '/Dashboard' | '/LocationPage' | '/ProductsPage' | '/results'
   id:
     | '__root__'
     | '/'
     | '/Dashboard'
     | '/LocationPage'
     | '/ProductsPage'
-    | '/Results'
+    | '/results'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -87,10 +87,10 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/Results': {
-      id: '/Results'
-      path: '/Results'
-      fullPath: '/Results'
+    '/results': {
+      id: '/results'
+      path: '/results'
+      fullPath: '/results'
       preLoaderRoute: typeof ResultsRouteImport
       parentRoute: typeof rootRouteImport
     }

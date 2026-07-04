@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { AuthModal } from "../components/authentication/AuthShell";
 
@@ -13,8 +13,15 @@ import type { LocalBusiness } from "../types/localBusiness";
 
 type AuthView = "login" | "register";
 
+interface LocationSearch {
+	category?: string;
+}
+
 function LocationPage() {
 
+    const { category } = Route.useSearch();
+    const navigate = useNavigate({ from: Route.fullPath });
+    
 const [open, setOpen] = useState(false);
     const [view, setView] = useState<AuthView>("login");
 
@@ -22,6 +29,15 @@ const [open, setOpen] = useState(false);
         setView(v);
         setOpen(true);
     };
+
+    const handleCategoryChange = (newCategory: string | undefined) => {
+	navigate({
+		search: (prev: LocationSearch): LocationSearch => ({
+			...prev,
+			category: newCategory,
+		}),
+	});
+};
 
 
     const business: LocalBusiness = {
@@ -31,7 +47,7 @@ const [open, setOpen] = useState(false);
         latitude: 9.9281,
         longitude: -85.0907,
         description: "Comida rápida deliciosa.",
-        image: "/img/hogar.jpg",
+        image_url: "/img/hogar.jpg",
         rating: 4.5,
         category: "Restaurante"
     };
@@ -47,7 +63,7 @@ const [open, setOpen] = useState(false);
             placeholder="Search businesses..."
             />
             
-            <CategoryFilter />
+            <CategoryFilter value={category} onChange={handleCategoryChange} />
         </div>
 
             <Profile
@@ -83,5 +99,9 @@ const [open, setOpen] = useState(false);
 
 
 export const Route = createFileRoute("/LocationPage")({
-    component: LocationPage,
+	validateSearch: (search: Record<string, unknown>): LocationSearch => ({
+		category: (search.category as string) || undefined,
+	}),
+
+	component: LocationPage,
 });

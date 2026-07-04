@@ -12,7 +12,7 @@ function TopDestinationCard({ business, onViewMore }: TopDestinationCardProps) {
 			onClick={() => onViewMore(business.id)}
 		>
 			<img
-				src={business.image}
+				src={business.image_url ?? undefined}
 				alt={business.name}
 				className="w-full h-70 object-cover rounded-2xl"
 			/>

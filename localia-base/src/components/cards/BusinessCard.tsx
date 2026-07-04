@@ -37,7 +37,7 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 		<div className="max-w-sm overflow-hidden rounded-3xl border-0 bg-violet-900">
 			<div className="relative">
 				<img
-					src={business.image}
+					  src={business.image_url ?? undefined}
 					alt={business.name}
 					className="h-55 w-full object-cover object-center"
 				/>
@@ -81,7 +81,7 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 					</div>
 
 					<Button
-						className="h-13 w-28 cursor-pointer rounded-3xl bg-violet-500 text-base text-violet-50 hover:bg-violet-300"
+						className="text-sm text-violet-50  bg-violet-500 w-25 h-10 rounded-4xl cursor-pointer hover:bg-violet-300"
 						onClick={() => onViewMore?.(business.id)}
 					>
 						See more

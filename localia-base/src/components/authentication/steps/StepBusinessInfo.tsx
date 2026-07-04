@@ -1,21 +1,20 @@
 import { useState } from "react";
 import { MdCameraAlt } from "react-icons/md";
+import { toast } from "sonner";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import Select from "../../ui/SelectInput";
-
-//borrar esatas categorias de prueba
-const CATEGORIES = [
-	"Gastronomy",
-	"Tours & Adventures",
-	"Wellness",
-	"Accommodation",
-	"Transport",
-	"Shopping",
-];
+import { CATEGORIES } from "../../../types/categories";
 
 //convierte el array en el formato que necesita el componente que select (que e sel que usa esta info)
 const CATEGORY_OPTIONS = CATEGORIES.map((c) => ({ value: c, label: c }));
+
+const MAX_IMAGE_SIZE_MB = 5; // debe coincidir con el límite de multer en el backend (src/middleware/upload.ts)
+
+const COUNTRY_CODE_REGEX = /^\+\d{1,4}$/; // ej: +506, +1, +52
+const PHONE_REGEX = /^\d{8}$/; // 8 dígitos exactos, sin espacios ni guiones
+const MIN_DESCRIPTION_LENGTH = 20;
+const MAX_DESCRIPTION_LENGTH = 500;
 
 //botones siguewinte atras
 interface StepBusinessInfoProps {
@@ -31,6 +30,7 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 	const [category, setCategory] = useState("");
 	const [description, setDescription] = useState("");
 	const [phone, setPhone] = useState("");
+	const [countryCode, setCountryCode] = useState("+506");
 
 	//manejo de imagenes subidas
 	const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +38,18 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		const file = e.target.files?.[0];
 		//sin archivo no se hace nada
     if (!file) return;
+
+    //validacion de tamaño ANTES de guardar el archivo (debe coincidir con el limite del backend)
+    const maxBytes = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+    if (file.size > maxBytes) {
+      toast.error(
+        `La imagen pesa demasiado (máximo ${MAX_IMAGE_SIZE_MB}MB). Elegí una imagen más liviana.`,
+        { style: { background: "#ab0000", color: "#ffffff" } }
+      );
+      e.target.value = ""; // limpia el input para permitir reintentar con otro archivo
+      return;
+    }
+
     setImage(file);
 		//api para leer archivos locales, esto abre la ventana de documentos locales
 		//cuando esto pasa se hace lectur ay convesion e archivo
@@ -47,11 +59,70 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		reader.readAsDataURL(file);
 	};
 
+	//solo permite + al inicio y dígitos, hasta 4 dígitos después del +
+	const handleCountryCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		let value = e.target.value.replace(/[^\d+]/g, ""); // solo dígitos y +
+		if (!value.startsWith("+")) value = `+${value.replace(/\+/g, "")}`;
+		value = "+" + value.slice(1).replace(/\+/g, ""); // solo un + permitido, al inicio
+		value = value.slice(0, 5); // "+" + hasta 4 dígitos
+		setCountryCode(value);
+	};
+
+	//solo permite dígitos y hasta 8 caracteres mientras el usuario escribe
+	const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 8);
+		setPhone(digitsOnly);
+	};
+
 	const isValid =
 		name.trim().length > 0 &&
 		category.trim().length > 0 &&
 		phone.trim().length > 0 &&
 		description.trim().length > 0;
+
+	const handleNext = () => {
+		if (!COUNTRY_CODE_REGEX.test(countryCode)) {
+			toast.error(
+				"Ingresá un código de país válido (ej: +506).",
+				{ style: { background: "#ab0000", color: "#ffffff" } }
+			);
+			return;
+		}
+
+		if (!PHONE_REGEX.test(phone)) {
+			toast.error(
+				"El número de teléfono debe tener exactamente 8 dígitos.",
+				{ style: { background: "#ab0000", color: "#ffffff" } }
+			);
+			return;
+		}
+
+		const descLength = description.trim().length;
+
+		if (descLength < MIN_DESCRIPTION_LENGTH) {
+			toast.error(
+				`La descripción debe tener al menos ${MIN_DESCRIPTION_LENGTH} caracteres.`,
+				{ style: { background: "#ab0000", color: "#ffffff" } }
+			);
+			return;
+		}
+
+		if (descLength > MAX_DESCRIPTION_LENGTH) {
+			toast.error(
+				`La descripción no puede superar los ${MAX_DESCRIPTION_LENGTH} caracteres.`,
+				{ style: { background: "#ab0000", color: "#ffffff" } }
+			);
+			return;
+		}
+
+		onNext({
+			name,
+			category,
+			description,
+			phone: `${countryCode}${phone}`,
+			image,
+		});
+	};
 
 	return (
 		<div className="flex flex-col gap-3 w-full">
@@ -100,20 +171,37 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 				options={CATEGORY_OPTIONS}
 			/>
 
-			<Input
-				type="tel"
-				placeholder="Phone Number*"
-				value={phone}
-				onChange={(e) => setPhone(e.target.value)}
-			/>
+			<div className="flex gap-2">
+				<div className="w-24">
+					<Input
+						type="text"
+						placeholder="+506"
+						value={countryCode}
+						onChange={handleCountryCodeChange}
+					/>
+				</div>
+				<div className="flex-1">
+					<Input
+						type="tel"
+						placeholder="Phone Number* (8 digits)"
+						value={phone}
+						onChange={handlePhoneChange}
+					/>
+				</div>
+			</div>
 
-      <textarea
-        placeholder="Description*"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        rows={3}
-        className="w-full rounded-2xl border border-neutral-300 bg-neutral-0 text-sm px-5 py-3 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-none"
-      />
+      <div className="flex flex-col gap-1">
+        <textarea
+          placeholder="Description*"
+          value={description}
+          onChange={(e) => setDescription(e.target.value.slice(0, MAX_DESCRIPTION_LENGTH))}
+          rows={3}
+          className="w-full rounded-2xl border border-neutral-300 bg-neutral-0 text-sm px-5 py-3 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-none"
+        />
+        <span className="text-xs text-neutral-400 text-right">
+          {description.trim().length}/{MAX_DESCRIPTION_LENGTH}
+        </span>
+      </div>
 
 			<div className="flex justify-between pt-1">
 				<Button
@@ -128,15 +216,7 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 					bgColor="bg-violet-500"
 					textColor="text-white"
 					size="w-28"
-					onClick={() =>
-	onNext({
-		name,
-		category,
-		description,
-		phone,
-		image
-	})
-}
+					onClick={handleNext}
 					disabled={!isValid}
 				/>
 			</div>
