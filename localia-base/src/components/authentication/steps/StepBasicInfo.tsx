@@ -19,6 +19,9 @@ interface StepBasicInfoProps {
 	onSwitch: () => void;
 }
 
+// misma regla que valida el backend: mínimo 8 caracteres, una mayúscula, una minúscula y un número
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
 export function StepBasicInfo({
 	role,
 	onRoleChange,
@@ -41,6 +44,14 @@ const [submitting,setSubmitting]=useState(false);
 	const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValid) return;
+
+    if (!PASSWORD_REGEX.test(password)) {
+        toast.error(
+            "La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número",
+            { style: { background: "#ab0000", color: "#ffffff" } }
+        );
+        return;
+    }
 
     setSubmitting(true);
 

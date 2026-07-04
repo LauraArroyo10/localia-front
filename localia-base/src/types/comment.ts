@@ -9,4 +9,6 @@ export interface CommentProps {
 	title: string;
 	body: string;
 	helpfulCount: number;
+	isOwner: boolean;
+	markedHelpfulByMe: boolean;
 }

@@ -10,7 +10,7 @@ export interface LocalBusiness {
 	latitude: number;
 	longitude: number;
 
-	image: string;
+	image_url: string | null;
 
 	rating: number;
 

@@ -1,12 +1,19 @@
 import Logo from "../../assets/brand/logo.svg?react";
-import { contactData } from "../../mockData/contactData";
 import type { SocialLink } from "../../types/types";
+import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
-const socialLinks: SocialLink[] = [
-  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "facebook" },
-  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "twitter" },
-  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "instagram" },
-  { icon: <span className="block w-6 h-6 bg-neutral-0/60 rounded-full" />, href: "#", platform: "linkedin" },
+export const contactData = {
+	email: "contacto@localia.com",
+	phone: "+506 0000-0000",
+	addressLines: ["San José, Costa Rica"],
+};
+
+
+export const socialLinks: SocialLink[] = [
+	{ icon: <FaFacebook className="w-6 h-6" />, href: "#", platform: "facebook" },
+	{ icon: <FaXTwitter className="w-6 h-6" />, href: "#", platform: "twitter" },
+	{ icon: <FaInstagram className="w-6 h-6" />, href: "#", platform: "instagram" },
+	{ icon: <FaLinkedin className="w-6 h-6" />, href: "#", platform: "linkedin" },
 ];
 
 function Footer() {

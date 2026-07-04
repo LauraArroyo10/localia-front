@@ -2,7 +2,9 @@
 import { useState, useRef } from "react";
 import { useFavorites } from "../../hooks/useFavorites";
 import FavoritesPopup from "../ui/FavoritesPopup";
-import destinationImg from "../../assets/brand/destination-placeholder.jpg";
+
+const destinationImg = "/img/destination-placeholder.jpg";
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 export interface TouristProfileViewProps {
 	name: string;
@@ -22,12 +24,13 @@ export default function TouristProfileView({
 	const { favorites } = useFavorites();
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const mappedFavorites = favorites.map((f) => ({
-		id: f.businessId,
-		name: f.name,
-		avatarUrl: f.image_url ?? destinationImg,
-		location: f.city ?? "",
-	}));
+	
+const mappedFavorites = favorites.map((f) => ({
+	id: f.businessId,
+	name: f.name,
+	imageUrl: f.image_url ? `${API_URL}${f.image_url}` : destinationImg,
+	location: f.city ?? "",
+}));
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -85,7 +88,7 @@ export default function TouristProfileView({
 
 			{/* Bloque de Información Inferior */}
 			<div className="p-10">
-				<div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-[420px]">
+				<div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-[100px]">
 					<div className="w-full bg-violet-500 p-8 text-neutral-0 flex flex-col justify-between">
 						<div className="flex flex-col gap-3">
 							<p className="text-sm font-light text-neutral-0/90 leading-relaxed">

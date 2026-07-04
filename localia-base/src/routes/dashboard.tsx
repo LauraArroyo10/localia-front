@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { AuthModal } from "../components/authentication/AuthShell";
@@ -13,16 +13,32 @@ import { useAuth } from "../hooks/useAuth";
 
 type AuthView = "login" | "register";
 
+interface DashboardSearch {
+	category?: string;
+}
+
 function DashboardPage() {
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<AuthView>("login");
 	const { user } = useAuth();
 	const businessId = user?.business?.id;
 
+	const { category } = Route.useSearch();
+    const navigate = useNavigate({ from: Route.fullPath });
+
 	const openAs = (v: AuthView) => {
 		setView(v);
 		setOpen(true);
 	};
+
+	const handleCategoryChange = (newCategory: string | undefined) => {
+	navigate({
+		search: (prev: DashboardSearch): DashboardSearch => ({
+			...prev,
+			category: newCategory,
+		}),
+	});
+};
 
 	return (
 		<main className="min-h-screen flex flex-col gap-20 bg-color-bg">
@@ -34,7 +50,7 @@ function DashboardPage() {
 			<section>
 				<div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
 					<SearchBar placeholder="Search businesses..." />
-					<CategoryFilter />
+					<CategoryFilter value={category} onChange={handleCategoryChange} />
 					<ProfilePage />
 
 					{user?.role === "seller" && businessId && (
@@ -64,5 +80,8 @@ function DashboardPage() {
 }
 
 export const Route = createFileRoute("/Dashboard")({
+	validateSearch: (search: Record<string, unknown>): DashboardSearch => ({
+		category: (search.category as string) || undefined,
+	}),
 	component: DashboardPage,
 });
