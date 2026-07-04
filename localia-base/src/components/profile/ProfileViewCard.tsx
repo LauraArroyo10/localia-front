@@ -1,5 +1,3 @@
-// src/components/profile/ProfileView.tsx
-
 import { useState } from "react";
 import FavoritesPopup from "../ui/FavoritesPopup";
 import { useFavorites } from "../../hooks/useFavorites";
@@ -9,16 +7,17 @@ import { useNavigate } from "@tanstack/react-router";
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 const destinationImg = "/img/destination-placeholder.jpg";
 
-
 export interface ProfileViewProps {
   data: {
-    businessName: string;
-    subtitle: string;
-    image_url: string;
-    bannerImgUrl: string;
-    description: string;
-    location: string;
-    rating: number;
+      businessName: string;
+  subtitle: string;
+  image_url: string;
+  bannerImgUrl: string;
+  description: string;
+  location: string;
+  rating: number;
+  lat?: number;
+  lng?: number;
   };
   onEditClick: () => void;
 }
@@ -26,18 +25,38 @@ export interface ProfileViewProps {
 export default function ProfileView({ data, onEditClick }: ProfileViewProps) {
   const [showFavorites, setShowFavorites] = useState(false);
   const { favorites } = useFavorites();
-const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const mappedFavorites = favorites.map((f) => ({
     id: f.businessId,
     name: f.name,
-    imageUrl: f.image_url ? `${API_URL}${f.image_url}` : destinationImg,
+    imageUrl: f.image_url
+      ? `${API_URL}${f.image_url}`
+      : destinationImg,
     location: f.city ?? "",
   }));
+
+const handleLocationClick = () => {
+  if (!data.lat || !data.lng) {
+    console.warn("Missing coords");
+    return;
+  }
+
+  navigate({
+    to: "/locationPage",
+    search: {
+      lat: String(data.lat),
+      lng: String(data.lng),
+      location: data.location,
+      name: data.businessName,
+    },
+  });
+};
 
   return (
     <>
       <div className="w-full max-w-[1150px] bg-neutral-0 rounded-3xl overflow-hidden border border-neutral-100">
-        {/* Bloque Superior */}
+        {/* Header */}
         <div className="bg-violet-50 px-10 py-8 flex justify-between items-center relative">
           <div>
             <h1 className="text-4xl font-semibold text-violet-500 tracking-wide mb-1">
@@ -49,7 +68,6 @@ const navigate = useNavigate();
             </p>
           </div>
 
-          {/* Avatar */}
           <div className="w-33 h-33 rounded-full overflow-hidden border-4 border-neutral-0 bg-neutral-0">
             <img
               src={data.image_url}
@@ -58,7 +76,6 @@ const navigate = useNavigate();
             />
           </div>
 
-          {/* Editar */}
           <button
             onClick={onEditClick}
             className="absolute top-4 right-4 bg-neutral-0/80 hover:bg-neutral-0 text-neutral-700 px-4 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 transition-all cursor-pointer"
@@ -67,10 +84,11 @@ const navigate = useNavigate();
           </button>
         </div>
 
-        {/* Información */}
+        {/* Content */}
         <div className="p-10">
           <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-[420px]">
-            {/* Panel izquierdo */}
+            
+            {/* Left */}
             <div className="w-full md:w-[45%] bg-violet-500 p-8 text-neutral-0 flex flex-col justify-between">
               <div className="flex flex-col gap-3">
                 <h2 className="text-2xl font-semibold tracking-wide">
@@ -101,11 +119,7 @@ const navigate = useNavigate();
                     </p>
 
                     <button
-                      onClick={() =>
-                        navigate({
-                          to: "/location",
-                        })
-                      }
+                      onClick={handleLocationClick}
                       className="text-accent hover:text-accent-100 transition cursor-pointer"
                       title="View location"
                     >
@@ -116,7 +130,7 @@ const navigate = useNavigate();
               </div>
             </div>
 
-            {/* Imagen */}
+            {/* Right */}
             <div className="w-full md:w-[55%] bg-neutral-100">
               <img
                 src={data.bannerImgUrl}
@@ -128,7 +142,7 @@ const navigate = useNavigate();
         </div>
       </div>
 
-      {/* Popup Favoritos */}
+      {/* Favorites */}
       {showFavorites && (
         <FavoritesPopup
           favorites={mappedFavorites}

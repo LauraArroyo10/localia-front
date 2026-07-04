@@ -75,10 +75,11 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 	};
 
 	const isValid =
-		name.trim().length > 0 &&
-		category.trim().length > 0 &&
-		phone.trim().length > 0 &&
-		description.trim().length > 0;
+		  name.trim().length > 0 &&
+  category.trim().length > 0 &&
+  phone.trim().length > 0 &&
+  description.trim().length > 0 &&
+  image !== null;
 
 	const handleNext = () => {
 		if (!COUNTRY_CODE_REGEX.test(countryCode)) {

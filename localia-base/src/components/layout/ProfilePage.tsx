@@ -24,24 +24,34 @@ export default function ProfilePage() {
       "Un espacio diseñado para quienes disfrutan de un buen café en un ambiente relajado y natural.",
     location: "Loading...",
     rating: 4,
+    lat: undefined,
+    lng: undefined,
   });
 
-  // 🔥 Actualiza la ubicación cuando llegue del backend
-  useEffect(() => {
-    if (location) {
-      setProfileData((prev) => ({
-        ...prev,
-        location: location.location,
-      }));
-    }
-  }, [location]);
+
+ useEffect(() => {
+  if (!location) return;
+
+  setProfileData((prev) => ({
+    ...prev,
+    location: location.location ?? prev.location,
+    lat:
+      location.lat !== undefined && location.lat !== null
+        ? Number(location.lat)
+        : prev.lat,
+    lng:
+      location.lng !== undefined && location.lng !== null
+        ? Number(location.lng)
+        : prev.lng,
+  }));
+}, [location]);
 
   const handleSaveData = (updatedData: ProfileData) => {
     setProfileData(updatedData);
     setIsEditing(false);
   };
 
-  // 👤 Vista turista
+
   if (user?.role === "tourist") {
     return (
       <div className="flex justify-center items-start py-16">

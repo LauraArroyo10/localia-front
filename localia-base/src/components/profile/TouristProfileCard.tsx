@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { useFavorites } from "../../hooks/useFavorites";
 import FavoritesPopup from "../ui/FavoritesPopup";
+import { FaUserCircle } from "react-icons/fa";
 
 const destinationImg = "/img/destination-placeholder.jpg";
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
@@ -24,32 +25,28 @@ export default function TouristProfileView({
 	const { favorites } = useFavorites();
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	
-const mappedFavorites = favorites.map((f) => ({
-	id: f.businessId,
-	name: f.name,
-	imageUrl: f.image_url ? `${API_URL}${f.image_url}` : destinationImg,
-	location: f.city ?? "",
-}));
+	const mappedFavorites = favorites.map((f) => ({
+		id: f.businessId,
+		name: f.name,
+		imageUrl: f.image_url ? `${API_URL}${f.image_url}` : destinationImg,
+		location: f.city ?? "",
+	}));
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
 
-		// Vista previa local inmediata
 		const localUrl = URL.createObjectURL(file);
 		setPreviewUrl(localUrl);
 
-		if (onAvatarChange) {
-			onAvatarChange(file);
-		}
+		onAvatarChange?.(file);
 	};
 
-	const displayedAvatar = previewUrl ?? avatarUrl;
+	const displayedAvatar = previewUrl || avatarUrl;
 
 	return (
 		<div className="w-full max-w-[1150px] bg-neutral-0 rounded-3xl overflow-hidden border border-neutral-100">
-			{/* Bloque Superior Lila */}
+			{/* Header */}
 			<div className="bg-violet-50 px-10 py-8 flex justify-between items-center relative">
 				<div>
 					<h1 className="text-4xl font-semibold text-violet-500 tracking-wide mb-1">
@@ -58,18 +55,22 @@ const mappedFavorites = favorites.map((f) => ({
 					<p className="text-2xl font-medium text-terracota-500">Tourist</p>
 				</div>
 
-				{/* Avatar Circular */}
+				{/* Avatar */}
 				<div className="w-33 h-33 rounded-full overflow-hidden border-4 border-neutral-0 bg-neutral-0">
 					{displayedAvatar ? (
-						<img src={displayedAvatar} alt="Avatar" className="w-full h-full object-cover" />
+						<img
+							src={displayedAvatar}
+							alt="Avatar"
+							className="w-full h-full object-cover"
+						/>
 					) : (
-						<div className="w-full h-full bg-violet-200 flex items-center justify-center text-violet-700 text-4xl font-bold">
-							{name.charAt(0).toUpperCase()}
+						<div className="w-full h-full bg-violet-200 flex items-center justify-center text-violet-700">
+							<FaUserCircle className="w-16 h-16 opacity-80" />
 						</div>
 					)}
 				</div>
 
-				{/* Botón flotante para cambiar foto */}
+				{/* Botón cambiar foto */}
 				<button
 					onClick={() => fileInputRef.current?.click()}
 					className="absolute top-4 right-4 bg-neutral-0/80 hover:bg-neutral-0 text-neutral-700 px-4 py-1.5 rounded-full text-xs font-semibold border border-neutral-200 transition-all cursor-pointer"
@@ -86,14 +87,12 @@ const mappedFavorites = favorites.map((f) => ({
 				/>
 			</div>
 
-			{/* Bloque de Información Inferior */}
+			{/* Body */}
 			<div className="p-10">
 				<div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-[100px]">
 					<div className="w-full bg-violet-500 p-8 text-neutral-0 flex flex-col justify-between">
 						<div className="flex flex-col gap-3">
-							<p className="text-sm font-light text-neutral-0/90 leading-relaxed">
-						
-							</p>
+							<p className="text-sm font-light text-neutral-0/90 leading-relaxed" />
 						</div>
 
 						<div className="flex flex-col gap-4 mt-6">
@@ -108,6 +107,7 @@ const mappedFavorites = favorites.map((f) => ({
 				</div>
 			</div>
 
+			{/* Favorites modal */}
 			{showFavorites && (
 				<FavoritesPopup
 					favorites={mappedFavorites}
