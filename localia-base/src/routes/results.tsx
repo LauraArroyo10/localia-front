@@ -57,6 +57,6 @@ function ResultsPage() {
 	);
 }
 
-export const Route = createFileRoute("/results")({
+export const Route = createFileRoute("/Results")({
 	component: ResultsPage,
 });
