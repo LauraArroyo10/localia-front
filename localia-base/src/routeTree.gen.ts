@@ -10,20 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResultsRouteImport } from './routes/Results'
-import { Route as DashboardRouteImport } from './routes/Dashboard'
 import { Route as ProductsPageRouteImport } from './routes/ProductsPage'
-import { Route as ProductDetailPageRouteImport } from './routes/ProductDetailPage'
 import { Route as LocationPageRouteImport } from './routes/LocationPage'
+import { Route as DashboardRouteImport } from './routes/Dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ResultsRoute = ResultsRouteImport.update({
-  id: '/results',
-  path: '/results',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+  id: '/Results',
+  path: '/Results',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsPageRoute = ProductsPageRouteImport.update({
@@ -31,14 +25,14 @@ const ProductsPageRoute = ProductsPageRouteImport.update({
   path: '/ProductsPage',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductDetailPageRoute = ProductDetailPageRouteImport.update({
-  id: '/ProductDetailPage',
-  path: '/ProductDetailPage',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LocationPageRoute = LocationPageRouteImport.update({
   id: '/LocationPage',
   path: '/LocationPage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/Dashboard',
+  path: '/Dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,79 +43,55 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Dashboard': typeof DashboardRoute
   '/LocationPage': typeof LocationPageRoute
-  '/ProductDetailPage': typeof ProductDetailPageRoute
   '/ProductsPage': typeof ProductsPageRoute
-  '/dashboard': typeof DashboardRoute
-  '/results': typeof ResultsRoute
+  '/Results': typeof ResultsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Dashboard': typeof DashboardRoute
   '/LocationPage': typeof LocationPageRoute
-  '/ProductDetailPage': typeof ProductDetailPageRoute
   '/ProductsPage': typeof ProductsPageRoute
-  '/dashboard': typeof DashboardRoute
-  '/results': typeof ResultsRoute
+  '/Results': typeof ResultsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Dashboard': typeof DashboardRoute
   '/LocationPage': typeof LocationPageRoute
-  '/ProductDetailPage': typeof ProductDetailPageRoute
   '/ProductsPage': typeof ProductsPageRoute
-  '/dashboard': typeof DashboardRoute
-  '/results': typeof ResultsRoute
+  '/Results': typeof ResultsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/LocationPage'
-    | '/ProductDetailPage'
-    | '/ProductsPage'
-    | '/dashboard'
-    | '/results'
+  fullPaths: '/' | '/Dashboard' | '/LocationPage' | '/ProductsPage' | '/Results'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/LocationPage'
-    | '/ProductDetailPage'
-    | '/ProductsPage'
-    | '/dashboard'
-    | '/results'
+  to: '/' | '/Dashboard' | '/LocationPage' | '/ProductsPage' | '/Results'
   id:
     | '__root__'
     | '/'
+    | '/Dashboard'
     | '/LocationPage'
-    | '/ProductDetailPage'
     | '/ProductsPage'
-    | '/dashboard'
-    | '/results'
+    | '/Results'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LocationPageRoute: typeof LocationPageRoute
-  ProductDetailPageRoute: typeof ProductDetailPageRoute
-  ProductsPageRoute: typeof ProductsPageRoute
   DashboardRoute: typeof DashboardRoute
+  LocationPageRoute: typeof LocationPageRoute
+  ProductsPageRoute: typeof ProductsPageRoute
   ResultsRoute: typeof ResultsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/results': {
-      id: '/results'
-      path: '/results'
-      fullPath: '/results'
+    '/Results': {
+      id: '/Results'
+      path: '/Results'
+      fullPath: '/Results'
       preLoaderRoute: typeof ResultsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ProductsPage': {
@@ -131,18 +101,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsPageRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ProductDetailPage': {
-      id: '/ProductDetailPage'
-      path: '/ProductDetailPage'
-      fullPath: '/ProductDetailPage'
-      preLoaderRoute: typeof ProductDetailPageRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/LocationPage': {
       id: '/LocationPage'
       path: '/LocationPage'
       fullPath: '/LocationPage'
       preLoaderRoute: typeof LocationPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Dashboard': {
+      id: '/Dashboard'
+      path: '/Dashboard'
+      fullPath: '/Dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -157,10 +127,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LocationPageRoute: LocationPageRoute,
-  ProductDetailPageRoute: ProductDetailPageRoute,
-  ProductsPageRoute: ProductsPageRoute,
   DashboardRoute: DashboardRoute,
+  LocationPageRoute: LocationPageRoute,
+  ProductsPageRoute: ProductsPageRoute,
   ResultsRoute: ResultsRoute,
 }
 export const routeTree = rootRouteImport
