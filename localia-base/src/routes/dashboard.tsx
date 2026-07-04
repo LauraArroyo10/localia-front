@@ -79,7 +79,7 @@ function DashboardPage() {
 	);
 }
 
-export const Route = createFileRoute("/Dashboard")({
+export const Route = createFileRoute("/dashboard")({
 	validateSearch: (search: Record<string, unknown>): DashboardSearch => ({
 		category: (search.category as string) || undefined,
 	}),
