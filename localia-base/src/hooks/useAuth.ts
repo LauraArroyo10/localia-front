@@ -51,7 +51,7 @@ export const useAuth = create<AuthStore>()(
 			error: null,
 
 			login: async (data: LoginData) => {
-				console.log("Enviando login:", data);
+	
 
 				set({ loading: true });
 
@@ -64,8 +64,7 @@ export const useAuth = create<AuthStore>()(
 
 					const json = await res.json();
 
-					console.log("Status:", res.status);
-					console.log("Respuesta:", json);
+					
 
 					if (!res.ok) throw new Error(json.message);
 

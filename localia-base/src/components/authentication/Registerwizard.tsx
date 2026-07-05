@@ -9,6 +9,7 @@ import { StepDone } from "./steps/StepDone";
 import { StepLocation } from "./steps/StepLocation";
 import { StepWhatOffer } from "./steps/StepWhatoffer";
 
+
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 type StepKey = "basic" | "offer" | "business" | "location" | "done";
