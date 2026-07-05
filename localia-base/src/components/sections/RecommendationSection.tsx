@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { toast } from "sonner";
 import { useNearbyBusinesses } from "../../hooks/useResults";
 import { useUserLocation } from "../../hooks/useUserLocation";

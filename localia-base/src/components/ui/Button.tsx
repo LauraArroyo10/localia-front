@@ -28,8 +28,8 @@ function Button({
 			className={`
         ${bgColor} ${textColor} ${size} ${textSize} ${border}
         h-8.75 rounded-full font-medium
-        disabled:opacity-50 hover:opacity-90 transition-opacity
-      `}
+        disabled:opacity-50 hover:opacity-90 transition-opacity cursor-pointer
+    `}
 		>
 			{text}
 		</button>

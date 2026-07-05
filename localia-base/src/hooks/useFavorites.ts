@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import { apiFetch } from "../lib/api";
 import { useAuth } from "./useAuth";
-
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 export interface FavoriteBusiness {
 	favoriteId: string;
@@ -31,12 +30,7 @@ export function useFavorites() {
 		try {
 			setLoading(true);
 
-			const res = await fetch(`${API_URL}/users/me/favorites`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-
+			const res = await apiFetch("/users/me/favorites");
 			const json = await res.json();
 
 			if (!res.ok) {
@@ -58,30 +52,38 @@ export function useFavorites() {
 	const addFavorite = async (businessId: string) => {
 		if (!token) return;
 
-		const res = await fetch(`${API_URL}/users/me/favorites/${businessId}`, {
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
+		try {
+			const res = await apiFetch(`/users/me/favorites/${businessId}`, {
+				method: "POST",
+			});
 
-		if (res.ok) {
-			fetchFavorites();
+			if (res.ok) {
+				fetchFavorites();
+			} else {
+				const json = await res.json();
+				setError(json.message ?? "Error al agregar favorito");
+			}
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Error de red");
 		}
 	};
 
 	const removeFavorite = async (businessId: string) => {
 		if (!token) return;
 
-		const res = await fetch(`${API_URL}/users/me/favorites/${businessId}`, {
-			method: "DELETE",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
+		try {
+			const res = await apiFetch(`/users/me/favorites/${businessId}`, {
+				method: "DELETE",
+			});
 
-		if (res.ok) {
-			fetchFavorites();
+			if (res.ok) {
+				fetchFavorites();
+			} else {
+				const json = await res.json();
+				setError(json.message ?? "Error al quitar favorito");
+			}
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Error de red");
 		}
 	};
 

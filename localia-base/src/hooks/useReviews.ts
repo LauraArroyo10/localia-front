@@ -1,9 +1,8 @@
 // src/hooks/useReviews.ts
 import { useEffect, useState } from "react";
+import { apiFetch } from "../lib/api";
 import type { CommentProps } from "../types/comment";
 import { useAuth } from "./useAuth";
-
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 export function useReviews(businessId: string) {
 	const token = useAuth((state) => state.token);
@@ -18,11 +17,8 @@ export function useReviews(businessId: string) {
 		setError(null);
 
 		try {
-			const res = await fetch(
-				`${API_URL}/api/businesses/${businessId}/reviews?page=${page}`,
-				{
-					headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-				},
+			const res = await apiFetch(
+				`/api/businesses/${businessId}/reviews?page=${page}`,
 			);
 
 			const json = await res.json();
@@ -55,17 +51,11 @@ export function useReviews(businessId: string) {
 		setError(null);
 
 		try {
-			const res = await fetch(
-				`${API_URL}/api/businesses/${businessId}/reviews`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-					body: JSON.stringify(data),
-				},
-			);
+			const res = await apiFetch(`/api/businesses/${businessId}/reviews`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(data),
+			});
 
 			const json = await res.json();
 
@@ -96,12 +86,9 @@ export function useReviews(businessId: string) {
 		setError(null);
 
 		try {
-			const res = await fetch(`${API_URL}/api/businesses/reviews/${reviewId}`, {
+			const res = await apiFetch(`/api/businesses/reviews/${reviewId}`, {
 				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
+				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(data),
 			});
 
@@ -128,9 +115,8 @@ export function useReviews(businessId: string) {
 		setError(null);
 
 		try {
-			const res = await fetch(`${API_URL}/api/businesses/reviews/${reviewId}`, {
+			const res = await apiFetch(`/api/businesses/reviews/${reviewId}`, {
 				method: "DELETE",
-				headers: { Authorization: `Bearer ${token}` },
 			});
 
 			const json = await res.json();
@@ -152,14 +138,9 @@ export function useReviews(businessId: string) {
 		}
 
 		try {
-			const res = await fetch(
-				`${API_URL}/api/businesses/reviews/${reviewId}/helpful`,
-				{
-					method: "POST",
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				},
+			const res = await apiFetch(
+				`/api/businesses/reviews/${reviewId}/helpful`,
+				{ method: "POST" },
 			);
 
 			const json = await res.json();

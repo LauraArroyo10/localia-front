@@ -12,10 +12,7 @@ interface StepBasicInfoProps {
 	role: Role;
 	onRoleChange: (r: Role) => void;
 
-	onNext: (
-		selectedRole: Role,
-		data: { name: string; email: string; password: string },
-	) => Promise<void>;
+	onNext: (selectedRole: Role,data: { name: string; email: string; password: string },) => Promise<void>;
 	onSwitch: () => void;
 }
 
