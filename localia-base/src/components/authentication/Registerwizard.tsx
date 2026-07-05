@@ -34,7 +34,7 @@ interface RegisterData {
 export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 	const [stepIndex, setStepIndex] = useState(0);
 	const [role, setRole] = useState<Role>("tourist");
-	const { register } = useAuth();
+	const { register, login } = useAuth();
 	const [registerData, setRegisterData] = useState<RegisterData>({
 		name: "",
 		email: "",
@@ -74,20 +74,26 @@ const navigate = useNavigate();
 		formData.append("image", businessData.image);
 	}
 
-	await fetch(`${API_URL}/api/businesses`,{
-		method:"POST",
-		headers:{
-			Authorization:`Bearer ${useAuth.getState().token}`
-		},
-		body:formData
+	const businessResponse = await fetch(`${API_URL}/api/businesses`, {
+    method: "POST",
+    headers: {
+        Authorization: `Bearer ${useAuth.getState().token}`,
+    },
+    body: formData,
 	});
+				
+				await login({
+					email: registerData.email,
+					password: registerData.password,
+                });
+
 
 }
 
 			console.log("User registered:", response);
 
 			onClose();
-       navigate({ to: "/dashboard" }); 
+        navigate({ to: "/dashboard" }); 
 		} catch (error) {
 			console.error("Registration error:", error);
 		}
