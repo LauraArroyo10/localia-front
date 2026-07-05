@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import Logo from "../../assets/brand/logo.svg?react";
 import { useAuth } from "../../hooks/useAuth";
+import { useBusinessProfile } from "../../hooks/useBusinessProfile";
 
 interface NavBarProps {
 	onLoginClick?: () => void;
@@ -9,6 +10,7 @@ interface NavBarProps {
 
 function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
 	const { user, logout } = useAuth();
+	const { profileData } = useBusinessProfile();
 	const navigate = useNavigate();
 
 	const handleLogout = () => {
@@ -37,7 +39,7 @@ function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
 								to="/dashboard"
 								className="text-sm text-violet-700 px-4 py-1.5 hover:bg-violet-50 rounded-3xl"
 							>
-								{user.name.split(" ")[0]}
+								{profileData?.businessName || user?.name?.split(" ")[0]}
 							</Link>
 
 							<button

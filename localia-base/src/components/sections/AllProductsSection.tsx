@@ -233,10 +233,11 @@ function AllProductsSection({
 				<div className="grid grid-cols-1 gap-9 sm:grid-cols-2 lg:grid-cols-3">
 					{products.map((product) => (
 						<ProductCard
-							key={product.id}
-							product={product}
-							onDelete={showOwnerControls ? handleDeleteProduct : undefined}
-						/>
+	key={product.id}
+	product={product}
+	businessId={businessId}
+	onDelete={showOwnerControls ? handleDeleteProduct : undefined}
+/>
 					))}
 				</div>
 			</div>

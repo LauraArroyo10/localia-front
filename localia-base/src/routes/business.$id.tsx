@@ -40,7 +40,7 @@ function BusinessDetailPage() {
 						data={{
 							businessName: business.name,
 							subtitle: business.category,
-							image_url: business.image_url ?? "/img/hogar.jpg",
+							avatarUrl: business.image_url ?? "/img/hogar.jpg",
 							bannerImgUrl: business.image_url ?? destinationImg,
 							description: business.description ?? "",
 							location: business.city ?? "",

@@ -11,7 +11,7 @@ export interface ProfileViewProps {
 	data: {
 		businessName: string;
 		subtitle: string;
-		image_url: string;
+		avatarUrl: string;
 		bannerImgUrl: string;
 		description: string;
 		location: string;
@@ -40,21 +40,21 @@ export default function ProfileView({
 	}));
 
 	const handleLocationClick = () => {
-		if (!data.lat || !data.lng) {
-			console.warn("Missing coords");
-			return;
-		}
+	if (!data.lat || !data.lng) {
+		console.warn("Missing coords");
+		return;
+	}
 
-		navigate({
-			to: "/locationPage",
-			search: {
-				lat: String(data.lat),
-				lng: String(data.lng),
-				location: data.location,
-				name: data.businessName,
-			},
-		});
-	};
+	navigate({
+		to: "/locationPage",
+		search: {
+			lat: String(data.lat),
+			lng: String(data.lng),
+			location: data.location,
+			name: data.businessName,
+		},
+	});
+};
 
 	return (
 		<>
@@ -73,10 +73,10 @@ export default function ProfileView({
 
 					<div className="w-33 h-33 rounded-full overflow-hidden border-4 border-neutral-0 bg-neutral-0">
 						<img
-							src={data.image_url}
-							alt="Avatar"
-							className="w-full h-full object-cover"
-						/>
+  src={data.avatarUrl}
+  alt="Avatar"
+  className="w-full h-full object-cover"
+/>
 					</div>
 
 					{onEditClick && (
@@ -137,7 +137,7 @@ export default function ProfileView({
 						</div>
 
 						{/* Right */}
-						<div className="w-full md:w-[55%] h-64 md:h-auto bg-neutral-100">
+						<div className="w-full md:w-[55%] h-[420px] overflow-hidden">
 							<img
 								src={data.bannerImgUrl}
 								alt="Business"

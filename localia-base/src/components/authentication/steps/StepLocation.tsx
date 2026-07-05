@@ -177,11 +177,11 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 					size="w-28"
 					onClick={() =>
 						onFinish({
-							address: selected?.display_name,
-							city: selected?.display_name,
-							lat: Number(selected?.lat),
-							lng: Number(selected?.lon),
-						})
+  address: selected?.display_name ?? "",
+  city: selected?.display_name ?? "",
+  lat: selected ? Number(selected.lat) : null,
+  lng: selected ? Number(selected.lon) : null,
+})
 					}
 					disabled={!selected}
 				/>
