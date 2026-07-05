@@ -24,7 +24,8 @@ function DashboardPage() {
 	const businessId = user?.business?.id;
 
 	const { category } = Route.useSearch();
-	const navigate = useNavigate({ from: Route.fullPath });
+    const navigate = useNavigate({ from: Route.fullPath });
+	
 
 	const openAs = (v: AuthView) => {
 		setView(v);
