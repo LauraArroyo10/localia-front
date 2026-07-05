@@ -24,7 +24,7 @@ function DashboardPage() {
 	const businessId = user?.business?.id;
 
 	const { category } = Route.useSearch();
-    const navigate = useNavigate({ from: Route.fullPath });
+	const navigate = useNavigate({ from: Route.fullPath });
 
 	const openAs = (v: AuthView) => {
 		setView(v);
@@ -32,13 +32,13 @@ function DashboardPage() {
 	};
 
 	const handleCategoryChange = (newCategory: string | undefined) => {
-	navigate({
-		search: (prev: DashboardSearch): DashboardSearch => ({
-			...prev,
-			category: newCategory,
-		}),
-	});
-};
+		navigate({
+			search: (prev: DashboardSearch): DashboardSearch => ({
+				...prev,
+				category: newCategory,
+			}),
+		});
+	};
 
 	return (
 		<main className="min-h-screen flex flex-col gap-20 bg-color-bg">
@@ -58,10 +58,7 @@ function DashboardPage() {
 							<ProductSection businessId={businessId} />
 
 							<div className="mt-6">
-								<ReviewsSection
-									userRole="seller"
-									businessId={businessId}
-								/>
+								<ReviewsSection userRole="seller" businessId={businessId} />
 							</div>
 						</>
 					)}

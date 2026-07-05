@@ -1,14 +1,12 @@
+import { useNavigate } from "@tanstack/react-router";
 import { signInWithPopup } from "firebase/auth";
 import { useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
 import { FaApple, FaFacebook, FaGoogle } from "react-icons/fa";
+import { toast } from "sonner";
+import { useAuth } from "../../hooks/useAuth";
 import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-
-import { useNavigate } from "@tanstack/react-router"
-import { toast } from "sonner";
-
 
 interface LoginFormProps {
 	onSwitch: () => void;
@@ -21,23 +19,25 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const { login } = useAuth();
-const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	//se ejecuta al hacer sign in
 	const handleSubmit = async (e: React.FormEvent) => {
 		//evita que el form recargue la pagina
 		e.preventDefault();
 		setIsLoading(true);
-		
-	try {
+
+		try {
 			await login({ email, password });
 			onClose();
 			navigate({ to: "/dashboard" });
 		} catch (err) {
-			  const message = err instanceof Error ? err.message : "Login failed";
-        toast.error(message, { style: { background: "#ab0000", color: "#ffffff" } }); 
-    } finally {
-        setIsLoading(false);
+			const message = err instanceof Error ? err.message : "Login failed";
+			toast.error(message, {
+				style: { background: "#ab0000", color: "#ffffff" },
+			});
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -88,10 +88,8 @@ const navigate = useNavigate();
 				</div>
 			</div>
 
-	{/* Error del backend */}
-			{error && (
-				<p className="text-sm text-red-500 text-center">{error}</p>
-			)}
+			{/* Error del backend */}
+			{error && <p className="text-sm text-red-500 text-center">{error}</p>}
 
 			<Button
 				type="submit"
@@ -102,37 +100,37 @@ const navigate = useNavigate();
 				disabled={isLoading}
 			/>
 
-      <div className="flex flex-col items-center gap-3">
-        <span className="text-xs text-violet-700">or continue with</span>
-        <div className="flex gap-3">
-          {socialButtons.map(({ icon, label, provider }) => (
-            <button
-              key={label}
-              type="button"
-              aria-label={label}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log("click", label);
-                if (provider) {
-                  console.log("llamando signInWithPopup...");
-                  signInWithPopup(auth, provider)
-                    .then((result) => {
-                      console.log("User:", result.user);
-                      onClose();
-                    })
-                    .catch((error) => {
-                      console.error("Error:", error);
-                    });
-                }
-              }}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 hover:opacity-80 transition-opacity bg-violet-900"
-            >
-              {icon}
-            </button>
-          ))}
-        </div>
-      </div>
+			<div className="flex flex-col items-center gap-3">
+				<span className="text-xs text-violet-700">or continue with</span>
+				<div className="flex gap-3">
+					{socialButtons.map(({ icon, label, provider }) => (
+						<button
+							key={label}
+							type="button"
+							aria-label={label}
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+								console.log("click", label);
+								if (provider) {
+									console.log("llamando signInWithPopup...");
+									signInWithPopup(auth, provider)
+										.then((result) => {
+											console.log("User:", result.user);
+											onClose();
+										})
+										.catch((error) => {
+											console.error("Error:", error);
+										});
+								}
+							}}
+							className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 hover:opacity-80 transition-opacity bg-violet-900"
+						>
+							{icon}
+						</button>
+					))}
+				</div>
+			</div>
 
 			<p className="text-sm text-center text-neutral-500">
 				Don't have an account?{" "}

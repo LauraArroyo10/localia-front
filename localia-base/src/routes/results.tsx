@@ -28,7 +28,10 @@ function ResultsPage() {
 
 	const handleCategoryChange = (newCategory: string | undefined) => {
 		navigate({
-			search: (prev: ResultsSearch): ResultsSearch => ({ ...prev, category: newCategory }),
+			search: (prev: ResultsSearch): ResultsSearch => ({
+				...prev,
+				category: newCategory,
+			}),
 		});
 	};
 
@@ -55,11 +58,14 @@ function ResultsPage() {
 				<Footer />
 			</div>
 
-			<AuthModal show={open} onClose={() => setOpen(false)} initialView={view} />
+			<AuthModal
+				show={open}
+				onClose={() => setOpen(false)}
+				initialView={view}
+			/>
 		</div>
 	);
 }
-
 
 export const Route = createFileRoute("/results")({
 	validateSearch: (search: Record<string, unknown>): ResultsSearch => ({

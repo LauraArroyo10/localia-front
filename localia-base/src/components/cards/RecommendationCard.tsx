@@ -1,9 +1,9 @@
 import { Button } from "flowbite-react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import type { LocalBusiness } from "../../types/localBusiness";
-import StarRating from "../ui/StarRating";
 import { useAuth } from "../../hooks/useAuth";
 import { useFavorites } from "../../hooks/useFavorites";
+import type { LocalBusiness } from "../../types/localBusiness";
+import StarRating from "../ui/StarRating";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
@@ -30,10 +30,10 @@ function RecommendationCard({ business, onViewMore }: RecommendationCardProps) {
 		<div className="max-w-70 overflow-hidden rounded-3xl bg-violet-900 border-0">
 			<div className="relative">
 				<img
-	src={business.image_url ? `${API_URL}${business.image_url}` : undefined}
-	alt=""
-	className="w-full h-46 object-cover object-center"
-/>
+					src={business.image_url ?? undefined}
+					alt={business.name}
+					className="w-full h-46 object-cover object-center"
+				/>
 
 				{user && (
 					<div

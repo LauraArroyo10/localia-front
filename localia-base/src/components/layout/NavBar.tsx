@@ -1,6 +1,6 @@
+import { Link, useNavigate } from "@tanstack/react-router";
 import Logo from "../../assets/brand/logo.svg?react";
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate, Link } from "@tanstack/react-router";
 
 interface NavBarProps {
 	onLoginClick?: () => void;

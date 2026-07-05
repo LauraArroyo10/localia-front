@@ -1,4 +1,3 @@
-
 import { useNavigate } from "@tanstack/react-router";
 
 const categories = [
@@ -17,7 +16,9 @@ function BrowseInterest() {
 		<section className="w-full bg-violet-50 py-16 px-6 flex flex-col items-center">
 			<div className="w-full max-w-[1150px]">
 				<div className="mb-6">
-					<h2 className="text-3xl font-bold mb-2 text-left">Browse by Interest</h2>
+					<h2 className="text-3xl font-bold mb-2 text-left">
+						Browse by Interest
+					</h2>
 					<p className="text-sm text-neutral-600 mb-10 text-left">
 						Explore experiences designed around what you love
 					</p>
@@ -41,7 +42,9 @@ function BrowseInterest() {
 								className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
 							/>
 							<div className="absolute inset-0 bg-linear-to-b from-neutral-950/40 via-transparent to-transparent p-6">
-								<h3 className="text-neutral-0 font-bold text-xl tracking-wide">{cat.name}</h3>
+								<h3 className="text-neutral-0 font-bold text-xl tracking-wide">
+									{cat.name}
+								</h3>
 							</div>
 						</div>
 					))}

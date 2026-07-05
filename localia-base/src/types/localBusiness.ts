@@ -13,5 +13,4 @@ export interface LocalBusiness {
 	image_url: string | null;
 
 	rating: number;
-
 }

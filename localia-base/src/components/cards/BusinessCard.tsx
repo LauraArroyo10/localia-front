@@ -1,9 +1,9 @@
 import { Button } from "flowbite-react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import type { LocalBusiness } from "../../types/localBusiness";
-import StarRating from "../ui/StarRating";
 import { useAuth } from "../../hooks/useAuth";
 import { useFavorites } from "../../hooks/useFavorites";
+import type { LocalBusiness } from "../../types/localBusiness";
+import StarRating from "../ui/StarRating";
 
 interface BusinessCardProps {
 	business: LocalBusiness;
@@ -13,17 +13,11 @@ interface BusinessCardProps {
 function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 	const { user } = useAuth();
 
-	const {
-		isFavorite,
-		addFavorite,
-		removeFavorite,
-	} = useFavorites();
+	const { isFavorite, addFavorite, removeFavorite } = useFavorites();
 
 	const favorite = isFavorite(business.id);
 
-	const handleFavorite = async (
-		e: React.MouseEvent<HTMLDivElement>
-	) => {
+	const handleFavorite = async (e: React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation();
 
 		if (favorite) {
@@ -37,7 +31,7 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 		<div className="max-w-sm overflow-hidden rounded-3xl border-0 bg-violet-900">
 			<div className="relative">
 				<img
-					  src={business.image_url ?? undefined}
+					src={business.image_url ?? undefined}
 					alt={business.name}
 					className="h-55 w-full object-cover object-center"
 				/>
@@ -57,14 +51,10 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 			</div>
 
 			<div className="px-7 py-7">
-				<h2 className="text-2xl font-bold text-violet-50">
-					{business.name}
-				</h2>
+				<h2 className="text-2xl font-bold text-violet-50">{business.name}</h2>
 
 				<div className="py-2">
-					<p className="text-lg text-terracota-400">
-						{business.location}
-					</p>
+					<p className="text-lg text-terracota-400">{business.location}</p>
 
 					<p className="line-clamp-2 text-base text-violet-50">
 						{business.description}
@@ -73,9 +63,7 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-2">
-						<p className="text-base text-violet-50">
-							{business.rating}
-						</p>
+						<p className="text-base text-violet-50">{business.rating}</p>
 
 						<StarRating rating={business.rating} />
 					</div>

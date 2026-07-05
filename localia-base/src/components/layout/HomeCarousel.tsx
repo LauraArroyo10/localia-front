@@ -2,8 +2,8 @@ import { useState } from "react";
 
 const destinationImg = "/img/destination-placeholder.jpg";
 const foodImg = "/img/market.jpg";
-const streetImg= "/img/street.jpg";
-const locomotionImg="/img/locomo.jpg";
+const streetImg = "/img/street.jpg";
+const locomotionImg = "/img/locomo.jpg";
 
 export function Carousel() {
 	const [current, setCurrent] = useState(0);
@@ -14,7 +14,6 @@ export function Carousel() {
 		{ id: 2, image: foodImg, alt: "Delicius food" },
 		{ id: 3, image: streetImg, alt: "Streets" },
 		{ id: 4, image: locomotionImg, alt: "Steam locomotion" },
-
 	];
 
 	const prev = () =>
@@ -32,23 +31,23 @@ export function Carousel() {
 
 			<div className="" />
 
-      {/* Button Prev */}
-      <button 
-        onClick={prev} 
-        className="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-neutral-0/25 hover:bg-neutral-0/40 text-neutral-0 flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
-      >
-        ‹
-      </button>
+			{/* Button Prev */}
+			<button
+				onClick={prev}
+				className="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-neutral-0/25 hover:bg-neutral-0/40 text-neutral-0 flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
+			>
+				‹
+			</button>
 
-      {/* Button Next */}
-      <button 
-        onClick={next} 
-        className="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-neutral-0/25 hover:bg-neutral-0/40 text-neutral-0 flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
-      >
-        ›
-      </button>
-    </div>
-  );
+			{/* Button Next */}
+			<button
+				onClick={next}
+				className="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-neutral-0/25 hover:bg-neutral-0/40 text-neutral-0 flex items-center justify-center text-xl backdrop-blur-md transition-all cursor-pointer select-none opacity-80 hover:opacity-100"
+			>
+				›
+			</button>
+		</div>
+	);
 }
 
 export default Carousel;

@@ -32,7 +32,7 @@ function CategoryFilter({ value, onChange }: CategoryFilterProps) {
 			</button>
 
 			{isOpen && (
-				<div className="absolute top-16 bg-violet-50 rounded-3xl overflow-hidden w-60 max-h-40 overflow-y-auto scrollbar-hide z-50">
+				<div className="absolute top-16 bg-violet-50 rounded-3xl overflow-hidden w-60 max-h-40 overflow-y-auto  z-50">
 					{options.map((category) => (
 						<p
 							key={category}

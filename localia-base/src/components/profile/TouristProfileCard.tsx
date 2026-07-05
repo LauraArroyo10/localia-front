@@ -1,8 +1,8 @@
 // src/components/profile/TouristProfileCard.tsx
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import { useFavorites } from "../../hooks/useFavorites";
 import FavoritesPopup from "../ui/FavoritesPopup";
-import { FaUserCircle } from "react-icons/fa";
 
 const destinationImg = "/img/destination-placeholder.jpg";
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";

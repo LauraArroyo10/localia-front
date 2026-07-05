@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { toast } from "sonner";
-import RecommendationCard from "../cards/RecommendationCard";
 import { useNearbyBusinesses } from "../../hooks/useResults";
 import { useUserLocation } from "../../hooks/useUserLocation";
+import RecommendationCard from "../cards/RecommendationCard";
 
 function RecommendationSection() {
 	const [page, setPage] = useState(1);
@@ -21,11 +21,15 @@ function RecommendationSection() {
 	}, [error]);
 
 	const handleViewMore = (id: string) => {
-		navigate({ to: `/business/${id}` });
+		navigate({ to: "/business", search: { id } });
 	};
 
 	const handleNext = () => {
-		setPage((prev) => prev + 1);
+		if (businesses.length < 4) {
+			setPage(1);
+		} else {
+			setPage((prev) => prev + 1);
+		}
 	};
 
 	if (loading) {
@@ -63,6 +67,7 @@ function RecommendationSection() {
 
 				<div className="flex justify-end mt-6">
 					<button
+						type="button"
 						onClick={handleNext}
 						aria-label="Next recommendations"
 						className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-neutral-0 hover:opacity-90 transition-opacity cursor-pointer"

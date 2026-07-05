@@ -13,24 +13,19 @@ interface ProductsSearch {
 
 function ProductsPage() {
 	const { businessId, category } = Route.useSearch();
-    const navigate = useNavigate({ from: Route.fullPath });
+	const navigate = useNavigate({ from: Route.fullPath });
 
-    const handleCategoryChange = (newCategory: string | undefined) => {
-	navigate({
-		search: (prev: ProductsSearch): ProductsSearch => ({
-			...prev,
-			category: newCategory,
-		}),
-	});
-};
-
+	const handleCategoryChange = (newCategory: string | undefined) => {
+		navigate({
+			search: (prev: ProductsSearch): ProductsSearch => ({
+				...prev,
+				category: newCategory,
+			}),
+		});
+	};
 
 	if (!businessId) {
-		return (
-			<div className="text-center mt-10">
-				No business selected
-			</div>
-		);
+		return <div className="text-center mt-10">No business selected</div>;
 	}
 
 	return (
@@ -52,8 +47,6 @@ function ProductsPage() {
 			<AllProductsSection businessId={businessId} />
 
 			<Footer />
-
-
 		</div>
 	);
 }

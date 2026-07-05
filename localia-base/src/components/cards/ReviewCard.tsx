@@ -89,9 +89,7 @@ export default function ReviewCard({
 				{reviewCard.title}
 			</h3>
 
-			<p className="mb-2 text-sm text-neutral-700">
-				{reviewCard.body}
-			</p>
+			<p className="mb-2 text-sm text-neutral-700">{reviewCard.body}</p>
 
 			<p className="text-xs text-neutral-500">
 				{reviewCard.helpfulCount} people found this helpful

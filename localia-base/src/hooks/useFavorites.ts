@@ -58,15 +58,12 @@ export function useFavorites() {
 	const addFavorite = async (businessId: string) => {
 		if (!token) return;
 
-		const res = await fetch(
-			`${API_URL}/users/me/favorites/${businessId}`,
-			{
-				method: "POST",
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const res = await fetch(`${API_URL}/users/me/favorites/${businessId}`, {
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 
 		if (res.ok) {
 			fetchFavorites();
@@ -76,15 +73,12 @@ export function useFavorites() {
 	const removeFavorite = async (businessId: string) => {
 		if (!token) return;
 
-		const res = await fetch(
-			`${API_URL}/users/me/favorites/${businessId}`,
-			{
-				method: "DELETE",
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const res = await fetch(`${API_URL}/users/me/favorites/${businessId}`, {
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 
 		if (res.ok) {
 			fetchFavorites();
