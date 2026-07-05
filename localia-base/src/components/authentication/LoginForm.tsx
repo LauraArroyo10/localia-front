@@ -8,6 +8,7 @@ import { auth, facebookProvider, googleProvider } from "../../lib/firebase";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
+
 interface LoginFormProps {
 	onSwitch: () => void;
 	onClose: () => void;
@@ -111,17 +112,12 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
 							onClick={(e) => {
 								e.preventDefault();
 								e.stopPropagation();
-								console.log("click", label);
 								if (provider) {
-									console.log("llamando signInWithPopup...");
 									signInWithPopup(auth, provider)
-										.then((result) => {
-											console.log("User:", result.user);
+										.then(() => {
 											onClose();
 										})
-										.catch((error) => {
-											console.error("Error:", error);
-										});
+										.catch(() => {});
 								}
 							}}
 							className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 hover:opacity-80 transition-opacity bg-violet-900"

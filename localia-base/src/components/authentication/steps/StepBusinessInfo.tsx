@@ -6,6 +6,7 @@ import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import Select from "../../ui/SelectInput";
 
+
 //convierte el array en el formato que necesita el componente que select (que e sel que usa esta info)
 const CATEGORY_OPTIONS = CATEGORIES.map((c) => ({ value: c, label: c }));
 
@@ -15,6 +16,10 @@ const COUNTRY_CODE_REGEX = /^\+\d{1,4}$/; // ej: +506, +1, +52
 const PHONE_REGEX = /^\d{8}$/; // 8 dígitos exactos, sin espacios ni guiones
 const MIN_DESCRIPTION_LENGTH = 20;
 const MAX_DESCRIPTION_LENGTH = 500;
+
+
+
+
 
 //botones siguewinte atras
 interface StepBusinessInfoProps {

@@ -1,8 +1,7 @@
-
 import { useEffect, useState } from "react";
 import { MdCameraAlt } from "react-icons/md";
 import { toast } from "sonner";
-import { useAuth } from "../../hooks/useAuth";
+import { apiFetch } from "../../lib/api";
 import type { Product } from "../../types/product";
 import ProductCard from "../cards/ProductCard";
 
@@ -26,10 +25,7 @@ function AllProductsSection({
 
 	const loadProducts = async () => {
 		try {
-			const response = await fetch(
-				`http://localhost:3000/api/products/${businessId}`,
-			);
-
+			const response = await apiFetch(`/api/products/${businessId}`);
 			const result = await response.json();
 
 			if (response.ok) {
@@ -74,54 +70,70 @@ function AllProductsSection({
 		formData.append("price", price);
 		formData.append("image", image);
 
-		const token = useAuth.getState().token;
+		try {
+			const response = await apiFetch("/api/products", {
+				method: "POST",
+				body: formData,
+			});
 
-		const response = await fetch("http://localhost:3000/api/products", {
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-			body: formData,
-		});
+			const result = await response.json();
 
-		const result = await response.json();
+			if (!response.ok) {
+				toast.error(result.message, {
+					style: {
+						background: "#EAEBFA",
+						color: "#1f294e",
+						border: "1px solid #1f294e",
+					},
+				});
+				return;
+			}
 
-		if (!response.ok) {
-			alert(result.message);
-			return;
+			await loadProducts();
+
+			setShowForm(false);
+			setName("");
+			setDescription("");
+			setPrice("");
+			setImage(null);
+			setPreview(null);
+
+			toast.success("Product added", {
+				style: {
+					background: "#EAEBFA",
+					color: "#1f294e",
+					border: "1px solid #1f294e",
+				},
+			});
+		} catch (error) {
+			toast.error("Network error, please try again", {
+				style: {
+					background: "#EAEBFA",
+					color: "#1f294e",
+					border: "1px solid #1f294e",
+				},
+			});
 		}
-
-		await loadProducts();
-
-		setShowForm(false);
-		setName("");
-		setDescription("");
-		setPrice("");
-		setImage(null);
-		setPreview(null);
-
-		toast.success("Product added", {
-			style: {
-				background: "#EAEBFA",
-				color: "#1f294e",
-				border: "1px solid #1f294e",
-			},
-		});
 	};
 
 	const handleDeleteProduct = async (id: string) => {
-		const token = useAuth.getState().token;
+		try {
+			const response = await apiFetch(`/api/products/${id}`, {
+				method: "DELETE",
+			});
 
-		const response = await fetch(`http://localhost:3000/api/products/${id}`, {
-			method: "DELETE",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
-
-		if (response.ok) {
-			setProducts((prev) => prev.filter((p) => p.id !== id));
-			toast.success("Product deleted", {
+			if (response.ok) {
+				setProducts((prev) => prev.filter((p) => p.id !== id));
+				toast.success("Product deleted", {
+					style: {
+						background: "#EAEBFA",
+						color: "#1f294e",
+						border: "1px solid #1f294e",
+					},
+				});
+			}
+		} catch (error) {
+			toast.error("Network error, please try again", {
 				style: {
 					background: "#EAEBFA",
 					color: "#1f294e",
@@ -221,10 +233,11 @@ function AllProductsSection({
 				<div className="grid grid-cols-1 gap-9 sm:grid-cols-2 lg:grid-cols-3">
 					{products.map((product) => (
 						<ProductCard
-							key={product.id}
-							product={product}
-							onDelete={showOwnerControls ? handleDeleteProduct : undefined}
-						/>
+	key={product.id}
+	product={product}
+	businessId={businessId}
+	onDelete={showOwnerControls ? handleDeleteProduct : undefined}
+/>
 					))}
 				</div>
 			</div>

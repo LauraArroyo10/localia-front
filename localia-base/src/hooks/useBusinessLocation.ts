@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import { apiFetch } from "../lib/api";
 import { useAuth } from "./useAuth";
-
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 interface BusinessLocation {
 	address: string | null;
@@ -26,12 +25,7 @@ export function useBusinessLocation() {
 
 		const fetchLocation = async () => {
 			try {
-				const res = await fetch(`${API_URL}/api/businesses/me`, {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
-
+				const res = await apiFetch("/api/businesses/me");
 				const json = await res.json();
 
 				if (!res.ok) {
