@@ -266,12 +266,12 @@ import ProductCard from "../cards/ProductCard";
 
 interface AllProductsSectionProps {
 	businessId: string;
-	showOwnerControls: boolean;
+	showOwnerControls?: boolean;
 }
 
 function AllProductsSection({
 	businessId,
-	showOwnerControls,
+	showOwnerControls = true,
 }: AllProductsSectionProps) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [showForm, setShowForm] = useState(false);

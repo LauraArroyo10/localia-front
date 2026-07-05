@@ -65,7 +65,7 @@ function RecommendationCard({ business, onViewMore }: RecommendationCardProps) {
           </p>
         </div>
 
-        <div className="flex items-center justify-between pt-2 flex-shrink-0">
+        <div className="flex items-center justify-between pt-2 shrink-0">
           <div className="flex items-center gap-2">
             <p className="text-sm text-violet-50">{business.rating}</p>
 

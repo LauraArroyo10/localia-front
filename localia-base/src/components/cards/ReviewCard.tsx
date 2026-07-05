@@ -1,11 +1,11 @@
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import { FaUserCircle } from "react-icons/fa";
 import type { CommentProps } from "../../types/comment";
 import type { Role } from "../../types/rol";
 import Button from "../ui/Button";
 import StarRating from "../ui/StarRating";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
-const DEFAULT_AVATAR = "/img/default-avatar.png";
 
 export interface ReviewCardProps {
 	reviewCard: CommentProps;
@@ -24,7 +24,7 @@ const formatDate = (dateString: string) => {
 };
 
 const getAvatarSrc = (avatar?: string | null) => {
-	if (!avatar?.trim()) return DEFAULT_AVATAR;
+	if (!avatar?.trim()) return null;
 	if (avatar.startsWith("http")) return avatar;
 	return `${API_URL}${avatar}`;
 };
@@ -42,11 +42,15 @@ export default function ReviewCard({
 		<article className="p-4 bg-neutral-0 border border-neutral-200 rounded-2xl">
 			<div className="flex items-center justify-between mb-3">
 				<div className="flex items-center">
-					<img
-						className="w-8 h-8 me-3 rounded-full object-cover"
-						src={avatarSrc}
-						alt={reviewCard.name}
-					/>
+					{avatarSrc ? (
+						<img
+							className="w-8 h-8 me-3 rounded-full object-cover"
+							src={avatarSrc}
+							alt={reviewCard.name}
+						/>
+					) : (
+						<FaUserCircle className="w-8 h-8 me-3 text-neutral-300" />
+					)}
 
 					<div>
 						<p className="text-sm font-medium text-neutral-900">
