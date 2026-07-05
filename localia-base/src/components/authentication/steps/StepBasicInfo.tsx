@@ -1,17 +1,17 @@
 import { signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { FaApple, FaFacebook, FaGoogle } from "react-icons/fa";
+import { toast } from "sonner";
 import { auth, facebookProvider, googleProvider } from "../../../lib/firebase";
 import type { Role } from "../../../types/rol";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import Select from "../../ui/SelectInput";
-import { toast } from "sonner";
 
 interface StepBasicInfoProps {
 	role: Role;
 	onRoleChange: (r: Role) => void;
-	
+
 	onNext: (
 		selectedRole: Role,
 		data: { name: string; email: string; password: string },
@@ -32,8 +32,8 @@ export function StepBasicInfo({
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-const [error,setError]=useState<string | null>(null);
-const [submitting,setSubmitting]=useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const [submitting, setSubmitting] = useState(false);
 	const isValid =
 		firstName.trim() &&
 		lastName.trim() &&
@@ -42,30 +42,33 @@ const [submitting,setSubmitting]=useState(false);
 		role;
 
 	const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isValid) return;
+		e.preventDefault();
+		if (!isValid) return;
 
-    if (!PASSWORD_REGEX.test(password)) {
-        toast.error(
-            "La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número",
-            { style: { background: "#ab0000", color: "#ffffff" } }
-        );
-        return;
-    }
+		if (!PASSWORD_REGEX.test(password)) {
+			toast.error(
+				"La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número",
+				{ style: { background: "#ab0000", color: "#ffffff" } },
+			);
+			return;
+		}
 
-    setSubmitting(true);
+		setSubmitting(true);
 
-    const name = `${firstName.trim()} ${lastName.trim()}`;
+		const name = `${firstName.trim()} ${lastName.trim()}`;
 
-    try {
-        await onNext(role, { name, email, password });
-    } catch (err) {
-        const message = err instanceof Error ? err.message : "Ocurrió un error al registrarse";
-       toast.error(message, { style: { background: "#ab0000", color: "#ffffff" } }); 
-    } finally {
-        setSubmitting(false);
-    }
-};
+		try {
+			await onNext(role, { name, email, password });
+		} catch (err) {
+			const message =
+				err instanceof Error ? err.message : "Ocurrió un error al registrarse";
+			toast.error(message, {
+				style: { background: "#ab0000", color: "#ffffff" },
+			});
+		} finally {
+			setSubmitting(false);
+		}
+	};
 
 	const ROLES = [
 		{ value: "tourist" as Role, label: "Tourist" },
@@ -83,7 +86,11 @@ const [submitting,setSubmitting]=useState(false);
 	];
 
 	return (
-		<form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 w-full">
+		<form
+			onSubmit={handleSubmit}
+			noValidate
+			className="flex flex-col gap-3 w-full"
+		>
 			<h2 className="text-2xl font-bold text-neutral-800 text-center">
 				Sign Up
 			</h2>
@@ -118,60 +125,61 @@ const [submitting,setSubmitting]=useState(false);
 				required
 			/>
 
-      {/* PASSWORD */}
-      <Input
-        type="password"
-        placeholder="Password*"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+			{/* PASSWORD */}
+			<Input
+				type="password"
+				placeholder="Password*"
+				value={password}
+				onChange={(e) => setPassword(e.target.value)}
+				required
+			/>
 
-      {/* BUTTON */}
-      <Button
-        type="submit"
-        text="Sign up"
-        bgColor="bg-violet-500"
-        textColor="text-neutral-0"
-        size="w-full"
-        //verificaciond e boton activo para seguir 
-        disabled={!isValid}
-      />
+			{/* BUTTON */}
+			<Button
+				type="submit"
+				text="Sign up"
+				bgColor="bg-violet-500"
+				textColor="text-neutral-0"
+				size="w-full"
+				//verificaciond e boton activo para seguir
+				disabled={!isValid}
+			/>
 
-      {/* SOCIALS:acceso visual a los botones de autenticacion con facebook y google (firebase abre un popup) */}
-      
-      <div className="flex flex-col items-center gap-3">
-        <span className="text-xs text-neutral-400">or continue with</span>
-        <div className="flex gap-3">
-         {/* recorre el arreglo de botones que tenemos arriba */}
-          {socialButtons.map(({ icon, label, provider }) => (
-            <button key={label} 
-            type="button" 
-            aria-label={label} 
-            onClick={(e) => {
-              //evita un submit del form
-                e.preventDefault();
-                //evita que el click cierre el modal 
-                e.stopPropagation();
-                //si hay provider manda lo de firebase (no tenemos el de apple por eso no hace nada)
-                if (provider) {
-                  signInWithPopup(auth, provider)
-                  //.then recibe usuario 
-                    .then((result) => {
-                      console.log("User:", result.user);
-                    })
-                    .catch((error) => {
-                      console.error("Error:", error);
-                    });
-                }
-              }}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 bg-violet-900 hover:opacity-80 transition-opacity"
-            >
-              {icon}
-            </button>
-          ))}
-        </div>
-      </div>
+			{/* SOCIALS:acceso visual a los botones de autenticacion con facebook y google (firebase abre un popup) */}
+
+			<div className="flex flex-col items-center gap-3">
+				<span className="text-xs text-neutral-400">or continue with</span>
+				<div className="flex gap-3">
+					{/* recorre el arreglo de botones que tenemos arriba */}
+					{socialButtons.map(({ icon, label, provider }) => (
+						<button
+							key={label}
+							type="button"
+							aria-label={label}
+							onClick={(e) => {
+								//evita un submit del form
+								e.preventDefault();
+								//evita que el click cierre el modal
+								e.stopPropagation();
+								//si hay provider manda lo de firebase (no tenemos el de apple por eso no hace nada)
+								if (provider) {
+									signInWithPopup(auth, provider)
+										//.then recibe usuario
+										.then((result) => {
+											console.log("User:", result.user);
+										})
+										.catch((error) => {
+											console.error("Error:", error);
+										});
+								}
+							}}
+							className="w-10 h-10 rounded-full flex items-center justify-center text-neutral-0 bg-violet-900 hover:opacity-80 transition-opacity"
+						>
+							{icon}
+						</button>
+					))}
+				</div>
+			</div>
 
 			<p className="text-sm text-center text-neutral-500">
 				Already have an account?{" "}

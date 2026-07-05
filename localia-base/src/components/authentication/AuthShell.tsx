@@ -35,26 +35,29 @@ export function AuthModal({
 	//si no se muestra, no regreasa nada
 	if (!show) return null;
 
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={() => { console.log("fondo clicked"); onClose(); }}
-    >
-      <div
-      // e.stopPropagation(): para evitar clicks qu eno queramos en las diferentes capas del ui
-        className="flex w-full max-w-4xl rounded-4xl bg-neutral-0 mx-4 p-3"
-        onClick={(e) => e.stopPropagation()}
-      >
-       {/* espacio de la izqueirda que muestra informacion */}
-        <LocaliaPanel />
+	return (
+		<div
+			className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+			onClick={() => {
+				console.log("fondo clicked");
+				onClose();
+			}}
+		>
+			<div
+				// e.stopPropagation(): para evitar clicks qu eno queramos en las diferentes capas del ui
+				className="flex w-full max-w-4xl rounded-4xl bg-neutral-0 mx-4 p-3"
+				onClick={(e) => e.stopPropagation()}
+			>
+				{/* espacio de la izqueirda que muestra informacion */}
+				<LocaliaPanel />
 
-        <div className="flex-1 flex flex-col justify-center px-10 py-10 relative">
-          <button
-            onClick={onClose}
-            className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 transition-colors"
-          >
-            ✕
-          </button>
+				<div className="flex-1 flex flex-col justify-center px-10 py-10 relative">
+					<button
+						onClick={onClose}
+						className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 transition-colors"
+					>
+						✕
+					</button>
 
 					<div
 						className="h-120 flex flex-col justify-center overflow-y-auto"

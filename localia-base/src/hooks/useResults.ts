@@ -71,10 +71,8 @@
 // 	return { businesses, hasMore, loading, error };
 // }
 
-
-
 // src/hooks/useResults.ts
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { LocalBusiness } from "../types/localBusiness";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";

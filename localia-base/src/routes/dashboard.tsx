@@ -33,13 +33,13 @@ function DashboardPage() {
 	};
 
 	const handleCategoryChange = (newCategory: string | undefined) => {
-	navigate({
-		search: (prev: DashboardSearch): DashboardSearch => ({
-			...prev,
-			category: newCategory,
-		}),
-	});
-};
+		navigate({
+			search: (prev: DashboardSearch): DashboardSearch => ({
+				...prev,
+				category: newCategory,
+			}),
+		});
+	};
 
 	return (
 		<main className="min-h-screen flex flex-col gap-20 bg-color-bg">
@@ -59,10 +59,7 @@ function DashboardPage() {
 							<ProductSection businessId={businessId} />
 
 							<div className="mt-6">
-								<ReviewsSection
-									userRole="seller"
-									businessId={businessId}
-								/>
+								<ReviewsSection userRole="seller" businessId={businessId} />
 							</div>
 						</>
 					)}
@@ -80,7 +77,7 @@ function DashboardPage() {
 	);
 }
 
-export const Route = createFileRoute("/Dashboard")({
+export const Route = createFileRoute("/dashboard")({
 	validateSearch: (search: Record<string, unknown>): DashboardSearch => ({
 		category: (search.category as string) || undefined,
 	}),

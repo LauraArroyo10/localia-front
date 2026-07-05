@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app";
-import {FacebookAuthProvider,GoogleAuthProvider,getAuth,} from "firebase/auth";
-
+import {
+	FacebookAuthProvider,
+	GoogleAuthProvider,
+	getAuth,
+} from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -9,7 +12,7 @@ const firebaseConfig = {
 	storageBucket: "interactivas-a180c.firebasestorage.app",
 	messagingSenderId: "845748557529",
 	appId: "1:845748557529:web:201da81ec1d4e323eb90c8",
-	 measurementId: "G-GVEP756JL3"
+	measurementId: "G-GVEP756JL3",
 };
 
 // Initialize Firebase
@@ -18,7 +21,6 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const facebookProvider = new FacebookAuthProvider();
-
 
 // https://firebase.google.com/docs/auth/web/start:
 
@@ -33,7 +35,6 @@ export const facebookProvider = new FacebookAuthProvider();
 
 // // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
-
 
 // // Initialize Firebase Authentication and get a reference to the service
 // const auth = getAuth(app);

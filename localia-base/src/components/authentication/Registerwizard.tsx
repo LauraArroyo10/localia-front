@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import type { Role } from "../../types/rol";
@@ -8,7 +9,6 @@ import { StepDone } from "./steps/StepDone";
 import { StepLocation } from "./steps/StepLocation";
 import { StepWhatOffer } from "./steps/StepWhatoffer";
 
-import { useNavigate } from "@tanstack/react-router"
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 type StepKey = "basic" | "offer" | "business" | "location" | "done";
@@ -42,58 +42,53 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 		role: "tourist",
 	});
 	const [businessData, setBusinessData] = useState<any>(null);
-	
+
 	const steps = getSteps(role);
 	const currentStep = steps[stepIndex];
 	const totalSteps = steps.length - 1;
-const navigate = useNavigate();
+	const navigate = useNavigate();
 	const next = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
 
 	const back = () => setStepIndex((i) => Math.max(i - 1, 0));
 
 	const handleRegister = async () => {
 		try {
-			console.log("Sending to backend:", registerData);
-
 			const response = await register(registerData);
-			if(registerData.role === "seller" && businessData){
 
-	const formData = new FormData();
+			if (registerData.role === "seller" && businessData) {
+				const formData = new FormData();
 
-	formData.append("name", businessData.name);
-	formData.append("category", businessData.category);
-	formData.append("type", "product");
-	formData.append("description", businessData.description);
-	formData.append("phone", businessData.phone);
-	formData.append("address", businessData.address);
-	formData.append("city", businessData.city);
-	formData.append("lat", String(businessData.lat));
-	formData.append("lng", String(businessData.lng));
+				formData.append("name", businessData.name);
+				formData.append("category", businessData.category);
+				formData.append("type", "product");
+				formData.append("description", businessData.description);
+				formData.append("phone", businessData.phone);
+				formData.append("address", businessData.address);
+				formData.append("city", businessData.city);
+				formData.append("lat", String(businessData.lat));
+				formData.append("lng", String(businessData.lng));
 
-	if(businessData.image){
-		formData.append("image", businessData.image);
-	}
+				if (businessData.image) {
+					formData.append("image", businessData.image);
+				}
 
-	const businessResponse = await fetch(`${API_URL}/api/businesses`, {
-    method: "POST",
-    headers: {
-        Authorization: `Bearer ${useAuth.getState().token}`,
-    },
-    body: formData,
-	});
-				
+				await fetch(`${API_URL}/api/businesses`, {
+					method: "POST",
+					headers: {
+						Authorization: `Bearer ${useAuth.getState().token}`,
+					},
+					body: formData,
+				});
+
+				// Refrescar el user para que traiga el business recién creado
 				await login({
 					email: registerData.email,
 					password: registerData.password,
-                });
-
-
-}
-
-			console.log("User registered:", response);
+				});
+			}
 
 			onClose();
-        navigate({ to: "/dashboard" }); 
+			navigate({ to: "/dashboard" });
 		} catch (error) {
 			console.error("Registration error:", error);
 		}
@@ -111,51 +106,54 @@ const navigate = useNavigate();
 				className={`flex-1 overflow-y-auto flex flex-col ${
 					currentStep === "done" ? "justify-center" : ""
 				}`}
-			> 
-			{currentStep === "basic" && (
-    <StepBasicInfo
-        role={role}
-        onRoleChange={setRole}
-        onNext={async (selectedRole, data) => {
-    setRole(selectedRole);
-    const newData = { ...data, role: selectedRole };
-    setRegisterData(newData);
+			>
+				{currentStep === "basic" && (
+					<StepBasicInfo
+						role={role}
+						onRoleChange={setRole}
+						onNext={async (selectedRole, data) => {
+							setRole(selectedRole);
+							const newData = { ...data, role: selectedRole };
+							setRegisterData(newData);
 
-    if (selectedRole === "tourist") {
-        await register(newData);
-        next();
-        navigate({ to: "/dashboard" });
-    } else {
-        next();
-    }}
-	
-	}
-        onSwitch={onSwitch}
-    />
-)}
+							if (selectedRole === "tourist") {
+								await register(newData);
+								next();
+								navigate({ to: "/dashboard" });
+							} else {
+								next();
+							}
+						}}
+						onSwitch={onSwitch}
+					/>
+				)}
 
 				{currentStep === "offer" && (
 					<StepWhatOffer onNext={next} onBack={back} />
 				)}
 
 				{currentStep === "business" && (
-					<StepBusinessInfo onNext={(data) => {
-						setBusinessData(data);
-						next();
-					}}
-						onBack={back} />
+					<StepBusinessInfo
+						onNext={(data) => {
+							setBusinessData(data);
+							next();
+						}}
+						onBack={back}
+					/>
 				)}
 
 				{currentStep === "location" && (
-					<StepLocation onFinish={(location)=>{
-		setBusinessData({
-			...businessData,
-			...location
-		});
+					<StepLocation
+						onFinish={(location) => {
+							setBusinessData({
+								...businessData,
+								...location,
+							});
 
-		next();
-					}}
-						onBack={back} />
+							next();
+						}}
+						onBack={back}
+					/>
 				)}
 
 				{currentStep === "done" && (

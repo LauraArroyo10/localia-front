@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { MdCameraAlt } from "react-icons/md";
 import { toast } from "sonner";
+import { CATEGORIES } from "../../../types/categories";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 import Select from "../../ui/SelectInput";
-import { CATEGORIES } from "../../../types/categories";
 
 //convierte el array en el formato que necesita el componente que select (que e sel que usa esta info)
 const CATEGORY_OPTIONS = CATEGORIES.map((c) => ({ value: c, label: c }));
@@ -23,8 +23,8 @@ interface StepBusinessInfoProps {
 }
 
 export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
-  //preview de la imagen a subir
-  const [image, setImage] = useState<File | null>(null);
+	//preview de la imagen a subir
+	const [image, setImage] = useState<File | null>(null);
 	const [preview, setPreview] = useState<string | null>(null);
 	const [name, setName] = useState("");
 	const [category, setCategory] = useState("");
@@ -37,20 +37,20 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		//valoracion para ver si file es null
 		const file = e.target.files?.[0];
 		//sin archivo no se hace nada
-    if (!file) return;
+		if (!file) return;
 
-    //validacion de tamaño ANTES de guardar el archivo (debe coincidir con el limite del backend)
-    const maxBytes = MAX_IMAGE_SIZE_MB * 1024 * 1024;
-    if (file.size > maxBytes) {
-      toast.error(
-        `La imagen pesa demasiado (máximo ${MAX_IMAGE_SIZE_MB}MB). Elegí una imagen más liviana.`,
-        { style: { background: "#ab0000", color: "#ffffff" } }
-      );
-      e.target.value = ""; // limpia el input para permitir reintentar con otro archivo
-      return;
-    }
+		//validacion de tamaño ANTES de guardar el archivo (debe coincidir con el limite del backend)
+		const maxBytes = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+		if (file.size > maxBytes) {
+			toast.error(
+				`La imagen pesa demasiado (máximo ${MAX_IMAGE_SIZE_MB}MB). Elegí una imagen más liviana.`,
+				{ style: { background: "#ab0000", color: "#ffffff" } },
+			);
+			e.target.value = ""; // limpia el input para permitir reintentar con otro archivo
+			return;
+		}
 
-    setImage(file);
+		setImage(file);
 		//api para leer archivos locales, esto abre la ventana de documentos locales
 		//cuando esto pasa se hace lectur ay convesion e archivo
 		const reader = new FileReader();
@@ -78,22 +78,21 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		name.trim().length > 0 &&
 		category.trim().length > 0 &&
 		phone.trim().length > 0 &&
-		description.trim().length > 0;
+		description.trim().length > 0 &&
+		image !== null;
 
 	const handleNext = () => {
 		if (!COUNTRY_CODE_REGEX.test(countryCode)) {
-			toast.error(
-				"Ingresá un código de país válido (ej: +506).",
-				{ style: { background: "#ab0000", color: "#ffffff" } }
-			);
+			toast.error("Ingresá un código de país válido (ej: +506).", {
+				style: { background: "#ab0000", color: "#ffffff" },
+			});
 			return;
 		}
 
 		if (!PHONE_REGEX.test(phone)) {
-			toast.error(
-				"El número de teléfono debe tener exactamente 8 dígitos.",
-				{ style: { background: "#ab0000", color: "#ffffff" } }
-			);
+			toast.error("El número de teléfono debe tener exactamente 8 dígitos.", {
+				style: { background: "#ab0000", color: "#ffffff" },
+			});
 			return;
 		}
 
@@ -102,7 +101,7 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		if (descLength < MIN_DESCRIPTION_LENGTH) {
 			toast.error(
 				`La descripción debe tener al menos ${MIN_DESCRIPTION_LENGTH} caracteres.`,
-				{ style: { background: "#ab0000", color: "#ffffff" } }
+				{ style: { background: "#ab0000", color: "#ffffff" } },
 			);
 			return;
 		}
@@ -110,7 +109,7 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		if (descLength > MAX_DESCRIPTION_LENGTH) {
 			toast.error(
 				`La descripción no puede superar los ${MAX_DESCRIPTION_LENGTH} caracteres.`,
-				{ style: { background: "#ab0000", color: "#ffffff" } }
+				{ style: { background: "#ab0000", color: "#ffffff" } },
 			);
 			return;
 		}
@@ -190,18 +189,20 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 				</div>
 			</div>
 
-      <div className="flex flex-col gap-1">
-        <textarea
-          placeholder="Description*"
-          value={description}
-          onChange={(e) => setDescription(e.target.value.slice(0, MAX_DESCRIPTION_LENGTH))}
-          rows={3}
-          className="w-full rounded-2xl border border-neutral-300 bg-neutral-0 text-sm px-5 py-3 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-none"
-        />
-        <span className="text-xs text-neutral-400 text-right">
-          {description.trim().length}/{MAX_DESCRIPTION_LENGTH}
-        </span>
-      </div>
+			<div className="flex flex-col gap-1">
+				<textarea
+					placeholder="Description*"
+					value={description}
+					onChange={(e) =>
+						setDescription(e.target.value.slice(0, MAX_DESCRIPTION_LENGTH))
+					}
+					rows={3}
+					className="w-full rounded-2xl border border-neutral-300 bg-neutral-0 text-sm px-5 py-3 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-none"
+				/>
+				<span className="text-xs text-neutral-400 text-right">
+					{description.trim().length}/{MAX_DESCRIPTION_LENGTH}
+				</span>
+			</div>
 
 			<div className="flex justify-between pt-1">
 				<Button

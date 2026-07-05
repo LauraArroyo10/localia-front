@@ -36,7 +36,7 @@ export const useLocationStore = create<LocationState>((set, get) => ({
 				enableHighAccuracy: false,
 				timeout: 5000, // si tarda más de 5s, usa el fallback
 				maximumAge: 10 * 60 * 1000, // reutiliza ubicación de hasta 10 min
-			}
+			},
 		);
 	},
 }));

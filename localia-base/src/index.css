@@ -20,31 +20,31 @@
 	--color-neutral-900: #1f1f1f;
 	--color-neutral-950: #000000;
 
-  /* ─── Terracota ─── */
-  --color-terracota-400: #e2725b;
-  --color-terracota-500: #e35336;
+	/* ─── Terracota ─── */
+	--color-terracota-400: #e2725b;
+	--color-terracota-500: #e35336;
 
-  /* ─── Violet blue ─── */
-  --color-violet-50:  #e4e6f7;
-  --color-violet-100: #EAEBFA;
-  --color-violet-300: #616BFD;
+	/* ─── Violet blue ─── */
+	--color-violet-50: #e4e6f7;
+	--color-violet-100: #eaebfa;
+	--color-violet-300: #616bfd;
 
 	--color-violet-500: #4d55c8;
 	--color-violet-700: #323f8f;
 	--color-violet-900: #1f294e;
 
-  /* ─── Rojo ─── */
-  --color-red-500: #AB0000;
+	/* ─── Rojo ─── */
+	--color-red-500: #ab0000;
 
-  /* ─── Amarillo ─── */
-  --color-yellow-500: #FDC700;
+	/* ─── Amarillo ─── */
+	--color-yellow-500: #fdc700;
 
 	/* ─── BG ─── */
 	--color-bg: #f4f4f4;
 
-  /* ─── Accent ─── */
-  --color-accent: #ccc95d;
-  --color-accent-100: #E2DE64;
+	/* ─── Accent ─── */
+	--color-accent: #ccc95d;
+	--color-accent-100: #e2de64;
 }
 
 @layer base {

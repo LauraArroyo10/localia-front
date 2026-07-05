@@ -1,6 +1,3 @@
-
-// src/types/profile.ts
-
 export interface ProfileData {
 	businessName: string;
 	subtitle: string;
@@ -9,4 +6,6 @@ export interface ProfileData {
 	description: string;
 	location: string;
 	rating: number;
+	lat?: number;
+	lng?: number;
 }
