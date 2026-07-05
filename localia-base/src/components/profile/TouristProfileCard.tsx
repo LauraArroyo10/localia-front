@@ -42,7 +42,10 @@ export default function TouristProfileView({
 		onAvatarChange?.(file);
 	};
 
-	const displayedAvatar = previewUrl || avatarUrl;
+	// Si viene de previewUrl (blob local) se usa directo; si viene de la DB (avatarUrl) le sumamos el host del backend
+const displayedAvatar = previewUrl 
+    ? previewUrl 
+    : (avatarUrl ? (avatarUrl.startsWith("http") ? avatarUrl : `${API_URL}${avatarUrl}`) : null);
 
 	return (
 		<div className="w-full max-w-[1150px] bg-neutral-0 rounded-3xl overflow-hidden border border-neutral-100">
