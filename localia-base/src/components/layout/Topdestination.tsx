@@ -13,7 +13,7 @@ function TopDestinations() {
 	const [index, setIndex] = useState(0);
 
 	const handleViewMore = (id: string) => {
-		navigate({ to: "/Dashboard", params: { id } });
+		navigate({ to: `/business/${id}` });
 	};
 
 	if (!loading && (error || businesses.length === 0)) {
@@ -31,8 +31,7 @@ function TopDestinations() {
 
 	const prev = () => {
 		if (index > 0) {
-			setIndex(index - 1);
-		}
+			setIndex(index - 1);		}
 	};
 
 	return (
@@ -46,7 +45,7 @@ function TopDestinations() {
 
 					<button
 						onClick={() => navigate({ to: "/results" })}
-						className="px-6 py-3 bg-accent text-violet-900 rounded-full font-semibold hover:bg-accent-100 transition-all text-sm"
+						className="px-6 py-3 bg-accent text-violet-900 rounded-full font-semibold hover:bg-accent-100 transition-all cursor-pointer text-sm"
 					>
 						Find more places
 					</button>

@@ -53,9 +53,8 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 
 	const handleRegister = async () => {
 		try {
-			console.log("Sending to backend:", registerData);
-
 			const response = await register(registerData);
+
 			if (registerData.role === "seller" && businessData) {
 				const formData = new FormData();
 
@@ -73,26 +72,23 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 					formData.append("image", businessData.image);
 				}
 
-	const businessResponse = await fetch(`${API_URL}/api/businesses`, {
-    method: "POST",
-    headers: {
-        Authorization: `Bearer ${useAuth.getState().token}`,
-    },
-    body: formData,
-	});
-				
+				await fetch(`${API_URL}/api/businesses`, {
+					method: "POST",
+					headers: {
+						Authorization: `Bearer ${useAuth.getState().token}`,
+					},
+					body: formData,
+				});
+
+				// Refrescar el user para que traiga el business recién creado
 				await login({
 					email: registerData.email,
 					password: registerData.password,
-                });
-
-
-}
-
-			console.log("User registered:", response);
+				});
+			}
 
 			onClose();
-        navigate({ to: "/dashboard" }); 
+			navigate({ to: "/dashboard" });
 		} catch (error) {
 			console.error("Registration error:", error);
 		}

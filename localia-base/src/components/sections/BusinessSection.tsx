@@ -28,7 +28,7 @@ function BusinessSection({ category }: BusinessSectionProps) {
 	}, [error]);
 
 	const handleViewMore = (id: string) => {
-		navigate({ to: "/business", search: { id } });
+		navigate({ to: `/business/${id}` });
 	};
 
 	if (loading) return <p>Cargando...</p>;
