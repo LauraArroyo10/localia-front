@@ -18,6 +18,9 @@ interface DashboardSearch {
 }
 
 function DashboardPage() {
+	/**
+	 * Maneja la apertura del modal de autenticación desde la vista de dashboard.
+	 */
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<AuthView>("login");
 	const { user } = useAuth();
@@ -27,11 +30,17 @@ function DashboardPage() {
     const navigate = useNavigate({ from: Route.fullPath });
 	
 
+	/**
+	 * Abre el modal en la vista correspondiente según la acción del usuario.
+	 */
 	const openAs = (v: AuthView) => {
 		setView(v);
 		setOpen(true);
 	};
 
+	/**
+	 * Actualiza el filtro de categoría en la URL para mantener el estado de la vista.
+	 */
 	const handleCategoryChange = (newCategory: string | undefined) => {
 		navigate({
 			search: (prev: DashboardSearch): DashboardSearch => ({
@@ -49,7 +58,7 @@ function DashboardPage() {
 			/>
 
 			<section>
-				<div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
+				<div className="flex flex-col gap-3 max-w-6xl mx-auto relative z-10">
 					<SearchBar placeholder="Search businesses..." />
 					<CategoryFilter value={category} onChange={handleCategoryChange} />
 					<ProfilePage />
@@ -78,8 +87,12 @@ function DashboardPage() {
 }
 
 export const Route = createFileRoute("/dashboard")({
+	/**
+	 * Normaliza los parámetros de búsqueda que sirven para filtrar el dashboard.
+	 */
 	validateSearch: (search: Record<string, unknown>): DashboardSearch => ({
 		category: (search.category as string) || undefined,
 	}),
 	component: DashboardPage,
 });
+

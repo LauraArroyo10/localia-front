@@ -15,6 +15,9 @@ export interface ReviewCardProps {
 	onDelete: (id: string) => void;
 }
 
+/**
+ * Convierte fechas ISO a un formato legible en español.
+ */
 const formatDate = (dateString: string) => {
 	return new Date(dateString).toLocaleDateString("es-CR", {
 		year: "numeric",
@@ -23,12 +26,18 @@ const formatDate = (dateString: string) => {
 	});
 };
 
+/**
+ * Normaliza la URL del avatar para usar una ruta completa válida.
+ */
 const getAvatarSrc = (avatar?: string | null) => {
 	if (!avatar?.trim()) return null;
 	if (avatar.startsWith("http")) return avatar;
 	return `${API_URL}${avatar}`;
 };
 
+/**
+ * Muestra una tarjeta de reseña con autor, fecha, calificación y acciones.
+ */
 export default function ReviewCard({
 	reviewCard,
 	userRole,

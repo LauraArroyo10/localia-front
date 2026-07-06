@@ -1,9 +1,12 @@
-// src/hooks/useReviews.ts
 import { useEffect, useState } from "react";
 import { apiFetch } from "../lib/api";
 import type { CommentProps } from "../types/comment";
 import { useAuth } from "./useAuth";
 
+/**
+ * Hook que gestiona reseñas de un negocio: fetch, creación, edición,
+ * borrado y marcado como útil. Se usa en la sección de reseñas del negocio.
+ */
 export function useReviews(businessId: string) {
 	const token = useAuth((state) => state.token);
 
@@ -12,6 +15,9 @@ export function useReviews(businessId: string) {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
+	/**
+	 * Carga las reseñas del negocio y actualiza la calificación promedio.
+	 */
 	const fetchReviews = async (page = 1) => {
 		setLoading(true);
 		setError(null);
@@ -36,6 +42,9 @@ export function useReviews(businessId: string) {
 		}
 	};
 
+	/**
+	 * Crea una reseña nueva para el negocio y refresca la lista.
+	 */
 	const createReview = async (data: {
 		rating: number;
 		title: string;
@@ -73,6 +82,9 @@ export function useReviews(businessId: string) {
 		}
 	};
 
+	/**
+	 * Actualiza una reseña existente y recarga las reseñas después.
+	 */
 	const updateReview = async (
 		reviewId: string,
 		data: { rating: number; title: string; body: string },
@@ -106,6 +118,9 @@ export function useReviews(businessId: string) {
 		}
 	};
 
+	/**
+	 * Elimina una reseña y quita el elemento de la lista local.
+	 */
 	const deleteReview = async (reviewId: string) => {
 		if (!token) {
 			setError("Debes iniciar sesión");
@@ -131,6 +146,9 @@ export function useReviews(businessId: string) {
 		}
 	};
 
+	/**
+	 * Marca una reseña como útil y actualiza ese estado localmente.
+	 */
 	const markHelpful = async (reviewId: string) => {
 		if (!token) {
 			setError("Debes iniciar sesión para marcar como útil");

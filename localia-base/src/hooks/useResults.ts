@@ -1,8 +1,11 @@
-// src/hooks/useResults.ts
 import { useEffect, useState } from "react";
 import { API_URL, apiFetch } from "../lib/api";
 import type { LocalBusiness } from "../types/localBusiness";
 
+/**
+ * Hook para buscar negocios cercanos según ubicación y filtros activos.
+ * Devuelve la lista, si hay más resultados y el estado de carga.
+ */
 export function useNearbyBusinesses(
 	lat: number | null,
 	lng: number | null,
@@ -15,6 +18,9 @@ export function useNearbyBusinesses(
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
+	/**
+	 * Dispara la búsqueda cuando cambia la ubicación o los filtros.
+	 */
 	useEffect(() => {
 		if (lat === null || lng === null) {
 			setLoading(false);
@@ -43,6 +49,9 @@ export function useNearbyBusinesses(
 					throw new Error(json.message ?? "Error al obtener negocios cercanos");
 				}
 
+				/**
+				 * Convierte la respuesta de la API al formato que espera la vista.
+				 */
 				const mapped: LocalBusiness[] = json.data.map((b: any) => ({
 					id: b.id,
 					name: b.name,

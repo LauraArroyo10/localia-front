@@ -1,4 +1,3 @@
-// src/components/profile/TouristProfileCard.tsx
 import { useRef, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useFavorites } from "../../hooks/useFavorites";
@@ -25,6 +24,9 @@ export default function TouristProfileView({
 	const { favorites } = useFavorites();
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
+	/**
+	 * Prepara los favoritos del turista para mostrarlos en el popup correspondiente.
+	 */
 	const mappedFavorites = favorites.map((f) => ({
 		id: f.businessId,
 		name: f.name,
@@ -32,6 +34,9 @@ export default function TouristProfileView({
 		location: f.city ?? "",
 	}));
 
+	/**
+	 * Guarda la imagen nueva del perfil y muestra una vista previa local.
+	 */
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
@@ -42,13 +47,15 @@ export default function TouristProfileView({
 		onAvatarChange?.(file);
 	};
 
-	// Si viene de previewUrl (blob local) se usa directo; si viene de la DB (avatarUrl) le sumamos el host del backend
+	/**
+	 * Elige la ruta del avatar según si viene de una vista previa local o del backend.
+	 */
 const displayedAvatar = previewUrl 
     ? previewUrl 
     : (avatarUrl ? (avatarUrl.startsWith("http") ? avatarUrl : `${API_URL}${avatarUrl}`) : null);
 
 	return (
-		<div className="w-full max-w-[1150px] bg-neutral-0 rounded-3xl overflow-hidden border border-neutral-100">
+		<div className="w-full max-w-6xl bg-neutral-0 rounded-3xl overflow-hidden border border-neutral-100">
 			{/* Header */}
 			<div className="bg-violet-50 px-10 py-8 flex justify-between items-center relative">
 				<div>
@@ -56,6 +63,9 @@ const displayedAvatar = previewUrl
 						{name}
 					</h1>
 					<p className="text-2xl font-medium text-terracota-500">Tourist</p>
+					{location && (
+						<p className="text-sm text-neutral-500 mt-1">{location}</p>
+					)}
 				</div>
 
 				{/* Avatar */}
@@ -120,3 +130,4 @@ const displayedAvatar = previewUrl
 		</div>
 	);
 }
+

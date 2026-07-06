@@ -1,5 +1,8 @@
 import { useNavigate } from "@tanstack/react-router";
 
+/**
+ * Categorías de interés usadas para navegar resultados temáticos.
+ */
 const categories = [
 	{ name: "Artisan Goods", img: "/img/artisan.jpg" },
 	{ name: "Local Food", img: "/img/food.jpg" },
@@ -9,12 +12,18 @@ const categories = [
 	{ name: "Town", img: "/img/town.jpg" },
 ];
 
+/**
+ * Sección de exploración por interés que redirige a resultados filtrados.
+ */
 function BrowseInterest() {
+	/**
+	 * Lleva al usuario a la vista de resultados al elegir una categoría de interés.
+	 */
 	const navigate = useNavigate();
 
 	return (
 		<section className="w-full bg-violet-50 py-16 px-6 flex flex-col items-center">
-			<div className="w-full max-w-[1150px]">
+			<div className="w-full max-w-6xl">
 				<div className="mb-6">
 					<h2 className="text-3xl font-bold mb-2 text-left">
 						Browse by Interest

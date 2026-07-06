@@ -10,6 +10,9 @@ interface NavBarProps {
 
 function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
 	const { user, logout } = useAuth();
+	/**
+	 * Cierra la sesión del usuario y vuelve a la home cuando se confirma el logout.
+	 */
 	const { profileData } = useBusinessProfile();
 	const navigate = useNavigate();
 
@@ -20,7 +23,7 @@ function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
 
 	return (
 		<nav className="sticky top-0 z-50 bg-bg border-violet-700 w-full">
-			<div className="max-w-[1150px] mx-auto flex items-center justify-between h-13">
+			<div className="max-w-6xl mx-auto flex items-center justify-between h-13">
 				<div className="flex items-center gap-2">
 					<Logo className="w-30 h-30" />
 				</div>
@@ -73,3 +76,4 @@ function NavBar({ onLoginClick, onRegisterClick }: NavBarProps) {
 }
 
 export default NavBar;
+

@@ -32,6 +32,9 @@ export default function ProfileView({
 	const { favorites } = useFavorites();
 	const navigate = useNavigate();
 
+	/**
+	 * Convierte los favoritos del usuario al formato que espera el popup de favoritos.
+	 */
 	const mappedFavorites = favorites.map((f) => ({
 		id: f.businessId,
 		name: f.name,
@@ -39,6 +42,9 @@ export default function ProfileView({
 		location: f.city ?? "",
 	}));
 
+	/**
+	 * Lleva al usuario a la vista de ubicación cuando el negocio tiene coordenadas válidas.
+	 */
 	const handleLocationClick = () => {
 	if (!data.lat || !data.lng) {
 		console.warn("Missing coords");
@@ -58,7 +64,7 @@ export default function ProfileView({
 
 	return (
 		<>
-			<div className="w-full max-w-[1150px] bg-neutral-0 rounded-3xl overflow-hidden border border-neutral-100">
+			<div className="w-full max-w-6xl bg-neutral-0 rounded-3xl overflow-hidden border border-neutral-100">
 				{/* Header */}
 				<div className="bg-violet-50 px-10 py-8 flex justify-between items-center relative">
 					<div>
@@ -91,7 +97,7 @@ export default function ProfileView({
 
 				{/* Content */}
 				<div className="p-10">
-					<div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-[420px]">
+					<div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-105">
 						{/* Left */}
 						<div className="w-full md:w-[45%] bg-violet-500 p-8 text-neutral-0 flex flex-col justify-between">
 							<div className="flex flex-col gap-3">
@@ -137,7 +143,7 @@ export default function ProfileView({
 						</div>
 
 						{/* Right */}
-						<div className="w-full md:w-[55%] h-[420px] overflow-hidden">
+						<div className="w-full md:w-[55%] h-105 overflow-hidden">
 							<img
 								src={data.bannerImgUrl}
 								alt="Business"

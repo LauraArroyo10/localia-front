@@ -6,12 +6,18 @@ import type { LocalBusiness } from "../../types/localBusiness";
 import TopDestinationCard from "../cards/TopDestinationCard";
 
 function TopDestinations() {
+	/**
+	 * Muestra los destinos más destacados cercanos a la ubicación del usuario.
+	 */
 	const navigate = useNavigate();
 	const { lat, lng } = useUserLocation();
 	const { businesses, loading, error } = useNearbyBusinesses(lat, lng, 100, 1);
 
 	const [index, setIndex] = useState(0);
 
+	/**
+	 * Lleva al usuario al detalle del destino elegido.
+	 */
 	const handleViewMore = (id: string) => {
 		navigate({ to: `/business/${id}` });
 	};
@@ -23,12 +29,18 @@ function TopDestinations() {
 	const data = (businesses as LocalBusiness[]).slice(0, 10);
 	const visibleCards = 4;
 
+	/**
+	 * Avanza la vista de destinos cuando quedan tarjetas más a la derecha.
+	 */
 	const next = () => {
 		if (index < data.length - visibleCards) {
 			setIndex(index + 1);
 		}
 	};
 
+	/**
+	 * Retrocede la vista cuando el usuario quiere ver destinos anteriores.
+	 */
 	const prev = () => {
 		if (index > 0) {
 			setIndex(index - 1);		}
@@ -36,7 +48,7 @@ function TopDestinations() {
 
 	return (
 		<section className="w-full py-16 px-6 flex flex-col items-center">
-			<div className="w-full max-w-[1150px]">
+			<div className="w-full max-w-6xl">
 
 				<div className="flex justify-between items-center mb-10">
 					<h2 className="text-3xl font-bold text-violet-900">

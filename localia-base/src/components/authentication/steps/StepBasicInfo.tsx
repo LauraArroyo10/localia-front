@@ -16,7 +16,9 @@ interface StepBasicInfoProps {
 	onSwitch: () => void;
 }
 
-// misma regla que valida el backend: mínimo 8 caracteres, una mayúscula, una minúscula y un número
+/**
+ * Reglas de validación de contraseña usadas también por el backend.
+ */
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
 export function StepBasicInfo({
@@ -38,11 +40,18 @@ export function StepBasicInfo({
 		password.trim() &&
 		role;
 
+	/**
+	 * Valida los datos iniciales y delega el avance del wizard al componente padre.
+	 */
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		setError(null);
 		if (!isValid) return;
 
 		if (!PASSWORD_REGEX.test(password)) {
+			setError(
+				"La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número",
+			);
 			toast.error(
 				"La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula y un número",
 				{ style: { background: "#ab0000", color: "#ffffff" } },
@@ -57,6 +66,9 @@ export function StepBasicInfo({
 		try {
 			await onNext(role, { name, email, password });
 		} catch (err) {
+			setError(
+				err instanceof Error ? err.message : "Ocurrió un error al registrarse",
+			);
 			const message =
 				err instanceof Error ? err.message : "Ocurrió un error al registrarse";
 			toast.error(message, {
@@ -122,7 +134,11 @@ export function StepBasicInfo({
 				required
 			/>
 
-			{/* PASSWORD */}
+			{error && <p className="text-sm text-red-500 text-center">{error}</p>}
+
+			{/*
+			 * Muestra el campo de contraseña para completar el registro.
+			 */}
 			<Input
 				type="password"
 				placeholder="Password*"
@@ -131,37 +147,37 @@ export function StepBasicInfo({
 				required
 			/>
 
-			{/* BUTTON */}
+			{/*
+			 * Envía el formulario cuando los datos ingresados son válidos.
+			 */}
 			<Button
 				type="submit"
 				text="Sign up"
 				bgColor="bg-violet-500"
 				textColor="text-neutral-0"
 				size="w-full"
-				//verificaciond e boton activo para seguir
-				disabled={!isValid}
+				disabled={!isValid || submitting}
 			/>
 
-			{/* SOCIALS:acceso visual a los botones de autenticacion con facebook y google (firebase abre un popup) */}
-
+			{/*
+			 * Muestra las opciones de acceso rápido con proveedores externos.
+			 */}
 			<div className="flex flex-col items-center gap-3">
 				<span className="text-xs text-neutral-400">or continue with</span>
 				<div className="flex gap-3">
-					{/* recorre el arreglo de botones que tenemos arriba */}
 					{socialButtons.map(({ icon, label, provider }) => (
 						<button
 							key={label}
 							type="button"
 							aria-label={label}
 							onClick={(e) => {
-								//evita un submit del form
+								/*
+								 * Evita que el formulario se envíe al usar un proveedor social.
+								 */
 								e.preventDefault();
-								//evita que el click cierre el modal
 								e.stopPropagation();
-								//si hay provider manda lo de firebase (no tenemos el de apple por eso no hace nada)
 								if (provider) {
 									signInWithPopup(auth, provider)
-										//.then recibe usuario
 										.then((result) => {
 											console.log("User:", result.user);
 										})

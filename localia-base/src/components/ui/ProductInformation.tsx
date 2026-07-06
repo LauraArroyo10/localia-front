@@ -8,13 +8,13 @@ export default function ProductInformation({
 	product,
 }: ProductInformationProps) {
 	return (
-		<div className="max-w-[1150px] mx-auto px-10 bg-violet-50 rounded-3xl">
+		<div className="max-w-6xl mx-auto px-10 bg-violet-50 rounded-3xl">
 			<div className="flex flex-col gap-8 p-10">
 				<div className="w-full">
 					<img
 						src={product.image}
 						alt={product.name}
-						className="w-full h-[550px] object-cover rounded-3xl"
+						className="w-full h-137.5 object-cover rounded-3xl"
 					/>
 				</div>
 
@@ -33,3 +33,4 @@ export default function ProductInformation({
 		</div>
 	);
 }
+

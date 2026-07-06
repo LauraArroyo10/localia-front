@@ -3,36 +3,50 @@ import { LocaliaPanel } from "../layout/Panel";
 import { LoginForm } from "./LoginForm";
 import { RegisterWizard } from "./Registerwizard";
 
-//type para usar en mostrar el modulo para registrasre o muestra el de ingreso
+/**
+ * Define las vistas disponibles del modal de autenticación.
+ */
 type AuthView = "login" | "register";
 
 interface AuthModalProps {
-	//se rendriza o no
+	/**
+	 * Controla si el modal debe mostrarse o mantenerse oculto.
+	 */
 	show: boolean;
-	//cerrar modal
+	/**
+	 * Cierra el modal cuando el usuario cancela la acción.
+	 */
 	onClose: () => void;
-	//que se va aver primero? el deefault es el login pero esto cambia
+	/**
+	 * Indica qué vista debe abrirse primero al mostrar el modal.
+	 */
 	initialView?: AuthView;
 }
 
+/**
+ * Modal de autenticación que alterna entre login y registro.
+ * Incluye el shell de diseño y delega la vista a los componentes de formulario.
+ */
 export function AuthModal({
 	show,
 	onClose,
 	initialView = "login",
 }: AuthModalProps) {
-	//el estado solo p uede ser register o login , setView login o sertView register
+	/**
+	 * Mantiene la vista activa del modal para alternar entre login y registro.
+	 */
 	const [view, setView] = useState<AuthView>(initialView);
 
-	useEffect(
-		() => {
-			// si semuestra , se pone la vista inicial
-			if (show) setView(initialView);
-		},
-		//array de dependencias: ejecuta el effect cada que cambie show o initial view
-		[show, initialView],
-	);
+	/**
+	 * Reinicia la vista cuando el modal vuelve a abrirse para no retener el paso anterior.
+	 */
+	useEffect(() => {
+		if (show) setView(initialView);
+	}, [show, initialView]);
 
-	//si no se muestra, no regreasa nada
+	/**
+	 * No renderiza el modal cuando el estado de visibilidad es falso.
+	 */
 	if (!show) return null;
 
 	return (
@@ -44,7 +58,6 @@ export function AuthModal({
 			}}
 		>
 			<div
-				// e.stopPropagation(): para evitar clicks qu eno queramos en las diferentes capas del ui
 				className="flex w-full max-w-4xl rounded-4xl bg-neutral-0 mx-4 p-3"
 				onClick={(e) => e.stopPropagation()}
 			>

@@ -14,6 +14,9 @@ function RecommendationSection() {
 
 	const [index, setIndex] = useState(0);
 
+	/**
+	 * Muestra un aviso cuando no se pueden cargar las recomendaciones.
+	 */
 	useEffect(() => {
 		if (error) {
 			toast.error("No se pudieron cargar las recomendaciones.", {
@@ -22,6 +25,9 @@ function RecommendationSection() {
 		}
 	}, [error]);
 
+	/**
+	 * Redirige al usuario a la página de detalle del negocio seleccionado.
+	 */
 	const handleViewMore = (id: string) => {
 		navigate({ to: `/business/${id}` });
 	};
@@ -33,12 +39,18 @@ function RecommendationSection() {
 	const data = (businesses as LocalBusiness[]).slice(0, 20);
 	const visibleCards = 4;
 
+	/**
+	 * Avanza la vista de recomendaciones cuando quedan tarjetas más a la derecha.
+	 */
 	const next = () => {
 		if (index < data.length - visibleCards) {
 			setIndex(index + 1);
 		}
 	};
 
+	/**
+	 * Retrocede la vista de recomendaciones cuando hay tarjetas anteriores disponibles.
+	 */
 	const prev = () => {
 		if (index > 0) {
 			setIndex(index - 1);
@@ -73,14 +85,14 @@ function RecommendationSection() {
 								? Array(20).fill(null).map((_, i) => (
 										<div
 											key={i}
-											className="w-[260px] h-[380px] rounded-3xl bg-neutral-200 animate-pulse flex-shrink-0"
+											className="w-65 h-95 rounded-3xl bg-neutral-200 animate-pulse shrink-0"
 										/>
 								  ))
 								  
 								: data.map((business) => (
 										<div
 											key={business.id}
-											className="w-[260px] h-[380px] flex-shrink-0"
+											className="w-65 h-95 shrink-0"
 										>
 											<RecommendationCard
 												business={business}

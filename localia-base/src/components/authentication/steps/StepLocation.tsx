@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-//el contenedor principal del mapa,carga imagenes del mapa, pin marcador,hook de acceso a instancias del mapa
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
-//estilos del mapa
 import "leaflet/dist/leaflet.css";
-//libreria de leaflet
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
-
-//Fix del ícono de Leaflet con bundlers
-//importacion de imagenes manualpor problemas entre leaflet y vite
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 
-//elimina el metodo de leaflet que busca las imagenes y se sustituye por las que ingresamso manualemnte
+/**
+ * Reemplaza los íconos por defecto de Leaflet para que funcionen correctamente con Vite.
+ */
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
 	iconRetinaUrl: markerIcon2x,
@@ -22,47 +18,59 @@ L.Icon.Default.mergeOptions({
 	shadowUrl: markerShadow,
 });
 
-// interface de la respuesta de la api nominatim
-//nominatim es un motor geocodificador, esto significa que
-//convierte nombres en coordeandas. nombre, latitud y longitud
+/**
+ * Describe la respuesta que devuelve la API de geocodificación de Nominatim.
+ */
 interface Suggestion {
 	display_name: string;
 	lat: string;
 	lon: string;
 }
 
+/**
+ * Props del paso de ubicación para el asistente de registro.
+ */
 interface StepLocationProps {
-	//se despliega al confirmar la ubiccion
+	/**
+	 * Callback que se ejecuta cuando el usuario confirma la ubicación.
+	 */
 	onFinish: (location: any) => void;
-	//regresar
+	/**
+	 * Callback que permite regresar al paso anterior.
+	 */
 	onBack: () => void;
 }
 
-// Componente auxiliar — mueve el mapa cuando cambia la ubicación
-// useMap() solo funciona DENTRO de <MapContainer>, por eso es un componente aparte
+/**
+ * Componente auxiliar que mueve el mapa cuando cambia la ubicación seleccionada.
+ * useMap solo funciona dentro de MapContainer, por eso se separa en un componente.
+ */
 function FlyToLocation({ lat, lon }: { lat: number; lon: number }) {
 	const map = useMap();
 	useEffect(() => {
-		map.flyTo([lat, lon], 15, { duration: 1.2 }); // zoom 15, animación 1.2s
+		/**
+		 * Anima el mapa hacia la nueva ubicación seleccionada.
+		 */
+		map.flyTo([lat, lon], 15, { duration: 1.2 });
 	}, [lat, lon, map]);
 	return null;
 }
 
+/**
+ * Paso de ubicación que busca direcciones y permite elegir un punto en el mapa.
+ */
 export function StepLocation({ onFinish, onBack }: StepLocationProps) {
-	//bsuqueda del usuario
 	const [query, setQuery] = useState("");
-	//la sugerencia del buscador
 	const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-	//la sugerencia elegida
 	const [selected, setSelected] = useState<Suggestion | null>(null);
 	const [loading, setLoading] = useState(false);
 
-	// Busca en Nominatim con debounce
-	// deben haber 3
+	/**
+	 * Busca sugerencias geográficas mientras el usuario escribe y evita consultas innecesarias.
+	 */
 	useEffect(() => {
 		if (query.length < 3 || selected) return setSuggestions([]);
 
-		// Esto es lo que se ve cuando se hace una bsuqueda y se autocompleta con resultados
 		const timer = setTimeout(async () => {
 			setLoading(true);
 			try {
@@ -78,18 +86,24 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 			}
 		}, 500);
 
-		// reinicio del contador de tiempo de la bsuqueda
 		return () => clearTimeout(timer);
 	}, [query, selected]);
 
-	// Guarda y limpia
+	/**
+	 * Guarda la ubicación elegida y limpia la lista de sugerencias.
+	 */
+	/**
+	 * Guarda la sugerencia seleccionada y cierra la lista de resultados.
+	 */
 	const handleSelect = (s: Suggestion) => {
 		setSelected(s);
 		setQuery(s.display_name);
 		setSuggestions([]);
 	};
 
-	// Posición inicial del mapa — Costa Rica como default
+	/**
+	 * Convierte la sugerencia seleccionada en coordenadas numéricas para el marcador.
+	 */
 	const selectedPosition: [number, number] | null = selected
 		? [parseFloat(selected.lat), parseFloat(selected.lon)]
 		: null;
@@ -141,18 +155,22 @@ export function StepLocation({ onFinish, onBack }: StepLocationProps) {
 					center={[9.7489, -83.7534]}
 					zoom={7}
 					style={{ width: "100%", height: "100%" }}
-					scrollWheelZoom={false} // evita zoom accidental al scrollear el formulario
+					scrollWheelZoom={false}
 				>
 					<TileLayer
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
 					/>
 
-					{/* Marker — solo aparece cuando hay una ubicación seleccionada */}
+					{/**
+				 * Marker que muestra la ubicación seleccionada en el mapa.
+				 */}
 					{selectedPosition && (
 						<>
 							<Marker position={selectedPosition} />
-							{/* Mueve el mapa a la nueva ubicación */}
+							{/**
+					 * Mueve el mapa a la nueva ubicación tras seleccionar una sugerencia.
+					 */}
 							<FlyToLocation
 								lat={selectedPosition[0]}
 								lon={selectedPosition[1]}

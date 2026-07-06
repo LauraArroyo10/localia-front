@@ -32,6 +32,10 @@ interface RegisterData {
 	role: Role;
 }
 
+/**
+ * Asistente de registro que adapta el flujo según el rol seleccionado.
+ * Para sellers incluye pasos adicionales de negocio y ubicación.
+ */
 export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 	const [stepIndex, setStepIndex] = useState(0);
 	const [role, setRole] = useState<Role>("tourist");
@@ -48,13 +52,22 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 	const currentStep = steps[stepIndex];
 	const totalSteps = steps.length - 1;
 	const navigate = useNavigate();
+	/**
+	 * Avanza al siguiente paso del registro cuando el flujo lo permite.
+	 */
 	const next = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
 
+	/**
+	 * Retrocede al paso anterior del asistente.
+	 */
 	const back = () => setStepIndex((i) => Math.max(i - 1, 0));
 
+	/**
+	 * Finaliza el registro y crea el negocio del seller si corresponde.
+	 */
 	const handleRegister = async () => {
 		try {
-			const response = await register(registerData);
+			await register(registerData);
 
 			if (registerData.role === "seller" && businessData) {
 				const formData = new FormData();
@@ -81,7 +94,9 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 					body: formData,
 				});
 
-				// Refrescar el user para que traiga el business recién creado
+				/**
+				 * Vuelve a cargar la sesión para que el usuario vea el negocio recién creado.
+				 */
 				await login({
 					email: registerData.email,
 					password: registerData.password,

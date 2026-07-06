@@ -10,6 +10,10 @@ interface BusinessLocation {
 	location: string;
 }
 
+/**
+ * Hook que obtiene la ubicación del negocio asociado al usuario vendedor.
+ * Se usa desde vistas que muestran dirección o mapas cuando hay seller logueado.
+ */
 export function useBusinessLocation() {
 	const { token, user } = useAuth();
 
@@ -18,11 +22,17 @@ export function useBusinessLocation() {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
+		/**
+		 * Solo consulta la ubicación cuando el usuario autenticado es vendedor.
+		 */
 		if (!token || user?.role !== "seller") {
 			setLoading(false);
 			return;
 		}
 
+		/**
+		 * Busca en la API la ubicación del negocio del vendedor actual.
+		 */
 		const fetchLocation = async () => {
 			try {
 				const res = await apiFetch("/api/businesses/me");

@@ -1,4 +1,3 @@
-// src/components/profile/FavoritesPopup.tsx
 import { useNavigate } from "@tanstack/react-router";
 
 interface FavoriteItem {
@@ -19,6 +18,9 @@ export default function FavoritesPopup({
 }: FavoritesPopupProps) {
 	const navigate = useNavigate();
 
+	/**
+	 * Cierra el popup y lleva al usuario a la vista del negocio seleccionado.
+	 */
 	const handleSelect = (id: string) => {
 		onClose();
 

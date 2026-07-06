@@ -15,10 +15,24 @@ export interface ProfileData {
   bannerFile?: File; 
 }
 
+/**
+ * Hook de perfil comercial que carga los datos del negocio vinculado
+ * al usuario autenticado y permite actualizar el perfil.
+ * Se usa en la página de perfil y en formularios de edición.
+ */
 export function useBusinessProfile() {
   const { token, user } = useAuth();
+  /**
+   * Identifica el negocio asociado al usuario autenticado.
+   */
   const [businessId, setBusinessId] = useState<string | null>(null);
+  /**
+   * Indica si el perfil de negocio aún se está cargando.
+   */
   const [isLoading, setIsLoading] = useState(true);
+  /**
+   * Contiene los datos del perfil que se muestran en los formularios y vistas.
+   */
   const [profileData, setProfileData] = useState<ProfileData>({
     businessName: "",
     subtitle: "",
@@ -31,8 +45,16 @@ export function useBusinessProfile() {
     type: "",
   });
 
-  const [fullBusinessData, setFullBusinessData] = useState<any>(null);
+  /**
+   * Guarda la respuesta completa del negocio cuando se requiere información adicional
+   * más allá de lo que se muestra en el perfil resumido.
+   */
+  const [, setFullBusinessData] = useState<any>(null);
 
+  /**
+   * Carga el perfil del negocio vinculado al usuario y prepara los datos
+   * para mostrarlos en la interfaz.
+   */
   useEffect(() => {
     const fetchProfile = async () => {
       if (!token) {
@@ -49,7 +71,9 @@ export function useBusinessProfile() {
           setBusinessId(json.data.id);
           setFullBusinessData(json.data);
 
-          // Construye la URL estática completa unificada para el renderizado
+          /**
+           * Normaliza la ruta de la imagen para que la UI reciba un valor usable.
+           */
           const completeImageUrl = json.data.image_url 
             ? (json.data.image_url.startsWith("http") ? json.data.image_url : `http://localhost:3000${json.data.image_url}`)
             : "";
@@ -66,6 +90,10 @@ export function useBusinessProfile() {
             type: json.data.type || "",
           });
         } else {
+          /**
+           * Si no hay datos de negocio, se inicializa un perfil vacío
+           * para que el usuario pueda completar la información.
+           */
           setProfileData({
             businessName: user?.name || "Mi Nuevo Comercio",
             subtitle: "Comerciante",
@@ -88,9 +116,16 @@ export function useBusinessProfile() {
     fetchProfile();
   }, [token, user]);
 
+  /**
+   * Envía los cambios del perfil a la API.
+   * Crea un negocio si no existía uno y actualiza el negocio existente en caso contrario.
+   */
   const updateProfile = async (updatedData: ProfileData) => {
     if (!token) return false;
 
+    /**
+     * Determina si se debe crear un negocio nuevo o actualizar uno existente.
+     */
     const isNew = !businessId;
     const url = isNew
       ? "http://localhost:3000/api/businesses"
@@ -99,6 +134,9 @@ export function useBusinessProfile() {
     const method = isNew ? "POST" : "PUT";
 
     try {
+      /**
+       * Construye el formulario multipart para enviar el perfil al backend.
+       */
       const formData = new FormData();
 
       formData.append("name", updatedData.businessName);
@@ -107,6 +145,9 @@ export function useBusinessProfile() {
       formData.append("type", updatedData.type || "service");
       formData.append("category", updatedData.category || "Gastronomy");
 
+      /**
+       * Para nuevos negocios se agrega información mínima requerida por el API.
+       */
       if (isNew) {
         formData.append("city", "San José");
         formData.append("phone", "00000000");
@@ -114,6 +155,9 @@ export function useBusinessProfile() {
         formData.append("lng", "0");
       }
 
+      /**
+       * Agrega la imagen de avatar al formulario si el usuario la cargó.
+       */
       if (updatedData.avatarFile) {
         formData.append("image", updatedData.avatarFile);
       }
@@ -133,7 +177,9 @@ export function useBusinessProfile() {
         setBusinessId(json.data.id);
         setFullBusinessData(json.data);
         
-        // Definido localmente dentro del bloque correcto para evitar el ReferenceError
+        /**
+         * Ajusta la ruta de la imagen en la respuesta para que la vista la pueda usar directamente.
+         */
         const completeImageUrl = json.data.image_url 
           ? (json.data.image_url.startsWith("http") ? json.data.image_url : `http://localhost:3000${json.data.image_url}`)
           : "";

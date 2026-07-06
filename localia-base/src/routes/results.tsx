@@ -16,16 +16,25 @@ interface ResultsSearch {
 }
 
 function ResultsPage() {
+	/**
+	 * Controla el modal de autenticación en la vista de resultados.
+	 */
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<AuthView>("login");
 	const { category } = Route.useSearch();
 	const navigate = useNavigate({ from: Route.fullPath });
 
+	/**
+	 * Abre el modal con la vista adecuada según la acción elegida.
+	 */
 	const openAs = (v: AuthView) => {
 		setView(v);
 		setOpen(true);
 	};
 
+	/**
+	 * Actualiza la categoría seleccionada en la ruta para filtrar los resultados.
+	 */
 	const handleCategoryChange = (newCategory: string | undefined) => {
 		navigate({
 			search: (prev: ResultsSearch): ResultsSearch => ({
@@ -42,7 +51,7 @@ function ResultsPage() {
 				onRegisterClick={() => openAs("register")}
 			/>
 
-			<div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
+			<div className="flex flex-col gap-3 max-w-6xl mx-auto relative z-10">
 				<SearchBar placeholder="Search businesses..." />
 				<CategoryFilter value={category} onChange={handleCategoryChange} />
 			</div>
@@ -68,9 +77,13 @@ function ResultsPage() {
 }
 
 export const Route = createFileRoute("/results")({
+	/**
+	 * Convierte el parámetro category de la URL en un filtro opcional.
+	 */
 	validateSearch: (search: Record<string, unknown>): ResultsSearch => ({
 		category: (search.category as string) || undefined,
 	}),
 
 	component: ResultsPage,
 });
+

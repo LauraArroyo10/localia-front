@@ -12,9 +12,15 @@ import TopDestinations from "../components/layout/Topdestination";
 type AuthView = "login" | "register";
 
 function HomePage() {
+	/**
+	 * Controla la apertura del modal de autenticación desde la página principal.
+	 */
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<AuthView>("login");
 
+	/**
+	 * Abre el modal en la vista correspondiente para iniciar o registrar sesión.
+	 */
 	const openAs = (v: AuthView) => {
 		setView(v);
 		setOpen(true);

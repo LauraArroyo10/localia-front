@@ -5,11 +5,18 @@ import { useFavorites } from "../../hooks/useFavorites";
 import type { LocalBusiness } from "../../types/localBusiness";
 import StarRating from "../ui/StarRating";
 
+/**
+ * Props para la tarjeta de negocio.
+ */
 interface BusinessCardProps {
 	business: LocalBusiness;
 	onViewMore?: (id: string) => void;
 }
 
+/**
+ * Tarjeta que muestra información resumida de un negocio
+ * con opción de agregar a favoritos y ver más detalles.
+ */
 function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 	const { user } = useAuth();
 
@@ -17,6 +24,9 @@ function BusinessCard({ business, onViewMore }: BusinessCardProps) {
 
 	const favorite = isFavorite(business.id);
 
+	/**
+	 * Alterna el estado de favorito del negocio al hacer clic sobre el corazón.
+	 */
 	const handleFavorite = async (e: React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation();
 

@@ -7,6 +7,9 @@ function ProductSection({ businessId }: { businessId: string }) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const navigate = useNavigate();
 
+	/**
+	 * Carga un subconjunto de productos para la vista destacada del negocio.
+	 */
 	const loadProducts = async () => {
 		try {
 			const response = await fetch(
@@ -31,7 +34,7 @@ function ProductSection({ businessId }: { businessId: string }) {
 	}, [businessId]);
 
 	return (
-		<div className="w-full max-w-[1150px] mx-auto">
+		<div className="w-full max-w-6xl mx-auto">
 			<div className="flex flex-col gap-10">
 				<p className="mb-10 text-4xl font-bold text-violet-700">
 					Featured products

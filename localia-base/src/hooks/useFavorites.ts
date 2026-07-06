@@ -13,6 +13,10 @@ export interface FavoriteBusiness {
 	city: string | null;
 }
 
+/**
+ * Hook para manejar la lista de favoritos del usuario.
+ * Provee carga, adición, eliminación y comprobación de favoritos.
+ */
 export function useFavorites() {
 	const { token } = useAuth();
 
@@ -20,6 +24,10 @@ export function useFavorites() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
+	/**
+	 * Carga los negocios favoritos del usuario para mostrarlos en la interfaz.
+	 * Se ejecuta cuando cambia el token de sesión.
+	 */
 	const fetchFavorites = async () => {
 		if (!token) {
 			setFavorites([]);
@@ -49,6 +57,9 @@ export function useFavorites() {
 		fetchFavorites();
 	}, [token]);
 
+	/**
+	 * Agrega un negocio a favoritos y refresca la lista si la operación fue exitosa.
+	 */
 	const addFavorite = async (businessId: string) => {
 		if (!token) return;
 
@@ -68,6 +79,9 @@ export function useFavorites() {
 		}
 	};
 
+	/**
+	 * Elimina un favorito y actualiza la lista local si la API responde bien.
+	 */
 	const removeFavorite = async (businessId: string) => {
 		if (!token) return;
 
@@ -87,6 +101,9 @@ export function useFavorites() {
 		}
 	};
 
+	/**
+	 * Comprueba si un negocio ya está en favoritos para mostrar el estado correcto.
+	 */
 	const isFavorite = (businessId: string) => {
 		return favorites.some((fav) => fav.businessId === businessId);
 	};

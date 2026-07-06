@@ -23,6 +23,9 @@ function AllProductsSection({
 	const [description, setDescription] = useState("");
 	const [price, setPrice] = useState("");
 
+	/**
+	 * Carga los productos del negocio para mostrarlos en la lista principal.
+	 */
 	const loadProducts = async () => {
 		try {
 			const response = await apiFetch(`/api/products/${businessId}`);
@@ -40,6 +43,9 @@ function AllProductsSection({
 		loadProducts();
 	}, [businessId]);
 
+	/**
+	 * Prepara la imagen del nuevo producto para mostrarla antes de guardarla.
+	 */
 	const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
@@ -51,6 +57,9 @@ function AllProductsSection({
 		reader.readAsDataURL(file);
 	};
 
+	/**
+	 * Valida y guarda un producto nuevo para el negocio actual.
+	 */
 	const handleSaveProduct = async () => {
 		if (!image || !name || !description || !price) {
 			toast.error("Please complete all fields", {
@@ -116,6 +125,9 @@ function AllProductsSection({
 		}
 	};
 
+	/**
+	 * Elimina un producto existente y actualiza la lista visible.
+	 */
 	const handleDeleteProduct = async (id: string) => {
 		try {
 			const response = await apiFetch(`/api/products/${id}`, {
@@ -144,7 +156,7 @@ function AllProductsSection({
 	};
 
 	return (
-		<div className="w-full max-w-[1150px] mx-auto">
+		<div className="w-full max-w-6xl mx-auto">
 			<div className="flex flex-col gap-10">
 				<p className="mb-10 text-4xl font-bold text-violet-700">
 					All products ({products.length})

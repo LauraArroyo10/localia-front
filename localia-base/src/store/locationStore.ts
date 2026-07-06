@@ -1,4 +1,3 @@
-// src/store/locationStore.ts
 import { create } from "zustand";
 
 const DEFAULT_LAT = 9.9281;
@@ -11,11 +10,17 @@ interface LocationState {
 	fetchLocation: () => void;
 }
 
+/**
+ * Guarda la ubicación del usuario y reutiliza la última señal cuando ya fue solicitada.
+ */
 export const useLocationStore = create<LocationState>((set, get) => ({
 	lat: null,
 	lng: null,
 	fetched: false,
 
+	/**
+	 * Solicita la ubicación del usuario y usa un fallback si el navegador no la permite.
+	 */
 	fetchLocation: () => {
 		if (get().fetched) return; // ya se pidió antes, no repetir
 		set({ fetched: true });

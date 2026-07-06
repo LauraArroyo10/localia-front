@@ -3,7 +3,11 @@ import { persist } from "zustand/middleware";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
-// ─── Interfaces ───────────────────────────────────────────────────────────────
+/**
+ * Define los tipos de usuario que se usan en la sesión.
+ * Este archivo no documenta los tipos en detalle según la regla,
+ * pero mantiene la estructura usada por el store de auth.
+ */
 
 export interface AuthUser {
     id: string;
@@ -41,7 +45,11 @@ interface AuthStore {
     updateUser: (updatedUser: Partial<AuthUser>) => void;
 }
 
-// ─── Store ────────────────────────────────────────────────────────────────────
+/**
+ * Store global de autenticación para la app.
+ * Maneja login, registro, logout y actualización del usuario.
+ * Persiste token y usuario en storage para mantener sesión después de recargar.
+ */
 
 export const useAuth = create<AuthStore>()(
     persist(
@@ -51,6 +59,10 @@ export const useAuth = create<AuthStore>()(
             loading: false,
             error: null,
 
+            /**
+             * Inicia sesión usando el endpoint de auth y guarda el token.
+             * Actualiza el usuario con el negocio asociado que trae la API.
+             */
             login: async (data: LoginData) => {
                 console.log("Enviando login:", data);
                 set({ loading: true });
@@ -83,6 +95,10 @@ export const useAuth = create<AuthStore>()(
                 }
             },
 
+            /**
+             * Registra un nuevo usuario en el backend y guarda la sesión.
+             * Mejora el mensaje de error cuando la API devuelve errores estructurados.
+             */
             register: async (data: RegisterData) => {
                 set({ loading: true });
                 try {
@@ -113,8 +129,14 @@ export const useAuth = create<AuthStore>()(
                 }
             },
 
+            /**
+             * Cierra sesión en el cliente borrando usuario y token.
+             */
             logout: () => set({ user: null, token: null, error: null }),
 
+            /**
+             * Actualiza campos del usuario actual sin tocar el resto del estado.
+             */
             updateUser: (updatedUser) => 
                 set((state) => ({
                     user: state.user ? { ...state.user, ...updatedUser } : null

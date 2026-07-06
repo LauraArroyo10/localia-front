@@ -39,6 +39,9 @@ export default function ReviewsSection({
 	const [savingEdit, setSavingEdit] = useState(false); // NUEVO
 	const visibleComments = showAll ? reviews : reviews.slice(0, 3);
 
+	/**
+	 * Publica una nueva reseña cuando el formulario tiene datos válidos.
+	 */
 	const handleSubmit = async () => {
 		if (!newReview.title || !newReview.body || newReview.rating === 0) return;
 
@@ -58,6 +61,9 @@ export default function ReviewsSection({
 		}
 	};
 
+	/**
+	 * Carga una reseña existente en el formulario de edición para modificarla.
+	 */
 	const handleEdit = (review: CommentProps) => {
 		setEditingReview(review);
 		setEditForm({
@@ -67,10 +73,16 @@ export default function ReviewsSection({
 		}); // NUEVO: precarga el form
 	};
 
+	/**
+	 * Cancela la edición y vuelve a la vista normal de reseñas.
+	 */
 	const handleCancelEdit = () => {
 		setEditingReview(null);
 	};
 
+	/**
+	 * Envía los cambios de una reseña en edición al backend.
+	 */
 	const handleSaveEdit = async () => {
 		if (!editingReview) return;
 		if (!editForm.title || !editForm.body || editForm.rating === 0) return;
@@ -91,6 +103,9 @@ export default function ReviewsSection({
 		}
 	};
 
+	/**
+	 * Elimina una reseña y actualiza la lista visible del negocio.
+	 */
 	const handleDelete = async (reviewId: string) => {
 		if (!confirm("¿Seguro que querés eliminar este comentario?")) return;
 		try {
