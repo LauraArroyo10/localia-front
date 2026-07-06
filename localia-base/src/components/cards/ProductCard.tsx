@@ -25,7 +25,7 @@ function ProductCard({ product, businessId, onDelete }: ProductCardProps) {
 	return (
 		<div
 			onClick={handleCardClick}
-			className="max-w-sm overflow-hidden rounded-3xl bg-violet-900 border-0 cursor-pointer"
+			className="max-w-sm overflow-hidden rounded-3xl bg-violet-900 border-0 "
 		>
 			<div className="relative">
 				<img
@@ -55,8 +55,8 @@ function ProductCard({ product, businessId, onDelete }: ProductCardProps) {
 									size="w-52"
 									onClick={() => {
 										toast.custom((t) => (
-											<div className="bg-violet-100 text-violet-900 border solid border-violet-900 px-4 py-3 rounded-lg flex items-center gap-4">
-												<span>¿Delete product?</span>
+											<div className="bg-violet-100 text-violet-900 border cursor-pointer solid border-violet-900 px-4 py-3 rounded-lg flex items-center gap-4">
+												<span >¿Delete product?</span>
 
 												<div className="flex gap-2">
 													<button
