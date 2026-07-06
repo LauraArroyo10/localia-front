@@ -15,34 +15,12 @@ const firebaseConfig = {
 	measurementId: "G-GVEP756JL3",
 };
 
-// Initialize Firebase
+/**
+ * Inicializa la conexión con Firebase para habilitar autenticación en la app.
+ */
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const facebookProvider = new FacebookAuthProvider();
 
-// https://firebase.google.com/docs/auth/web/start:
-
-// import { initializeApp } from "firebase/app";
-// import { getAuth } from "firebase/auth";
-
-// // TODO: Replace the following with your app's Firebase project configuration
-// // See: https://firebase.google.com/docs/web/learn-more#config-object
-// const firebaseConfig = {
-//   // ...
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-
-// // Initialize Firebase Authentication and get a reference to the service
-// const auth = getAuth(app);
-
-// import { GoogleAuthProvider } from "firebase/auth";
-
-// const provider = new GoogleAuthProvider();
-
-// import { FacebookAuthProvider } from "firebase/auth";
-
-// const provider = new FacebookAuthProvider();

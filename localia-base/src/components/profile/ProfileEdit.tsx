@@ -8,7 +8,9 @@ interface ProfileData {
   description: string;
   location: string;
   rating: number;
-  // Añadimos campos opcionales para transportar los archivos binarios reales
+  /**
+   * Añade campos opcionales para transportar los archivos reales al backend.
+   */
   avatarFile?: File;
   bannerFile?: File;
 }
@@ -29,6 +31,9 @@ export default function ProfileEdit({
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const bannerInputRef = useRef<HTMLInputElement>(null);
 
+  /**
+   * Actualiza los valores del formulario cuando el usuario edita un campo.
+   */
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -36,7 +41,9 @@ export default function ProfileEdit({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Guardamos el archivo físico en el estado y generamos una URL temporal SOLO para la vista previa visual
+  /**
+   * Guarda la imagen seleccionada para el avatar y crea una vista previa local.
+   */
   const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -48,6 +55,9 @@ export default function ProfileEdit({
     }
   };
 
+  /**
+   * Guarda la imagen del banner y prepara una vista previa inmediata.
+   */
   const handleBannerChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -60,7 +70,7 @@ export default function ProfileEdit({
   };
 
   return (
-    <div className="w-full max-w-[1150px] bg-neutral-0 rounded-3xl overflow-hidden shadow-sm">
+    <div className="w-full max-w-6xl bg-neutral-0 rounded-3xl overflow-hidden shadow-sm">
       
       {/* Header Edición */}
       <div className="bg-violet-50 px-10 py-8 flex justify-between items-center">
@@ -171,3 +181,4 @@ export default function ProfileEdit({
     </div>
   );
 }
+

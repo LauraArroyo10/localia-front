@@ -9,7 +9,7 @@ function SearchBar({ placeholder }: SearchBarProps) {
 		<div className="flex justify-center w-full">
 			<div
 				className="
-          w-[1200px]
+          w-300
           flex
           gap-4
         "

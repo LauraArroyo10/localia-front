@@ -4,16 +4,26 @@ import { useAuth } from "../../hooks/useAuth";
 import type { Product } from "../../types/product";
 import Button from "../ui/Button";
 
+/**
+ * Props para la tarjeta de producto.
+ */
 interface ProductCardProps {
 	product: Product;
 	businessId: string;
 	onDelete?: (id: string) => void;
 }
 
+/**
+ * Tarjeta de producto que redirige al listado del negocio
+ * y permite borrar el producto cuando el usuario es vendedor.
+ */
 function ProductCard({ product, businessId, onDelete }: ProductCardProps) {
 	const { user } = useAuth();
 	const navigate = useNavigate();
 
+	/**
+	 * Lleva al usuario a la vista de productos del negocio al hacer clic sobre la tarjeta.
+	 */
 	const handleCardClick = async () => {
 		try {
 			await navigate({ to: "/ProductsPage", search: { businessId } });

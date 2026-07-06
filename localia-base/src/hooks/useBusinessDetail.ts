@@ -1,4 +1,3 @@
-// src/hooks/useBusinessDetail.ts
 import { useEffect, useState } from "react";
 import { API_URL, apiFetch } from "../lib/api";
 
@@ -19,17 +18,27 @@ export interface BusinessDetail {
 	totalReviews: number;
 }
 
+/**
+ * Obtiene los datos del negocio solicitado y expone su estado para
+ * que la interfaz pueda mostrar carga, contenido o errores.
+ */
 export function useBusinessDetail(businessId: string | undefined) {
 	const [business, setBusiness] = useState<BusinessDetail | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
+		/**
+		 * Evita ejecutar la consulta cuando no hay un negocio seleccionado.
+		 */
 		if (!businessId) {
 			setLoading(false);
 			return;
 		}
 
+		/**
+		 * Solicita los datos del negocio y prepara la respuesta para la vista.
+		 */
 		const fetchBusiness = async () => {
 			try {
 				setLoading(true);

@@ -10,19 +10,25 @@ export default function ProfilePage() {
   const { user, token, updateUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   
-  // Consumo de Hooks Personalizados
+  /**
+   * Obtiene los datos del perfil de negocio y las acciones para actualizarlo.
+   */
   const { profileData, isLoading, updateProfile } = useBusinessProfile();
   const { uploadAvatar, isUploading } = useTouristProfile();
   const [touristAvatar, setTouristAvatar] = useState<string | undefined>(user?.avatar);
 
-  // Sincroniza el estado local con Zustand para que al recargar la página 
-  // no se pise el avatar si el hook de negocios da un error en paralelo.
+  /**
+   * Mantiene el avatar del turista alineado con el estado global al recargar la página.
+   */
   useEffect(() => {
     if (user?.avatar) {
       setTouristAvatar(user.avatar);
     }
   }, [user?.avatar]);
 
+  /**
+   * Guarda los cambios del perfil y cierra la edición cuando la operación termina bien.
+   */
   const handleSaveData = async (updatedData: any) => {
     const success = await updateProfile(updatedData);
     if (success) {
@@ -30,6 +36,9 @@ export default function ProfilePage() {
     }
   };
 
+  /**
+   * Sube una foto nueva para el perfil de turista y actualiza el estado visible.
+   */
   const handleAvatarChange = async (file: File) => {
     if (token) {
       localStorage.setItem("token", token);
@@ -46,13 +55,16 @@ export default function ProfilePage() {
     }
   };
 
-  // Modificación del Loading: Si el usuario es turista, no nos interesa 
-  // esperar el estado de carga del perfil del negocio (que de todas formas dará error)
+  /**
+   * Evita bloquear la vista de turista esperando un estado de negocio que no aplica.
+   */
   if (isLoading && user?.role !== "tourist") {
     return <div className="text-center py-20">Cargando perfil...</div>;
   }
 
-  // Flujo Turista
+  /**
+   * Renderiza la vista del perfil para usuarios turistas.
+   */
   if (user?.role === "tourist") {
     return (
       <div className="flex justify-center items-start py-16">
@@ -71,7 +83,9 @@ export default function ProfilePage() {
     );
   }
 
-  // Objeto con datos vacíos para cuando el comercio aún no existe en Neon
+  /**
+   * Prepara un modelo vacío para el caso de que el comercio aún no exista.
+   */
   const emptyBusinessData = {
     businessName: "",
     subtitle: "Nuevo Comercio",
@@ -82,7 +96,9 @@ export default function ProfilePage() {
     rating: 0,
   };
 
-  // Flujo Vendedor (Seller)
+  /**
+   * Renderiza la vista de edición o visualización del perfil para vendedores.
+   */
   return (
     <div className="flex justify-center items-start py-16 w-full">
       {profileData ? (

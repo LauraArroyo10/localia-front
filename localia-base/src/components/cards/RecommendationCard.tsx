@@ -10,12 +10,19 @@ interface RecommendationCardProps {
   onViewMore?: (id: string) => void;
 }
 
+/**
+ * Tarjeta de recomendación que muestra un negocio y su valoración.
+ * Incluye acción de favorito y acceso a más detalles.
+ */
 function RecommendationCard({ business, onViewMore }: RecommendationCardProps) {
   const { user } = useAuth();
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
 
   const favorited = isFavorite(business.id);
 
+  /**
+   * Cambia el estado de favorito del negocio desde la tarjeta de recomendación.
+   */
   const handleToggleFavorite = () => {
     if (favorited) {
       removeFavorite(business.id);

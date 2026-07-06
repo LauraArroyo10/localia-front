@@ -1,10 +1,16 @@
 import type { LocalBusiness } from "../../types/localBusiness";
 
+/**
+ * Props para la tarjeta de destino destacado.
+ */
 interface TopDestinationCardProps {
 	business: LocalBusiness;
 	onViewMore: (id: string) => void;
 }
 
+/**
+ * Tarjeta de destino destacado que permite ver más detalles al pulsar.
+ */
 function TopDestinationCard({ business, onViewMore }: TopDestinationCardProps) {
 	return (
 		<div

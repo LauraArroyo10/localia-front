@@ -7,13 +7,16 @@ interface BusinessLocationMapProps {
 	location: string;
 }
 
+/**
+ * Renderiza un mapa con la ubicación del negocio seleccionada.
+ */
 export default function BusinessLocationMap({
 	latitude,
 	longitude,
 	location,
 }: BusinessLocationMapProps) {
 	return (
-		<div className="w-[60%] mx-auto h-[500px] rounded-3xl overflow-hidden">
+		<div className="w-[60%] mx-auto h-125 rounded-3xl overflow-hidden">
 			<MapContainer
 				center={[latitude, longitude]}
 				zoom={15}

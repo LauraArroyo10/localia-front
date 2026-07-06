@@ -18,6 +18,9 @@ interface ProductsSearch {
 }
 
 function ProductsPage() {
+	/**
+	 * Recupera el negocio y los filtros desde la ruta para montar la vista correcta.
+	 */
 	const { businessId, category } = Route.useSearch();
 	const navigate = useNavigate({ from: Route.fullPath });
 	const { business, loading, error } = useBusinessDetail(businessId);
@@ -26,11 +29,17 @@ function ProductsPage() {
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<AuthView>("login");
 
+	/**
+	 * Abre el modal de autenticación en la vista solicitada por el usuario.
+	 */
 	const openAs = (v: AuthView) => {
 		setView(v);
 		setOpen(true);
 	};
 
+	/**
+	 * Mantiene el filtro de categoría sincronizado con la búsqueda activa.
+	 */
 	const handleCategoryChange = (newCategory: string | undefined) => {
 		navigate({
 			search: (prev: ProductsSearch): ProductsSearch => ({
@@ -77,7 +86,7 @@ function ProductsPage() {
 				onRegisterClick={() => openAs("register")}
 			/>
 
-			<div className="flex flex-col gap-3 w-full max-w-[1150px] mx-auto relative z-10">
+			<div className="flex flex-col gap-3 w-full max-w-6xl mx-auto relative z-10">
 				<SearchBar placeholder="Search businesses..." />
 				<CategoryFilter value={category} onChange={handleCategoryChange} />
 			</div>
@@ -99,6 +108,9 @@ function ProductsPage() {
 }
 
 export const Route = createFileRoute("/ProductsPage")({
+	/**
+	 * Asegura que los parámetros de búsqueda de la URL sean strings opcionales.
+	 */
 	validateSearch: (search: Record<string, unknown>): ProductsSearch => ({
 		businessId: (search.businessId as string) || undefined,
 		category: (search.category as string) || undefined,

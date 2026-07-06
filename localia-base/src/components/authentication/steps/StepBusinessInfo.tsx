@@ -7,28 +7,45 @@ import Input from "../../ui/Input";
 import Select from "../../ui/SelectInput";
 
 
-//convierte el array en el formato que necesita el componente que select (que e sel que usa esta info)
+/**
+ * Opciones de categoría usadas por el selector de negocio.
+ */
 const CATEGORY_OPTIONS = CATEGORIES.map((c) => ({ value: c, label: c }));
 
-const MAX_IMAGE_SIZE_MB = 5; // debe coincidir con el límite de multer en el backend (src/middleware/upload.ts)
+/**
+ * Límite de tamaño de imagen en MB para el formulario de negocio.
+ * Debe coincidir con el límite configurado en el backend.
+ */
+const MAX_IMAGE_SIZE_MB = 5;
 
-const COUNTRY_CODE_REGEX = /^\+\d{1,4}$/; // ej: +506, +1, +52
-const PHONE_REGEX = /^\d{8}$/; // 8 dígitos exactos, sin espacios ni guiones
+/**
+ * Código de país válido en formato internacional.
+ */
+const COUNTRY_CODE_REGEX = /^\+\d{1,4}$/;
+/**
+ * Formato de teléfono esperado: 8 dígitos sin separadores.
+ */
+const PHONE_REGEX = /^\d{8}$/;
 const MIN_DESCRIPTION_LENGTH = 20;
 const MAX_DESCRIPTION_LENGTH = 500;
 
 
-
-
-
-//botones siguewinte atras
+/**
+ * Props del paso de información de negocio.
+ */
 interface StepBusinessInfoProps {
 	onNext: (data: any) => void;
 	onBack: () => void;
 }
 
+/**
+ * Paso del asistente que recopila datos clave del negocio y su imagen.
+ * Valida teléfono, descripción e imagen antes de avanzar.
+ */
 export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
-	//preview de la imagen a subir
+	/**
+	 * Mantiene la imagen seleccionada y su vista previa para el formulario.
+	 */
 	const [image, setImage] = useState<File | null>(null);
 	const [preview, setPreview] = useState<string | null>(null);
 	const [name, setName] = useState("");
@@ -37,44 +54,53 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 	const [phone, setPhone] = useState("");
 	const [countryCode, setCountryCode] = useState("+506");
 
-	//manejo de imagenes subidas
+	/**
+	 * Guarda la imagen seleccionada y prepara una vista previa para el usuario.
+	 */
 	const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-		//valoracion para ver si file es null
 		const file = e.target.files?.[0];
-		//sin archivo no se hace nada
 		if (!file) return;
 
-		//validacion de tamaño ANTES de guardar el archivo (debe coincidir con el limite del backend)
 		const maxBytes = MAX_IMAGE_SIZE_MB * 1024 * 1024;
 		if (file.size > maxBytes) {
 			toast.error(
 				`La imagen pesa demasiado (máximo ${MAX_IMAGE_SIZE_MB}MB). Elegí una imagen más liviana.`,
 				{ style: { background: "#ab0000", color: "#ffffff" } },
 			);
-			e.target.value = ""; // limpia el input para permitir reintentar con otro archivo
+			/**
+			 * Limpia el input para permitir reintentar con otro archivo.
+			 */
+			e.target.value = "";
 			return;
 		}
 
 		setImage(file);
-		//api para leer archivos locales, esto abre la ventana de documentos locales
-		//cuando esto pasa se hace lectur ay convesion e archivo
 		const reader = new FileReader();
-		//cuando se termine de leer el archivo , se guarda el resultado en preview
 		reader.onloadend = () => setPreview(reader.result as string);
 		reader.readAsDataURL(file);
 	};
 
-	//solo permite + al inicio y dígitos, hasta 4 dígitos después del +
+	/**
+	 * Ajusta el código de país para que solo acepte un formato válido.
+	 */
 	const handleCountryCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let value = e.target.value.replace(/[^\d+]/g, ""); // solo dígitos y +
+		/**
+		 * Normaliza el valor para conservar solo dígitos y un signo + inicial.
+		 */
+		let value = e.target.value.replace(/[^\d+]/g, "");
 		if (!value.startsWith("+")) value = `+${value.replace(/\+/g, "")}`;
-		value = "+" + value.slice(1).replace(/\+/g, ""); // solo un + permitido, al inicio
-		value = value.slice(0, 5); // "+" + hasta 4 dígitos
+		value = "+" + value.slice(1).replace(/\+/g, "");
+		value = value.slice(0, 5);
 		setCountryCode(value);
 	};
 
-	//solo permite dígitos y hasta 8 caracteres mientras el usuario escribe
+	/**
+	 * Mantiene el teléfono en un formato numérico simple durante la edición.
+	 */
 	const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		/**
+		 * Conserva solo dígitos numéricos y limita el largo a 8 caracteres.
+		 */
 		const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 8);
 		setPhone(digitsOnly);
 	};
@@ -86,6 +112,9 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 		description.trim().length > 0 &&
 		image !== null;
 
+	/**
+	 * Valida la información del negocio antes de pasar al siguiente paso.
+	 */
 	const handleNext = () => {
 		if (!COUNTRY_CODE_REGEX.test(countryCode)) {
 			toast.error("Ingresá un código de país válido (ej: +506).", {
@@ -152,12 +181,9 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 				{/* este input abre el explorador de archivos  */}
 				<input
 					id="business-photo"
-					//indica selector de archivos
 					type="file"
-					//solo acepta imagenes
 					accept="image/*"
 					className="hidden"
-					//genera preview
 					onChange={handleFile}
 				/>
 			</div>

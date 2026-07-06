@@ -27,6 +27,9 @@ export const socialLinks: SocialLink[] = [
 function Footer() {
 	const currentYear = new Date().getFullYear();
 
+	/**
+	 * Lleva la vista al inicio de la página con un desplazamiento suave.
+	 */
 	const handleGoBackOnTop = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};

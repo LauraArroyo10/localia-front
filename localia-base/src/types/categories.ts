@@ -1,4 +1,7 @@
 // src/constants/categories.ts
+/**
+ * Lista de categorías disponibles para filtrar negocios y productos.
+ */
 export const CATEGORIES = [
 	"Gastronomy",
 	"Tours & Adventures",

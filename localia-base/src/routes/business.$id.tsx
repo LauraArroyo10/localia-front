@@ -13,12 +13,18 @@ type AuthView = "login" | "register";
 const destinationImg = "/img/destination-placeholder.jpg";
 
 function BusinessDetailPage() {
+	/**
+	 * Carga los datos completos del negocio y prepara su vista de detalle.
+	 */
 	const { id } = Route.useParams();
 	const { business, loading, error } = useBusinessDetail(id);
 
 	const [open, setOpen] = useState(false);
 	const [view, setView] = useState<AuthView>("login");
 
+	/**
+	 * Abre el modal de autenticación en la vista solicitada por el usuario.
+	 */
 	const openAs = (v: AuthView) => {
 		setView(v);
 		setOpen(true);
@@ -56,7 +62,7 @@ function BusinessDetailPage() {
 			/>
 
 			<section>
-				<div className="flex flex-col gap-3 max-w-[1150px] mx-auto relative z-10">
+				<div className="flex flex-col gap-3 max-w-6xl mx-auto relative z-10">
 					<ProfileView
 						data={{
 							businessName: business.name,
@@ -91,5 +97,8 @@ function BusinessDetailPage() {
 }
 
 export const Route = createFileRoute("/business/$id")({
+	/**
+	 * Ruta de detalle de negocio que carga la vista principal de un negocio individual.
+	 */
 	component: BusinessDetailPage,
 });

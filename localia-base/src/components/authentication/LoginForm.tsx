@@ -14,6 +14,10 @@ interface LoginFormProps {
 	onClose: () => void;
 }
 
+/**
+ * Formulario de login que autentica al usuario y navega al dashboard.
+ * Incluye control de errores y opción de cerrar el modal tras iniciar sesión.
+ */
 export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -22,10 +26,15 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
 	const { login } = useAuth();
 	const navigate = useNavigate();
 
-	//se ejecuta al hacer sign in
+	/**
+	 * Envía las credenciales de acceso y redirige al panel tras un login exitoso.
+	 */
 	const handleSubmit = async (e: React.FormEvent) => {
-		//evita que el form recargue la pagina
+		/**
+		 * Evita que el formulario realice un reload y permita controlar la navegación.
+		 */
 		e.preventDefault();
+		setError(null);
 		setIsLoading(true);
 
 		try {
@@ -34,6 +43,7 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
 			navigate({ to: "/dashboard" });
 		} catch (err) {
 			const message = err instanceof Error ? err.message : "Login failed";
+			setError(message);
 			toast.error(message, {
 				style: { background: "#ab0000", color: "#ffffff" },
 			});
@@ -42,6 +52,9 @@ export function LoginForm({ onSwitch, onClose }: LoginFormProps) {
 		}
 	};
 
+	/**
+	 * Botones de proveedores sociales que se muestran junto al formulario.
+	 */
 	const socialButtons = [
 		{ icon: <FaGoogle size={18} />, label: "Google", provider: googleProvider },
 		{

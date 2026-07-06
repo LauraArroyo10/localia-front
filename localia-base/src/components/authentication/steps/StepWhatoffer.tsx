@@ -31,6 +31,9 @@ interface StepWhatOfferProps {
 export function StepWhatOffer({ onNext, onBack }: StepWhatOfferProps) {
 	const [selected, setSelected] = useState<string[]>([]);
 
+	/**
+	 * Alterna la selección de una opción para definir qué ofrece el negocio.
+	 */
 	const toggle = (id: string) =>
 		setSelected((prev) =>
 			prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id],

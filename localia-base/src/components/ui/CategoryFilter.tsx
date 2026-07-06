@@ -7,11 +7,17 @@ interface CategoryFilterProps {
 }
 
 function CategoryFilter({ value, onChange }: CategoryFilterProps) {
+	/**
+	 * Controla si el menú de categorías está abierto o cerrado.
+	 */
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 
 	const options = ["All", ...CATEGORIES];
 
+	/**
+	 * Cierra el menú cuando el usuario hace clic fuera del componente.
+	 */
 	useEffect(() => {
 		function handleClickOutside(event: MouseEvent) {
 			if (ref.current && !ref.current.contains(event.target as Node)) {

@@ -16,6 +16,9 @@ interface SelectProps {
 }
 
 function Select({ value, onChange, placeholder, options }: SelectProps) {
+	/**
+	 * Controla la apertura del menú desplegable y su posición en pantalla.
+	 */
 	const [isOpen, setIsOpen] = useState(false);
 	const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
 
@@ -23,6 +26,9 @@ function Select({ value, onChange, placeholder, options }: SelectProps) {
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const portalRef = useRef<HTMLDivElement>(null);
 
+	/**
+	 * Cierra la lista cuando el usuario interactúa fuera del selector.
+	 */
 	useEffect(() => {
 		function handleClickOutside(event: MouseEvent) {
 			if (
@@ -39,6 +45,9 @@ function Select({ value, onChange, placeholder, options }: SelectProps) {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
+	/**
+	 * Abre el desplegable y calcula su posición relativa al botón de activación.
+	 */
 	const handleOpen = () => {
 		if (!isOpen && buttonRef.current) {
 			const rect = buttonRef.current.getBoundingClientRect();

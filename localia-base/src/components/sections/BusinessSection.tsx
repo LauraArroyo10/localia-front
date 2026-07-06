@@ -10,6 +10,9 @@ interface BusinessSectionProps {
 }
 
 function BusinessSection({ category }: BusinessSectionProps) {
+	/**
+	 * Carga los negocios cercanos y los muestra en la vista de resultados.
+	 */
 	const { lat, lng } = useUserLocation();
 	const { businesses, loading, error } = useNearbyBusinesses(
 		lat,
@@ -27,6 +30,9 @@ function BusinessSection({ category }: BusinessSectionProps) {
 		}
 	}, [error]);
 
+	/**
+	 * Redirige al detalle del negocio seleccionado desde la grilla de resultados.
+	 */
 	const handleViewMore = (id: string) => {
 		navigate({ to: `/business/${id}` });
 	};

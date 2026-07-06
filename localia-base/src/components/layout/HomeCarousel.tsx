@@ -8,7 +8,9 @@ const locomotionImg = "/img/locomo.jpg";
 export function Carousel() {
 	const [current, setCurrent] = useState(0);
 
-	// Array local
+	/**
+	 * Define las imágenes del carrusel de portada.
+	 */
 	const bannerSlides = [
 		{ id: 1, image: destinationImg, alt: "Beautiful beach destination" },
 		{ id: 2, image: foodImg, alt: "Delicius food" },
@@ -16,12 +18,18 @@ export function Carousel() {
 		{ id: 4, image: locomotionImg, alt: "Steam locomotion" },
 	];
 
+	/**
+	 * Muestra la imagen anterior del carrusel.
+	 */
 	const prev = () =>
 		setCurrent((i) => (i - 1 + bannerSlides.length) % bannerSlides.length);
+	/**
+	 * Muestra la siguiente imagen del carrusel.
+	 */
 	const next = () => setCurrent((i) => (i + 1) % bannerSlides.length);
 
 	return (
-		<div className="relative w-full h-[480px] group overflow-hidden">
+		<div className="relative w-full h-120 group overflow-hidden">
 			{/* Image */}
 			<img
 				src={bannerSlides[current].image}

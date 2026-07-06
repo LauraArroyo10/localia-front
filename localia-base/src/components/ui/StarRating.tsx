@@ -8,6 +8,9 @@ export interface StarRatingProps {
 	className?: string;
 }
 
+/**
+ * Muestra una valoración visual con estrellas y permite seleccionarla cuando es interactiva.
+ */
 function StarRating(props: StarRatingProps) {
 	const stars = [1, 2, 3, 4, 5];
 
