@@ -14,7 +14,7 @@ interface TopDestinationCardProps {
 function TopDestinationCard({ business, onViewMore }: TopDestinationCardProps) {
 	return (
 		<div
-			className="flex-1 min-w-[260px] overflow-hidden flex flex-col gap-3 cursor-pointer"
+			className="flex-1 min-w-65 overflow-hidden flex flex-col gap-3 cursor-pointer"
 			onClick={() => onViewMore(business.id)}
 		>
 			<img

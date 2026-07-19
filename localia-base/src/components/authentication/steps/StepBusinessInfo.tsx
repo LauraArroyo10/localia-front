@@ -52,7 +52,7 @@ export function StepBusinessInfo({ onNext, onBack }: StepBusinessInfoProps) {
 	const [category, setCategory] = useState("");
 	const [description, setDescription] = useState("");
 	const [phone, setPhone] = useState("");
-	const [countryCode, setCountryCode] = useState("+506");
+	const [countryCode, setCountryCode] = useState("+000");
 
 	/**
 	 * Guarda la imagen seleccionada y prepara una vista previa para el usuario.
