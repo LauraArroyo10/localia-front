@@ -35,8 +35,8 @@ export default function ReviewsSection({
 	const [showAll, setShowAll] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
 	const [editingReview, setEditingReview] = useState<CommentProps | null>(null);
-	const [editForm, setEditForm] = useState({ title: "", body: "", rating: 0 }); // NUEVO
-	const [savingEdit, setSavingEdit] = useState(false); // NUEVO
+	const [editForm, setEditForm] = useState({ title: "", body: "", rating: 0 }); 
+	const [savingEdit, setSavingEdit] = useState(false); 
 	const visibleComments = showAll ? reviews : reviews.slice(0, 3);
 
 	/**
@@ -70,7 +70,7 @@ export default function ReviewsSection({
 			title: review.title,
 			body: review.body,
 			rating: review.rating,
-		}); // NUEVO: precarga el form
+		}); 
 	};
 
 	/**
@@ -126,7 +126,7 @@ export default function ReviewsSection({
 
 			{error && <Alert color="failure">{error}</Alert>}
 
-			{/* NUEVO: bloque de edición, aparece arriba de todo cuando editingReview no es null */}
+			{/* Bloque de edición, aparece arriba de todo cuando editingReview no es null */}
 			{editingReview && (
 				<div className="p-5 bg-neutral-0 border border-violet-300 rounded-2xl flex flex-col gap-3">
 					<p className="font-medium text-gray-900">Edit your review</p>

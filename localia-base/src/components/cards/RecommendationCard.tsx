@@ -33,7 +33,7 @@ function RecommendationCard({ business, onViewMore }: RecommendationCardProps) {
 
   return (
     <div className="w-full h-full overflow-hidden rounded-3xl bg-violet-900 border-0 flex flex-col">
-      <div className="relative flex-shrink-0">
+      <div className="relative shrink-0">
         <img
           src={business.image_url ?? undefined}
           alt={business.name}

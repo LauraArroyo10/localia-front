@@ -74,7 +74,7 @@ export default function ProfileEdit({
       
       {/* Header Edición */}
       <div className="bg-violet-50 px-10 py-8 flex justify-between items-center">
-        <div className="flex flex-col gap-3 flex-1 pr-6 max-w-[400px]">
+        <div className="flex flex-col gap-3 flex-1 pr-6 max-w-100">
           <label className="text-xs font-bold text-violet-500 uppercase tracking-wider">Nombre del Negocio</label>
           <input
             type="text"
@@ -115,7 +115,7 @@ export default function ProfileEdit({
 
       {/* Cuerpo inferior */}
       <div className="p-10">
-        <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-[420px]">
+        <div className="flex flex-col md:flex-row rounded-3xl overflow-hidden border border-neutral-200 min-h-105">
           
           {/* Lado Azul */}
           <div className="w-full md:w-[45%] bg-violet-500 p-8 text-white flex flex-col justify-between gap-6">

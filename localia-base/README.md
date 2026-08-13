@@ -53,7 +53,7 @@ Localía es una aplicación web que permite a los usuarios descubrir negocios lo
 - **TanStack Router DevTools** — debugging de rutas
 
 ## 6. Uso de inteligencia artificial
-Ver DOC-IA (backend)
+Ver DOC-IA (en proyecto de backend)
 
 
 
