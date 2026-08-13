@@ -1,2 +1,63 @@
-# localia-front
-This project, Localia, is a web platform designed to help tourists connect with local businesses around the world. It aims to create meaningful interactions by making local services more accessible and visible to travelers.
+# Localía-Frontend
+## https://github.com/LauraArroyo10/localia-front.git
+
+## Curso
+Desarrollo de Aplicaciones Interactivas II
+
+## Universidad
+Universidad de Costa Rica (UCR)
+
+## Estudiantes
+Laura Arroyo  
+Franciny Bonilla  
+Carlos Sandoval  
+
+## Profesor
+Jorge Miranda Loría
+
+## Fecha
+06-07-2025
+
+---
+## 1. Introducción
+Localía es una aplicación web que permite a los usuarios descubrir negocios locales, como puestos de alimentación, actividades turísticas, servicios y otros comercios de interés. Este proyecto corresponde al frontend de la aplicación, desarrollado para ofrecer una interfaz intuitiva que permita explorar, buscar y gestionar la información de los negocios mediante la interacción con los servicios proporcionados por el backend.
+
+
+---
+## 5. Tecnologías usadas
+
+### Runtime & Lenguaje
+- **TypeScript 5.9.3** — tipado estático
+- **Vite 7.2.4** — bundler y servidor de desarrollo
+
+### Framework & UI
+- **React 19.2.0** — biblioteca de interfaces
+- **Tailwind CSS 4.3.0** — estilos utilitarios
+- **Flowbite React 0.12.17** — componentes UI sobre Tailwind
+- **React Icons 5.6.0** — íconos
+
+### Routing
+- **TanStack Router 1.170.15** — enrutamiento con tipado estático
+- **React Router DOM 7.15.1** — navegación
+
+### Mapas
+- **Leaflet 1.9.4** — mapas interactivos
+- **React Leaflet 5.0.0** — integración de Leaflet con React
+
+### Autenticación
+- **Firebase 12.14.0** — autenticación social (Google, Facebook)
+
+### Herramientas de desarrollo
+- **Biome 2.5.0** — linter y formatter
+- **Vitest 4.0.18** — testing
+- **TanStack Router DevTools** — debugging de rutas
+
+## 6. Uso de inteligencia artificial
+Ver DOC-IA (en proyecto de backend)
+
+
+
+
+
+
+
