@@ -38,7 +38,7 @@ export function useFavorites() {
 		try {
 			setLoading(true);
 
-			const res = await apiFetch("/users/me/favorites");
+			const res = await apiFetch("/api/users/me/favorites");
 			const json = await res.json();
 
 			if (!res.ok) {
@@ -64,7 +64,7 @@ export function useFavorites() {
 		if (!token) return;
 
 		try {
-			const res = await apiFetch(`/users/me/favorites/${businessId}`, {
+			const res = await apiFetch(`/api/users/me/favorites/${businessId}`,  {
 				method: "POST",
 			});
 
