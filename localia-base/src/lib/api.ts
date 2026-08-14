@@ -1,6 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
 
-export const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+export const API_URL = "https://localia-back-2.onrender.com"
+
 
 /**
  * Wrapper de fetch para la API que inyecta el token de auth en las cabeceras.
