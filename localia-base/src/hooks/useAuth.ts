@@ -59,16 +59,12 @@ export const useAuth = create<AuthStore>()(
             loading: false,
             error: null,
 
-            /**
-             * Inicia sesión usando el endpoint de auth y guarda el token.
-             * Actualiza el usuario con el negocio asociado que trae la API.
-             */
             login: async (data: LoginData) => {
                 console.log("Enviando login:", data);
                 set({ loading: true });
                 
                 try {
-                    const res = await fetch(`${API_URL}/auth/login`, {
+                    const res = await fetch(`${API_URL}/api/auth/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data),
@@ -95,14 +91,10 @@ export const useAuth = create<AuthStore>()(
                 }
             },
 
-            /**
-             * Registra un nuevo usuario en el backend y guarda la sesión.
-             * Mejora el mensaje de error cuando la API devuelve errores estructurados.
-             */
             register: async (data: RegisterData) => {
                 set({ loading: true });
                 try {
-                    const res = await fetch(`${API_URL}/auth/register`, {
+                    const res = await fetch(`${API_URL}/api/auth/register`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(data),
@@ -129,14 +121,8 @@ export const useAuth = create<AuthStore>()(
                 }
             },
 
-            /**
-             * Cierra sesión en el cliente borrando usuario y token.
-             */
             logout: () => set({ user: null, token: null, error: null }),
 
-            /**
-             * Actualiza campos del usuario actual sin tocar el resto del estado.
-             */
             updateUser: (updatedUser) => 
                 set((state) => ({
                     user: state.user ? { ...state.user, ...updatedUser } : null
