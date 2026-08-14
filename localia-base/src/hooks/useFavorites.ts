@@ -86,7 +86,7 @@ export function useFavorites() {
 		if (!token) return;
 
 		try {
-			const res = await apiFetch(`/users/me/favorites/${businessId}`, {
+			const res = await apiFetch(`/api/users/me/favorites/${businessId}`, {
 				method: "DELETE",
 			});
 
