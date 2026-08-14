@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import { API_URL } from "../../lib/api";
 import type { Role } from "../../types/rol";
 import { StepIndicator } from "../ui/StepIndicator";
 import { StepBasicInfo } from "./steps/StepBasicInfo";
@@ -8,9 +9,6 @@ import { StepBusinessInfo } from "./steps/StepBusinessInfo";
 import { StepDone } from "./steps/StepDone";
 import { StepLocation } from "./steps/StepLocation";
 import { StepWhatOffer } from "./steps/StepWhatoffer";
-
-
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 type StepKey = "basic" | "offer" | "business" | "location" | "done";
 
@@ -52,19 +50,10 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 	const currentStep = steps[stepIndex];
 	const totalSteps = steps.length - 1;
 	const navigate = useNavigate();
-	/**
-	 * Avanza al siguiente paso del registro cuando el flujo lo permite.
-	 */
-	const next = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
 
-	/**
-	 * Retrocede al paso anterior del asistente.
-	 */
+	const next = () => setStepIndex((i) => Math.min(i + 1, steps.length - 1));
 	const back = () => setStepIndex((i) => Math.max(i - 1, 0));
 
-	/**
-	 * Finaliza el registro y crea el negocio del seller si corresponde.
-	 */
 	const handleRegister = async () => {
 		try {
 			await register(registerData);
@@ -94,9 +83,6 @@ export function RegisterWizard({ onClose, onSwitch }: RegisterWizardProps) {
 					body: formData,
 				});
 
-				/**
-				 * Vuelve a cargar la sesión para que el usuario vea el negocio recién creado.
-				 */
 				await login({
 					email: registerData.email,
 					password: registerData.password,
